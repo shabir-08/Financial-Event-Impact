@@ -8,7 +8,8 @@
 
 ---
 
-## 1. Overview
+ 
+ 1. OverView
 
 Financial events rarely affect a single company. A geopolitical conflict, a commodity shock, an interest-rate decision, or a regulatory change can ripple through economic variables, sectors, and financial instruments. Most tools present news as **isolated stories**. This project presents it as a **connected chain of impact**.
 

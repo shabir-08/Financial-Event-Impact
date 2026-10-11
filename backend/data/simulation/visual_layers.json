@@ -1,0 +1,12 @@
+{
+  "_comment": "Visualization metadata only: which of the four 3D layers a node is drawn on. It does not change the economic model; an entity can play several roles. Layer by entity type, with explicit overrides for knowledge-base variables that describe a sector's conditions.",
+  "layers": {"1": "Global events and actors", "2": "Economic variables", "3": "Sectors and sector conditions", "4": "Indian companies and markets"},
+  "by_type": {"EVENT": 1, "REGION": 1, "COUNTRY": 1, "INSTITUTION": 1,
+              "ECONOMIC_VARIABLE": 2, "COMMODITY": 2, "CURRENCY": 2, "ECONOMIC_INDICATOR": 2,
+              "SECTOR": 3,
+              "COMPANY": 4, "FINANCIAL_INSTRUMENT": 4, "MARKET_INDEX": 4},
+  "sector_condition_variables": ["variable:airline_operating_costs", "variable:airline_profit_margins",
+    "variable:upstream_oil_revenue", "variable:india_omc_marketing_margins", "variable:refining_margins",
+    "variable:petrochemical_input_costs", "variable:paint_maker_margins", "variable:us_bank_nim", "variable:india_bank_nim",
+    "variable:us_retailer_margins", "variable:apple_supply_chain_costs", "variable:india_manufacturing_exports"]
+}

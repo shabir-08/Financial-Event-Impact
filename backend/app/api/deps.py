@@ -69,3 +69,23 @@ async def process_articles_job(article_ids: list[str], analyze: bool) -> None:
             await pipeline.process_article(aid, trigger="INGESTION", analyze=analyze)
     finally:
         session.close()
+
+
+# ------------------------------------------------------------------ simulator
+def get_scenario_catalog(settings: Settings = Depends(get_settings), kb: KnowledgeBase = Depends(get_kb)):
+    from app.services.simulation.scenarios import load_scenario_catalog
+
+    return load_scenario_catalog(settings.simulation_scenarios_file, kb)
+
+
+def get_simulation_models(settings: Settings = Depends(get_settings)):
+    from app.services.simulation.inference import load_models
+
+    # Missing artifacts -> empty dict -> predictions report model_unavailable (graph still returned).
+    return load_models(settings.simulation_model_dir) if settings.simulation_model_dir.is_dir() else {}
+
+
+def get_visual_layers(settings: Settings = Depends(get_settings)) -> dict:
+    from app.services.simulation.graph3d import load_layers
+
+    return load_layers(settings.simulation_layers_file)

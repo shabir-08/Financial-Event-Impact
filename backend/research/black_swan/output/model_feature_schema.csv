@@ -1,0 +1,25 @@
+feature_name,definition,data_type,unit,source,availability_timestamp,missing_data_policy,event_specific,available_at_prediction_time,role
+event_category,Research category of the event,category,-,events_master,event time,never missing,True,True,input
+classification,A-F label (Black Swan candidate ... other),category,-,events_master,event time,never missing,True,True,input
+origin_country,Country where the event originates,category,-,events_master,event time,never missing,True,True,input
+unexpectedness,UNEXPECTED / PARTIALLY_ANTICIPATED / SCHEDULED_SURPRISE_OUTCOME,category,-,events_master,event time,never missing,True,True,input
+nifty_ret_20d_pre_pct,NIFTY 50 return over 20 sessions ending at the baseline close,float,%,Yahoo ^NSEI,baseline close,drop row if missing,False,True,input
+nifty_realized_vol_20d_pre_ann_pct,Annualised stdev of 20 daily NIFTY returns before baseline,float,% p.a.,Yahoo ^NSEI,baseline close,drop row if missing,False,True,input
+vix_level_pre,CBOE VIX close on the last US session before the event day,float,index pts,FRED VIXCLS,prior US close,keep NA; model must handle,False,True,input
+brent_ret_20d_pre_pct,Brent spot 20-observation return before the event date,float,%,FRED DCOILBRENTEU,prior London close,keep NA,False,True,input
+usdinr_ret_20d_pre_pct,USD/INR 20-observation change before the event date,float,%,FRED DEXINUS,prior NY noon,keep NA,False,True,input
+sp500_ret_20d_pre_pct,S&P 500 20-session return before the event date,float,%,Yahoo ^GSPC,prior US close,keep NA,False,True,input
+ust10y_chg_20d_pre_bp,US 10Y yield change over 20 observations before event date,float,bp,FRED DGS10,prior US close,keep NA,False,True,input
+target_ret_20d_pre_pct,Target asset 20-session return to baseline (momentum),float,%,Yahoo,baseline close,drop row if missing,False,True,input
+brent_shock_1d_pct,Brent spot move over its first post-event observation,float,%,FRED DCOILBRENTEU,AFTER event (contemporaneous),keep NA,True,False,scenario_input
+brent_shock_5d_pct,Brent spot move over 5 post-event observations,float,%,FRED,AFTER event,keep NA,True,False,scenario_input
+usdinr_shock_5d_pct,USD/INR move over 5 post-event observations,float,%,FRED DEXINUS,AFTER event,keep NA,True,False,scenario_input
+ust10y_shock_5d_bp,US 10Y yield change over 5 post-event observations,float,bp,FRED DGS10,AFTER event,keep NA,True,False,scenario_input
+sp500_shock_1d_pct,S&P 500 move on its first post-event session,float,%,Yahoo ^GSPC,AFTER event,keep NA,True,False,scenario_input
+vix_shock_1d_pts,VIX change on first post-event session,float,pts,FRED VIXCLS,AFTER event,keep NA,True,False,scenario_input
+gold_shock_5d_pct,Gold futures 5-session move (roll artefacts possible),float,%,Yahoo GC=F,AFTER event,keep NA,True,False,scenario_input
+y_target_ret_1d_pct,"Target return, baseline close -> 1st post-event session close",float,%,Yahoo,AFTER event,row excluded for that horizon,True,False,target
+y_target_ret_5d_pct,"Target return, baseline -> 5th post-event session",float,%,Yahoo,AFTER event,row excluded for that horizon,True,False,target
+y_target_ret_20d_pct,"Target return, baseline -> 20th post-event session",float,%,Yahoo,AFTER event,row excluded for that horizon,True,False,target
+y_target_car_5d_pct,Market-model CAR vs NIFTY 50 over 5 sessions (stocks/sector indices),float,%,computed,AFTER event,NA for NIFTY50 itself,True,False,target
+episode_id / validation_group,Episode and leakage-safe CV group,id,-,events_master,-,never missing,True,True,grouping

@@ -109,6 +109,13 @@ class Settings(BaseSettings):
     historical_min_comparisons: int = Field(default=2, ge=1)
     historical_max_comparisons: int = Field(default=5, ge=1)
 
+    # --- Black Swan simulator ---------------------------------------------------
+    simulation_scenarios_file: Path = DATA_DIR / "simulation" / "scenarios.json"
+    simulation_layers_file: Path = DATA_DIR / "simulation" / "visual_layers.json"
+    simulation_model_dir: Path = DATA_DIR / "models"
+    simulation_scenario_model_id: str = "scenario_conditional_v1"
+    simulation_forecast_model_id: str = "forecast_trailing_v1"
+
     @field_validator("llm_fallback_chain", mode="before")
     @classmethod
     def _parse_chain(cls, v: object) -> object:

@@ -131,7 +131,8 @@ class PathAnalyzer:
             effect = {1: "potential upward pressure on", -1: "potential downward pressure on"}.get(
                 running, "an effect of uncertain direction on")
             tag = {"REPORTED": "reported in sources", "INFERRED": "inferred from knowledge base",
-                   "UNVERIFIED": "claimed, passage not verified", "OBSERVED": "observed"}[e.status.value]
+                   "UNVERIFIED": "claimed, passage not verified", "OBSERVED": "observed",
+                   "ASSUMED": "scenario assumption"}[e.status.value]
             parts.append(f"{effect} {self.kb.node_label(e.target)} [{tag}: {e.mechanism or e.relationship_type}]")
         return " -> ".join(parts) + "."
 

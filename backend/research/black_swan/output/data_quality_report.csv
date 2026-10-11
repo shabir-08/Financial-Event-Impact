@@ -1,0 +1,57 @@
+scope,item,rows_in_research_period,first,last,gaps_of_3plus_weekdays,largest_gaps,issues
+asset,NIFTY50,2470.0,2016-10-03,2026-10-09,0.0,,
+asset,NIFTYBANK,2472.0,2016-10-03,2026-10-09,0.0,,
+asset,NIFTYIT,2472.0,2016-10-03,2026-10-09,0.0,,
+asset,NIFTYPHARMA,2471.0,2016-10-03,2026-10-09,0.0,,
+asset,ONGC,2473.0,2016-10-03,2026-10-09,0.0,,back-adjusted prices change when new corporate actions occur; upstream oil
+asset,IOC,2473.0,2016-10-03,2026-10-09,0.0,,back-adjusted prices change when new corporate actions occur; oil marketing / refining
+asset,BPCL,2473.0,2016-10-03,2026-10-09,0.0,,back-adjusted prices change when new corporate actions occur; oil marketing / refining
+asset,RELIANCE,2473.0,2016-10-03,2026-10-09,0.0,,back-adjusted prices change when new corporate actions occur; refining + diversified; 1:1 bonus 2024 (adjusted)
+asset,INDIGO,2473.0,2016-10-03,2026-10-09,0.0,,back-adjusted prices change when new corporate actions occur; aviation; fuel-cost exposure
+asset,ASIANPAINT,2473.0,2016-10-03,2026-10-09,0.0,,back-adjusted prices change when new corporate actions occur; crude-derived input costs
+asset,SBIN,2473.0,2016-10-03,2026-10-09,0.0,,back-adjusted prices change when new corporate actions occur; banking
+asset,ICICIBANK,2473.0,2016-10-03,2026-10-09,0.0,,back-adjusted prices change when new corporate actions occur; banking
+asset,HDFCBANK,2473.0,2016-10-03,2026-10-09,0.0,,back-adjusted prices change when new corporate actions occur; banking; merged with HDFC Ltd on 2023-07-01 (structural break)
+asset,TCS,2473.0,2016-10-03,2026-10-09,0.0,,back-adjusted prices change when new corporate actions occur; IT services exporter (USD revenue)
+asset,INFY,2473.0,2016-10-03,2026-10-09,0.0,,back-adjusted prices change when new corporate actions occur; IT services exporter (USD revenue)
+asset,LT,2473.0,2016-10-03,2026-10-09,0.0,,back-adjusted prices change when new corporate actions occur; capital goods / infrastructure
+asset,HINDALCO,2473.0,2016-10-03,2026-10-09,0.0,,back-adjusted prices change when new corporate actions occur; aluminium (LME-linked)
+asset,SUNPHARMA,2473.0,2016-10-03,2026-10-09,0.0,,back-adjusted prices change when new corporate actions occur; pharma exporter
+asset,SP500,2519.0,2016-10-03,2026-10-09,0.0,,
+asset,NASDAQ,2519.0,2016-10-03,2026-10-09,0.0,,
+asset,SSE,2427.0,2016-10-10,2026-10-09,28.0,2020-01-23->2020-02-03 (6 weekdays); 2020-09-30->2020-10-09 (6 weekdays); 2023-09-28->2023-10-09 (6 weekdays),
+asset,TA35,2002.0,2016-10-05,2026-10-09,26.0,2021-09-14->2021-09-22 (5 weekdays); 2025-09-30->2025-10-08 (5 weekdays); 2021-09-02->2021-09-09 (4 weekdays),session close time approximated; TASE traded Sun-Thu until early 2026 then moved to Mon-Fri; session dates taken from the data
+asset,STOXX50,2518.0,2016-10-03,2026-10-09,8.0,2018-12-21->2018-12-27 (3 weekdays); 2018-12-28->2019-01-03 (3 weekdays); 2019-12-23->2019-12-27 (3 weekdays),
+asset,IMOEX,2522.0,2016-10-03,2026-10-09,5.0,2022-02-25->2022-03-24 (18 weekdays); 2018-12-29->2019-01-03 (3 weekdays); 2019-12-30->2020-01-03 (3 weekdays),session close time approximated; Main-session close; trading suspended 2022-02-28 to 2022-03-23; foreign access restricted since 2022
+asset,RTSI,2521.0,2016-10-03,2026-10-09,5.0,2022-02-25->2022-03-24 (18 weekdays); 2018-12-29->2019-01-03 (3 weekdays); 2019-12-30->2020-01-03 (3 weekdays),session close time approximated; USD-denominated; same suspension as IMOEX
+asset,BRENT,2539.0,2016-10-03,2026-10-06,1.0,2018-12-21->2018-12-27 (3 weekdays),session close time approximated; Spot assessment; FRED/EIA daily; no futures roll artefacts
+asset,WTI,2503.0,2016-10-03,2026-10-06,0.0,,1 non-positive values (returns undefined there); session close time approximated; Went negative on 2020-04-20: percentage returns undefined
+asset,HENRYHUB,2513.0,2016-10-03,2026-10-06,0.0,,session close time approximated
+asset,GOLD,2519.0,2016-10-03,2026-10-09,0.0,,session close time approximated
+asset,USDINR,2497.0,2016-10-03,2026-10-02,0.0,,session close time approximated; Official noon NY rate; not an onshore Indian close
+asset,USDCNY,2497.0,2016-10-03,2026-10-02,0.0,,session close time approximated; Managed currency; onshore band
+asset,USDRUB,2607.0,2016-10-03,2026-10-09,0.0,,session close time approximated; Capital controls and sanctions from 2022 distort quotes; Western quotes thin/unreliable
+asset,USDILS,2606.0,2016-10-03,2026-10-09,0.0,,session close time approximated
+asset,DXY,2519.0,2016-10-03,2026-10-09,0.0,,session close time approximated
+asset,UST10Y,2504.0,2016-10-03,2026-10-08,0.0,,session close time approximated
+asset,UST2Y,2504.0,2016-10-03,2026-10-08,0.0,,session close time approximated
+asset,FEDFUNDS,3660.0,2016-10-01,2026-10-08,0.0,,session close time approximated
+asset,VIX,2551.0,2016-10-03,2026-10-08,0.0,,
+asset,IN10Y_M,118.0,2016-10-01,2026-07-01,0.0,,MONTHLY average only - no daily free source retrieved
+event_window_flag,NONPOSITIVE_PRICE_RETURN_UNDEFINED,6.0,,,,,events: EV018
+event_window_flag,WINDOW_SPANS_TRADING_GAP,99.0,,,,,events: EV001;EV002;EV003;EV004;EV005;EV006;EV007;EV008;EV009;EV010;EV011;EV012;EV013;EV014;EV015;EV016;EV017;EV018;EV019;EV020
+event_window_flag,STALE_BASELINE_MARKET_CLOSED_OR_GAP,24.0,,,,,events: EV009;EV026;EV030;EV051
+event_window_flag,INFO_DURING_SESSION,2688.0,,,,,events: EV001;EV002;EV003;EV004;EV005;EV006;EV007;EV008;EV010;EV011;EV012;EV013;EV014;EV015;EV017;EV018;EV019;EV020;EV021;EV023
+event_window_flag,EVENT_TIME_DATE_ONLY,888.0,,,,,events: EV037;EV047;EV049;EV050
+event_window_flag,NOT_YET_ELAPSED,132.0,,,,,events: EV051
+event_window_flag,NOT_YET_PUBLISHED_BY_SOURCE,30.0,,,,,events: EV051
+event_window_flag,HDFC_MERGER_STRUCTURAL_BREAK_NEARBY,168.0,,,,,events: EV024;EV025;EV026;EV027;EV028;EV029;EV030;EV031;EV032;EV033;EV034;EV035;EV036;EV037;EV038;EV039;EV040;EV041;EV042;EV043
+source_discrepancy,EV001 demonetisation,,,,,,EV001 demonetisation: a source states indices 'fell over 6%' on 2016-11-09; Yahoo closing data show NIFTY 50 -1.31% (likely an intraday figure in the source).
+source_discrepancy,EV022 SWIFT sanctions,,,,,,EV022 SWIFT sanctions: sources report the rouble down ~26-40% on 2022-02-28; Yahoo RUB=X shows -1.9% - Western RUB quotes were unreliable under capital controls. Treat USDRUB 2022 windows as unusable.
+source_discrepancy,EV046,,,,,,EV046: Brent spot (FRED) +6.5% on 2025-10-23 vs Brent futures +5.4% reported - spot vs futures difference.
+market_closure,MOEX equity trading suspended 2022-02-28..2022-03-23,,,,,,MOEX equity trading suspended 2022-02-28..2022-03-23: IMOEX/RTSI windows for EV021/EV022 span the suspension.
+market_closure,TASE,,,,,,TASE: Sunday sessions until early 2026; Yahoo TA35 history has fewer rows than other indices - check gaps before use.
+survivorship,Stock basket chosen in 2026 from currently large liquid names; index-membership history not retrieved.,,,,,,Stock basket chosen in 2026 from currently large liquid names; index-membership history not retrieved.
+structural_break,HDFC Bank merged with HDFC Ltd on 2023-07-01; market-model estimates spanning that date are affected.,,,,,,HDFC Bank merged with HDFC Ltd on 2023-07-01; market-model estimates spanning that date are affected.
+incomplete_period,"October 2026 is incomplete (data to 2026-10-09; FRED FX to 2026-10-02, Brent to 2026-10-06). EV051 windows mostly not elapsed.",,,,,,"October 2026 is incomplete (data to 2026-10-09; FRED FX to 2026-10-02, Brent to 2026-10-06). EV051 windows mostly not elapsed."
+confounding,"Unlisted scheduled events (FOMC/MPC meetings, earnings, macro releases) were NOT screened; only dataset events are flagged in concurrent_events_in_window.",,,,,,"Unlisted scheduled events (FOMC/MPC meetings, earnings, macro releases) were NOT screened; only dataset events are flagged in concurrent_events_in_window."

@@ -1,0 +1,409 @@
+{
+  "dataset": {
+    "rows": 493,
+    "train_rows": 308,
+    "test_rows": 185,
+    "n_features": 14,
+    "features": [
+      "x_brent_5d_ret_pct",
+      "x_sp500_5d_ret_pct",
+      "x_usdinr_5d_ret_pct",
+      "x_gold_5d_ret_pct",
+      "x_ust10y_5d_chg_bp",
+      "x_vix_level_at_start",
+      "x_nifty_prev_20d_ret_pct",
+      "x_nifty_prev_20d_vol_ann_pct",
+      "x_is_event",
+      "x_event_geopolitical",
+      "x_event_macro_policy",
+      "x_event_financial_crisis",
+      "x_event_commodity_supply",
+      "x_event_other_shock"
+    ],
+    "n_targets": 18,
+    "train_period": "2016-10-03..2022-12-30",
+    "test_period": "2022-12-30..2026-10-05",
+    "train_test_boundary_ok_no_overlapping_target_windows": true,
+    "purge_gap_applied": "none needed: weekly target windows are non-overlapping and the split is on target-end year",
+    "test_regime_counts": {
+      "NORMAL": 143,
+      "EVENT": 42
+    },
+    "train_regime_counts": {
+      "NORMAL": 268,
+      "EVENT": 33,
+      "BLACK_SWAN": 7
+    }
+  },
+  "lambda_selection_inner_chronological_MAE": {
+    "0.1": 3.0675,
+    "1.0": 3.063,
+    "3.0": 3.0543,
+    "10.0": 3.0313,
+    "30.0": 2.9921,
+    "100.0": 2.9409
+  },
+  "lambda": 100.0,
+  "A_chronological_test": {
+    "all": {
+      "n_rows": 185,
+      "model": {
+        "n_values": 3328,
+        "MAE": 2.4192,
+        "RMSE": 3.2693,
+        "directional_accuracy": 0.5337
+      },
+      "baseline_zero": {
+        "n_values": 3328,
+        "MAE": 2.3503,
+        "RMSE": 3.1696,
+        "directional_accuracy": 0.0
+      },
+      "baseline_train_mean": {
+        "n_values": 3328,
+        "MAE": 2.3394,
+        "RMSE": 3.1703,
+        "directional_accuracy": 0.5523
+      }
+    },
+    "NORMAL": {
+      "n_rows": 143,
+      "model": {
+        "n_values": 2572,
+        "MAE": 2.3029,
+        "RMSE": 3.1272,
+        "directional_accuracy": 0.5315
+      },
+      "baseline_zero": {
+        "n_values": 2572,
+        "MAE": 2.2818,
+        "RMSE": 3.0962,
+        "directional_accuracy": 0.0
+      },
+      "baseline_train_mean": {
+        "n_values": 2572,
+        "MAE": 2.2747,
+        "RMSE": 3.0987,
+        "directional_accuracy": 0.546
+      }
+    },
+    "EVENT": {
+      "n_rows": 42,
+      "model": {
+        "n_values": 756,
+        "MAE": 2.815,
+        "RMSE": 3.7123,
+        "directional_accuracy": 0.541
+      },
+      "baseline_zero": {
+        "n_values": 756,
+        "MAE": 2.5833,
+        "RMSE": 3.4075,
+        "directional_accuracy": 0.0
+      },
+      "baseline_train_mean": {
+        "n_values": 756,
+        "MAE": 2.5595,
+        "RMSE": 3.4024,
+        "directional_accuracy": 0.5741
+      }
+    },
+    "BLACK_SWAN": {
+      "n_rows": 0,
+      "note": "no rows in this regime in the test period"
+    }
+  },
+  "A_per_target": {
+    "y_nifty50_5d_ret_pct": {
+      "model": {
+        "n_values": 185,
+        "MAE": 1.3894,
+        "RMSE": 1.7978,
+        "directional_accuracy": 0.5514
+      },
+      "baseline_zero": {
+        "n_values": 185,
+        "MAE": 1.3409,
+        "RMSE": 1.7134,
+        "directional_accuracy": 0.0
+      },
+      "n_train_rows_used": 308
+    },
+    "y_niftybank_5d_ret_pct": {
+      "model": {
+        "n_values": 185,
+        "MAE": 1.7578,
+        "RMSE": 2.3189,
+        "directional_accuracy": 0.5027
+      },
+      "baseline_zero": {
+        "n_values": 185,
+        "MAE": 1.6112,
+        "RMSE": 2.1399,
+        "directional_accuracy": 0.0
+      },
+      "n_train_rows_used": 308
+    },
+    "y_niftyit_5d_ret_pct": {
+      "model": {
+        "n_values": 185,
+        "MAE": 2.3154,
+        "RMSE": 3.0182,
+        "directional_accuracy": 0.5568
+      },
+      "baseline_zero": {
+        "n_values": 185,
+        "MAE": 2.3182,
+        "RMSE": 2.9912,
+        "directional_accuracy": 0.0
+      },
+      "n_train_rows_used": 308
+    },
+    "y_niftypharma_5d_ret_pct": {
+      "model": {
+        "n_values": 183,
+        "MAE": 1.7765,
+        "RMSE": 2.2367,
+        "directional_accuracy": 0.4809
+      },
+      "baseline_zero": {
+        "n_values": 183,
+        "MAE": 1.6927,
+        "RMSE": 2.1361,
+        "directional_accuracy": 0.0
+      },
+      "n_train_rows_used": 308
+    },
+    "y_ongc_5d_ret_pct": {
+      "model": {
+        "n_values": 185,
+        "MAE": 2.8774,
+        "RMSE": 3.6492,
+        "directional_accuracy": 0.4919
+      },
+      "baseline_zero": {
+        "n_values": 185,
+        "MAE": 2.7473,
+        "RMSE": 3.5311,
+        "directional_accuracy": 0.0
+      },
+      "n_train_rows_used": 308
+    },
+    "y_ioc_5d_ret_pct": {
+      "model": {
+        "n_values": 185,
+        "MAE": 3.0926,
+        "RMSE": 4.3501,
+        "directional_accuracy": 0.5847
+      },
+      "baseline_zero": {
+        "n_values": 185,
+        "MAE": 3.0662,
+        "RMSE": 4.2826,
+        "directional_accuracy": 0.0
+      },
+      "n_train_rows_used": 308
+    },
+    "y_bpcl_5d_ret_pct": {
+      "model": {
+        "n_values": 185,
+        "MAE": 3.3511,
+        "RMSE": 4.5734,
+        "directional_accuracy": 0.5351
+      },
+      "baseline_zero": {
+        "n_values": 185,
+        "MAE": 3.2293,
+        "RMSE": 4.3315,
+        "directional_accuracy": 0.0
+      },
+      "n_train_rows_used": 308
+    },
+    "y_reliance_5d_ret_pct": {
+      "model": {
+        "n_values": 185,
+        "MAE": 2.229,
+        "RMSE": 2.9116,
+        "directional_accuracy": 0.5435
+      },
+      "baseline_zero": {
+        "n_values": 185,
+        "MAE": 2.1977,
+        "RMSE": 2.8777,
+        "directional_accuracy": 0.0
+      },
+      "n_train_rows_used": 308
+    },
+    "y_indigo_5d_ret_pct": {
+      "model": {
+        "n_values": 185,
+        "MAE": 2.9208,
+        "RMSE": 3.8268,
+        "directional_accuracy": 0.6108
+      },
+      "baseline_zero": {
+        "n_values": 185,
+        "MAE": 3.01,
+        "RMSE": 3.8977,
+        "directional_accuracy": 0.0
+      },
+      "n_train_rows_used": 308
+    },
+    "y_asianpaint_5d_ret_pct": {
+      "model": {
+        "n_values": 185,
+        "MAE": 2.2559,
+        "RMSE": 3.1447,
+        "directional_accuracy": 0.4703
+      },
+      "baseline_zero": {
+        "n_values": 185,
+        "MAE": 2.1317,
+        "RMSE": 3.018,
+        "directional_accuracy": 0.0
+      },
+      "n_train_rows_used": 308
+    },
+    "y_sbin_5d_ret_pct": {
+      "model": {
+        "n_values": 185,
+        "MAE": 2.5087,
+        "RMSE": 3.3287,
+        "directional_accuracy": 0.5027
+      },
+      "baseline_zero": {
+        "n_values": 185,
+        "MAE": 2.3767,
+        "RMSE": 3.1596,
+        "directional_accuracy": 0.0
+      },
+      "n_train_rows_used": 308
+    },
+    "y_icicibank_5d_ret_pct": {
+      "model": {
+        "n_values": 185,
+        "MAE": 2.0191,
+        "RMSE": 2.6348,
+        "directional_accuracy": 0.5435
+      },
+      "baseline_zero": {
+        "n_values": 185,
+        "MAE": 1.8623,
+        "RMSE": 2.4293,
+        "directional_accuracy": 0.0
+      },
+      "n_train_rows_used": 308
+    },
+    "y_hdfcbank_5d_ret_pct": {
+      "model": {
+        "n_values": 185,
+        "MAE": 2.1838,
+        "RMSE": 2.8862,
+        "directional_accuracy": 0.5189
+      },
+      "baseline_zero": {
+        "n_values": 185,
+        "MAE": 2.0663,
+        "RMSE": 2.7734,
+        "directional_accuracy": 0.0
+      },
+      "n_train_rows_used": 308
+    },
+    "y_tcs_5d_ret_pct": {
+      "model": {
+        "n_values": 185,
+        "MAE": 2.4029,
+        "RMSE": 3.1063,
+        "directional_accuracy": 0.5135
+      },
+      "baseline_zero": {
+        "n_values": 185,
+        "MAE": 2.3592,
+        "RMSE": 3.0403,
+        "directional_accuracy": 0.0
+      },
+      "n_train_rows_used": 308
+    },
+    "y_infy_5d_ret_pct": {
+      "model": {
+        "n_values": 185,
+        "MAE": 2.7343,
+        "RMSE": 3.6206,
+        "directional_accuracy": 0.5459
+      },
+      "baseline_zero": {
+        "n_values": 185,
+        "MAE": 2.7414,
+        "RMSE": 3.5483,
+        "directional_accuracy": 0.0
+      },
+      "n_train_rows_used": 308
+    },
+    "y_lt_5d_ret_pct": {
+      "model": {
+        "n_values": 185,
+        "MAE": 2.5168,
+        "RMSE": 3.3275,
+        "directional_accuracy": 0.5892
+      },
+      "baseline_zero": {
+        "n_values": 185,
+        "MAE": 2.4843,
+        "RMSE": 3.2602,
+        "directional_accuracy": 0.0
+      },
+      "n_train_rows_used": 308
+    },
+    "y_hindalco_5d_ret_pct": {
+      "model": {
+        "n_values": 185,
+        "MAE": 3.052,
+        "RMSE": 3.9615,
+        "directional_accuracy": 0.5838
+      },
+      "baseline_zero": {
+        "n_values": 185,
+        "MAE": 3.0386,
+        "RMSE": 3.8431,
+        "directional_accuracy": 0.0
+      },
+      "n_train_rows_used": 308
+    },
+    "y_sunpharma_5d_ret_pct": {
+      "model": {
+        "n_values": 185,
+        "MAE": 2.1551,
+        "RMSE": 2.7501,
+        "directional_accuracy": 0.4811
+      },
+      "baseline_zero": {
+        "n_values": 185,
+        "MAE": 2.0246,
+        "RMSE": 2.6053,
+        "directional_accuracy": 0.0
+      },
+      "n_train_rows_used": 308
+    }
+  },
+  "B_event_episode_holdout": {
+    "n_event_groups": 26,
+    "n_rows": 88,
+    "model": {
+      "n_values": 1584,
+      "MAE": 3.4992,
+      "RMSE": 4.9901,
+      "directional_accuracy": 0.4877
+    },
+    "baseline_zero": {
+      "n_values": 1584,
+      "MAE": 3.3092,
+      "RMSE": 4.7173,
+      "directional_accuracy": 0.0
+    },
+    "black_swan_groups": [
+      "VG01",
+      "VG07"
+    ],
+    "note": "Each event group held out with +/-1 week purge; training uses ALL other weeks including later ones, so this is a non-chronological diagnostic, not a deployment estimate. Black Swan behaviour rests on 2 independent group(s) - reliable Black Swan performance cannot be established."
+  }
+}

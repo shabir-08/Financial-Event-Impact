@@ -14,6 +14,7 @@ from app.models.analysis import (
 from app.models.entities import Asset, AssetSymbol, Entity, EventEntity
 from app.models.events import Event, EventArticle, HistoricalEvent
 from app.models.news import Article, IngestionRun
+from app.models.simulation import SimulationRun
 
 __all__ = [
     "AnalysisRun",
@@ -34,4 +35,5 @@ __all__ = [
     "MarketObservation",
     "Relationship",
     "RelationshipEvidence",
+    "SimulationRun",
 ]

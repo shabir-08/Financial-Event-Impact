@@ -1,0 +1,719 @@
+{
+ "model_id": "scenario_conditional_v1",
+ "kind": "scenario_conditional",
+ "supports_hypothetical_shocks": true,
+ "interpretation": "Conditional association: estimated 5-session return of each Indian target GIVEN the specified shocks occur over the same 5 sessions, from 2016-2026 weekly history. Not a forecast; not causal.",
+ "horizon_trading_days": 5,
+ "features": [
+  {
+   "column": "s_brent_5d_ret_pct_in_target_window",
+   "scenario_parameter": "oil_price_change_pct",
+   "unit": "%",
+   "definition": "Brent spot (FRED DCOILBRENTEU) change over the same 5 NSE sessions"
+  },
+  {
+   "column": "s_sp500_5d_ret_pct_in_target_window",
+   "scenario_parameter": "sp500_change_pct",
+   "unit": "%",
+   "definition": "S&P 500 change over the same 5 NSE sessions"
+  },
+  {
+   "column": "s_usdinr_5d_ret_pct_in_target_window",
+   "scenario_parameter": "usdinr_change_pct",
+   "unit": "%",
+   "definition": "USD/INR (FRED DEXINUS) change; + = rupee weaker"
+  },
+  {
+   "column": "s_gold_5d_ret_pct_in_target_window",
+   "scenario_parameter": "gold_change_pct",
+   "unit": "%",
+   "definition": "Gold front-month future change"
+  },
+  {
+   "column": "s_ust10y_5d_chg_bp_in_target_window",
+   "scenario_parameter": "us10y_change_bp",
+   "unit": "bp",
+   "definition": "US 10Y Treasury yield change"
+  }
+ ],
+ "targets": [
+  {
+   "column": "y_nifty50_5d_ret_pct",
+   "symbol": "NIFTY50",
+   "name": "NIFTY 50",
+   "asset_class": "EQUITY_INDEX",
+   "currency": "INR",
+   "kb_asset_id": "asset:nifty50",
+   "unit": "% simple return over 5 NSE trading sessions"
+  },
+  {
+   "column": "y_niftybank_5d_ret_pct",
+   "symbol": "NIFTYBANK",
+   "name": "NIFTY Bank",
+   "asset_class": "EQUITY_INDEX",
+   "currency": "INR",
+   "kb_asset_id": null,
+   "unit": "% simple return over 5 NSE trading sessions"
+  },
+  {
+   "column": "y_niftyit_5d_ret_pct",
+   "symbol": "NIFTYIT",
+   "name": "NIFTY IT",
+   "asset_class": "EQUITY_INDEX",
+   "currency": "INR",
+   "kb_asset_id": null,
+   "unit": "% simple return over 5 NSE trading sessions"
+  },
+  {
+   "column": "y_niftypharma_5d_ret_pct",
+   "symbol": "NIFTYPHARMA",
+   "name": "NIFTY Pharma",
+   "asset_class": "EQUITY_INDEX",
+   "currency": "INR",
+   "kb_asset_id": null,
+   "unit": "% simple return over 5 NSE trading sessions"
+  },
+  {
+   "column": "y_ongc_5d_ret_pct",
+   "symbol": "ONGC",
+   "name": "Oil and Natural Gas Corporation",
+   "asset_class": "EQUITY",
+   "currency": "INR",
+   "kb_asset_id": "asset:ongc_ns",
+   "unit": "% simple return over 5 NSE trading sessions"
+  },
+  {
+   "column": "y_ioc_5d_ret_pct",
+   "symbol": "IOC",
+   "name": "Indian Oil Corporation",
+   "asset_class": "EQUITY",
+   "currency": "INR",
+   "kb_asset_id": "asset:ioc_ns",
+   "unit": "% simple return over 5 NSE trading sessions"
+  },
+  {
+   "column": "y_bpcl_5d_ret_pct",
+   "symbol": "BPCL",
+   "name": "Bharat Petroleum",
+   "asset_class": "EQUITY",
+   "currency": "INR",
+   "kb_asset_id": "asset:bpcl_ns",
+   "unit": "% simple return over 5 NSE trading sessions"
+  },
+  {
+   "column": "y_reliance_5d_ret_pct",
+   "symbol": "RELIANCE",
+   "name": "Reliance Industries",
+   "asset_class": "EQUITY",
+   "currency": "INR",
+   "kb_asset_id": "asset:reliance_ns",
+   "unit": "% simple return over 5 NSE trading sessions"
+  },
+  {
+   "column": "y_indigo_5d_ret_pct",
+   "symbol": "INDIGO",
+   "name": "InterGlobe Aviation (IndiGo)",
+   "asset_class": "EQUITY",
+   "currency": "INR",
+   "kb_asset_id": "asset:indigo_ns",
+   "unit": "% simple return over 5 NSE trading sessions"
+  },
+  {
+   "column": "y_asianpaint_5d_ret_pct",
+   "symbol": "ASIANPAINT",
+   "name": "Asian Paints",
+   "asset_class": "EQUITY",
+   "currency": "INR",
+   "kb_asset_id": "asset:asianpaint_ns",
+   "unit": "% simple return over 5 NSE trading sessions"
+  },
+  {
+   "column": "y_sbin_5d_ret_pct",
+   "symbol": "SBIN",
+   "name": "State Bank of India",
+   "asset_class": "EQUITY",
+   "currency": "INR",
+   "kb_asset_id": null,
+   "unit": "% simple return over 5 NSE trading sessions"
+  },
+  {
+   "column": "y_icicibank_5d_ret_pct",
+   "symbol": "ICICIBANK",
+   "name": "ICICI Bank",
+   "asset_class": "EQUITY",
+   "currency": "INR",
+   "kb_asset_id": null,
+   "unit": "% simple return over 5 NSE trading sessions"
+  },
+  {
+   "column": "y_hdfcbank_5d_ret_pct",
+   "symbol": "HDFCBANK",
+   "name": "HDFC Bank",
+   "asset_class": "EQUITY",
+   "currency": "INR",
+   "kb_asset_id": "asset:hdfcbank_ns",
+   "unit": "% simple return over 5 NSE trading sessions"
+  },
+  {
+   "column": "y_tcs_5d_ret_pct",
+   "symbol": "TCS",
+   "name": "Tata Consultancy Services",
+   "asset_class": "EQUITY",
+   "currency": "INR",
+   "kb_asset_id": null,
+   "unit": "% simple return over 5 NSE trading sessions"
+  },
+  {
+   "column": "y_infy_5d_ret_pct",
+   "symbol": "INFY",
+   "name": "Infosys",
+   "asset_class": "EQUITY",
+   "currency": "INR",
+   "kb_asset_id": null,
+   "unit": "% simple return over 5 NSE trading sessions"
+  },
+  {
+   "column": "y_lt_5d_ret_pct",
+   "symbol": "LT",
+   "name": "Larsen & Toubro",
+   "asset_class": "EQUITY",
+   "currency": "INR",
+   "kb_asset_id": null,
+   "unit": "% simple return over 5 NSE trading sessions"
+  },
+  {
+   "column": "y_hindalco_5d_ret_pct",
+   "symbol": "HINDALCO",
+   "name": "Hindalco Industries",
+   "asset_class": "EQUITY",
+   "currency": "INR",
+   "kb_asset_id": null,
+   "unit": "% simple return over 5 NSE trading sessions"
+  },
+  {
+   "column": "y_sunpharma_5d_ret_pct",
+   "symbol": "SUNPHARMA",
+   "name": "Sun Pharmaceutical",
+   "asset_class": "EQUITY",
+   "currency": "INR",
+   "kb_asset_id": null,
+   "unit": "% simple return over 5 NSE trading sessions"
+  }
+ ],
+ "lambda": 100.0,
+ "lambda_selection_inner_chronological_MAE": {
+  "0.1": 2.8041,
+  "1.0": 2.8022,
+  "3.0": 2.7981,
+  "10.0": 2.7849,
+  "30.0": 2.756,
+  "100.0": 2.7139
+ },
+ "feature_order": [
+  "s_brent_5d_ret_pct_in_target_window",
+  "s_sp500_5d_ret_pct_in_target_window",
+  "s_usdinr_5d_ret_pct_in_target_window",
+  "s_gold_5d_ret_pct_in_target_window",
+  "s_ust10y_5d_chg_bp_in_target_window"
+ ],
+ "standardization": {
+  "mean": [
+   0.3847580121703854,
+   0.28772981744421905,
+   0.07734158215010142,
+   0.2639271805273834,
+   0.7464503042596349
+  ],
+  "sd": [
+   6.184848094241728,
+   2.334893928447887,
+   0.6712104228326617,
+   2.41639582913781,
+   11.848203729626151
+  ],
+  "fitted_on": "the model's own fitting rows only"
+ },
+ "coefficients": {
+  "intercept": [
+   0.21566977687626773,
+   0.25257626774847874,
+   0.2512066937119676,
+   0.20166778424538234,
+   0.26306125760649085,
+   0.2728217038539555,
+   0.3038902636916835,
+   0.40153813387423937,
+   0.4686845841784992,
+   0.21283833671399593,
+   0.3877993914807301,
+   0.43779310344827577,
+   0.22984219066937123,
+   0.21833184584178492,
+   0.26198722109533457,
+   0.368105070993915,
+   0.5087304259634889,
+   0.2561864097363084
+  ],
+  "weights_per_standardized_feature": [
+   [
+    0.020815494403409934,
+    0.030119069481221138,
+    0.02278518832716599,
+    0.08726096026491294,
+    1.1423886553136615,
+    -0.20843668155393752,
+    -0.3419085519605062,
+    0.16520137352475034,
+    -0.39457333051647714,
+    -0.620885008077047,
+    0.1640045180797991,
+    0.014432853072499347,
+    -0.10500457916289307,
+    -0.049226145681448084,
+    -0.08605042407292583,
+    0.13397854107542295,
+    0.7255511990580326,
+    0.19065529465518588
+   ],
+   [
+    0.7746598731770004,
+    0.8233087224893193,
+    1.1077959980421417,
+    0.5849089769321526,
+    0.5889089228219031,
+    0.48164387205861936,
+    0.8504783313514216,
+    0.7874413691060324,
+    0.9830658453643858,
+    0.31161080193007495,
+    0.7448363673583058,
+    1.0558450831024966,
+    0.7406940631778463,
+    0.8767010985850333,
+    1.2389523081983167,
+    0.8256175972969259,
+    1.4155867046493766,
+    0.42821192516291967
+   ],
+   [
+    -0.6119946713739699,
+    -0.8468493616276856,
+    -0.15624620799872854,
+    -0.07879833439275787,
+    -0.41757674038898046,
+    -0.8974527250485772,
+    -1.0533777615163424,
+    -0.7425165137168449,
+    -0.8451565955738235,
+    -0.4419995367840495,
+    -1.0958129232664406,
+    -0.8518596267324021,
+    -0.8734487968021972,
+    -0.1182538266636228,
+    -0.05117393661368233,
+    -0.7511363078886371,
+    -0.6151674560873474,
+    -0.10515850590315734
+   ],
+   [
+    0.06891028480793576,
+    0.04957565383517433,
+    -0.05087428315418219,
+    0.04611124644737446,
+    0.15563363652656045,
+    -0.003988733301858674,
+    -0.047954497011616234,
+    0.07314466696573393,
+    0.18010464131282647,
+    0.15705046279063484,
+    -0.06319434278415291,
+    0.024521966691782526,
+    0.04009250675615291,
+    0.006733452076295434,
+    -0.065077777613814,
+    -0.08372077542174115,
+    0.3536245830857937,
+    -0.032386419349535886
+   ],
+   [
+    0.0004703871327171198,
+    0.006843241732939753,
+    0.036076109129008646,
+    -0.10968158306643398,
+    0.25398569238525964,
+    -0.11679311676979894,
+    -0.11407545834330557,
+    -0.023731320581431282,
+    -0.038057696856298034,
+    0.0038968379929378285,
+    0.20923839137973427,
+    0.15704524023817254,
+    -0.16533720483025077,
+    0.055320240497772705,
+    0.04701659477259618,
+    -0.20615835960670517,
+    0.040286867795530264,
+    -0.1552440341209216
+   ]
+  ]
+ },
+ "feature_domain": {
+  "s_brent_5d_ret_pct_in_target_window": {
+   "min": -37.1222,
+   "p01": -15.442564,
+   "p99": 20.377687999999996,
+   "max": 33.7935
+  },
+  "s_sp500_5d_ret_pct_in_target_window": {
+   "min": -14.9796,
+   "p01": -6.366636,
+   "p99": 5.787515999999998,
+   "max": 10.2628
+  },
+  "s_usdinr_5d_ret_pct_in_target_window": {
+   "min": -2.465,
+   "p01": -1.5244600000000001,
+   "p99": 1.9859959999999992,
+   "max": 3.4443
+  },
+  "s_gold_5d_ret_pct_in_target_window": {
+   "min": -12.1042,
+   "p01": -6.640668,
+   "p99": 6.315067999999999,
+   "max": 9.4272
+  },
+  "s_ust10y_5d_chg_bp_in_target_window": {
+   "min": -39.0,
+   "p01": -32.08,
+   "p99": 32.0,
+   "max": 42.0
+  }
+ },
+ "n_rows_used_per_target": [
+  493,
+  493,
+  493,
+  491,
+  493,
+  493,
+  493,
+  493,
+  493,
+  493,
+  493,
+  493,
+  493,
+  493,
+  493,
+  493,
+  493,
+  493
+ ],
+ "training": {
+  "rows": 493,
+  "period": "2016-10-03..2026-10-05",
+  "deployed_fit": "all rows (refit after evaluation)"
+ },
+ "evaluation": {
+  "method": "walk-forward by target-end year 2019..2026 (fit on earlier years only)",
+  "all_oos": {
+   "n_values": 6892,
+   "MAE": 2.6211,
+   "RMSE": 3.6811,
+   "directional_accuracy": 0.6121
+  },
+  "all_oos_zero_baseline": {
+   "n_values": 6892,
+   "MAE": 2.7828,
+   "RMSE": 3.8941,
+   "directional_accuracy": 0.0
+  },
+  "test_2023_onward": {
+   "n_values": 3328,
+   "MAE": 2.2247,
+   "RMSE": 3.0206,
+   "directional_accuracy": 0.6104
+  },
+  "test_2023_onward_zero_baseline": {
+   "n_values": 3328,
+   "MAE": 2.3503,
+   "RMSE": 3.1696,
+   "directional_accuracy": 0.0
+  },
+  "per_target": {
+   "y_nifty50_5d_ret_pct": {
+    "n_oos": 383,
+    "mae_model": 1.3818,
+    "mae_zero_baseline": 1.6438,
+    "oos_r2": 0.2837,
+    "beats_zero_baseline": true
+   },
+   "y_niftybank_5d_ret_pct": {
+    "n_oos": 383,
+    "mae_model": 1.9962,
+    "mae_zero_baseline": 2.2039,
+    "oos_r2": 0.1889,
+    "beats_zero_baseline": true
+   },
+   "y_niftyit_5d_ret_pct": {
+    "n_oos": 383,
+    "mae_model": 2.2506,
+    "mae_zero_baseline": 2.4232,
+    "oos_r2": 0.1583,
+    "beats_zero_baseline": true
+   },
+   "y_niftypharma_5d_ret_pct": {
+    "n_oos": 381,
+    "mae_model": 1.9127,
+    "mae_zero_baseline": 1.9701,
+    "oos_r2": 0.0328,
+    "beats_zero_baseline": true
+   },
+   "y_ongc_5d_ret_pct": {
+    "n_oos": 383,
+    "mae_model": 3.2626,
+    "mae_zero_baseline": 3.4574,
+    "oos_r2": 0.1164,
+    "beats_zero_baseline": true
+   },
+   "y_ioc_5d_ret_pct": {
+    "n_oos": 383,
+    "mae_model": 3.0369,
+    "mae_zero_baseline": 3.1656,
+    "oos_r2": 0.0402,
+    "beats_zero_baseline": true
+   },
+   "y_bpcl_5d_ret_pct": {
+    "n_oos": 383,
+    "mae_model": 3.3649,
+    "mae_zero_baseline": 3.4746,
+    "oos_r2": 0.075,
+    "beats_zero_baseline": true
+   },
+   "y_reliance_5d_ret_pct": {
+    "n_oos": 383,
+    "mae_model": 2.7063,
+    "mae_zero_baseline": 2.8226,
+    "oos_r2": 0.0881,
+    "beats_zero_baseline": true
+   },
+   "y_indigo_5d_ret_pct": {
+    "n_oos": 383,
+    "mae_model": 3.6108,
+    "mae_zero_baseline": 3.7375,
+    "oos_r2": -0.0168,
+    "beats_zero_baseline": true
+   },
+   "y_asianpaint_5d_ret_pct": {
+    "n_oos": 383,
+    "mae_model": 2.4691,
+    "mae_zero_baseline": 2.5498,
+    "oos_r2": 0.041,
+    "beats_zero_baseline": true
+   },
+   "y_sbin_5d_ret_pct": {
+    "n_oos": 383,
+    "mae_model": 2.9398,
+    "mae_zero_baseline": 3.1062,
+    "oos_r2": 0.1302,
+    "beats_zero_baseline": true
+   },
+   "y_icicibank_5d_ret_pct": {
+    "n_oos": 383,
+    "mae_model": 2.4134,
+    "mae_zero_baseline": 2.6299,
+    "oos_r2": 0.1854,
+    "beats_zero_baseline": true
+   },
+   "y_hdfcbank_5d_ret_pct": {
+    "n_oos": 383,
+    "mae_model": 2.2895,
+    "mae_zero_baseline": 2.4396,
+    "oos_r2": 0.1389,
+    "beats_zero_baseline": true
+   },
+   "y_tcs_5d_ret_pct": {
+    "n_oos": 383,
+    "mae_model": 2.4459,
+    "mae_zero_baseline": 2.5333,
+    "oos_r2": 0.0774,
+    "beats_zero_baseline": true
+   },
+   "y_infy_5d_ret_pct": {
+    "n_oos": 383,
+    "mae_model": 2.669,
+    "mae_zero_baseline": 2.8895,
+    "oos_r2": 0.1204,
+    "beats_zero_baseline": true
+   },
+   "y_lt_5d_ret_pct": {
+    "n_oos": 383,
+    "mae_model": 2.6272,
+    "mae_zero_baseline": 2.7933,
+    "oos_r2": 0.1028,
+    "beats_zero_baseline": true
+   },
+   "y_hindalco_5d_ret_pct": {
+    "n_oos": 383,
+    "mae_model": 3.4177,
+    "mae_zero_baseline": 3.8275,
+    "oos_r2": 0.184,
+    "beats_zero_baseline": true
+   },
+   "y_sunpharma_5d_ret_pct": {
+    "n_oos": 383,
+    "mae_model": 2.3809,
+    "mae_zero_baseline": 2.4185,
+    "oos_r2": -0.0184,
+    "beats_zero_baseline": true
+   }
+  }
+ },
+ "prediction_intervals": {
+  "method": "empirical quantiles of walk-forward out-of-sample residuals (2019-2026), added to the point estimate",
+  "residual_quantiles": {
+   "y_nifty50_5d_ret_pct": {
+    "q05": -2.905,
+    "q10": -2.3245,
+    "q50": -0.0253,
+    "q90": 2.0118,
+    "q95": 2.8183
+   },
+   "y_niftybank_5d_ret_pct": {
+    "q05": -4.3628,
+    "q10": -3.1055,
+    "q50": 0.0114,
+    "q90": 2.9382,
+    "q95": 4.0548
+   },
+   "y_niftyit_5d_ret_pct": {
+    "q05": -5.2835,
+    "q10": -3.9776,
+    "q50": -0.0729,
+    "q90": 3.3491,
+    "q95": 3.9816
+   },
+   "y_niftypharma_5d_ret_pct": {
+    "q05": -4.1355,
+    "q10": -2.6458,
+    "q50": 0.2366,
+    "q90": 3.0345,
+    "q95": 4.2544
+   },
+   "y_ongc_5d_ret_pct": {
+    "q05": -6.2769,
+    "q10": -4.7514,
+    "q50": 0.0257,
+    "q90": 5.4152,
+    "q95": 7.7217
+   },
+   "y_ioc_5d_ret_pct": {
+    "q05": -6.4296,
+    "q10": -5.0025,
+    "q50": 0.0653,
+    "q90": 5.2739,
+    "q95": 6.8476
+   },
+   "y_bpcl_5d_ret_pct": {
+    "q05": -6.8316,
+    "q10": -4.7309,
+    "q50": -0.2465,
+    "q90": 5.4147,
+    "q95": 7.5552
+   },
+   "y_reliance_5d_ret_pct": {
+    "q05": -5.8325,
+    "q10": -4.6214,
+    "q50": -0.2922,
+    "q90": 4.0408,
+    "q95": 5.6162
+   },
+   "y_indigo_5d_ret_pct": {
+    "q05": -7.6738,
+    "q10": -5.4109,
+    "q50": -0.0714,
+    "q90": 5.7508,
+    "q95": 7.6282
+   },
+   "y_asianpaint_5d_ret_pct": {
+    "q05": -5.6054,
+    "q10": -4.2601,
+    "q50": -0.148,
+    "q90": 4.1726,
+    "q95": 5.1932
+   },
+   "y_sbin_5d_ret_pct": {
+    "q05": -6.1484,
+    "q10": -4.4602,
+    "q50": 0.0437,
+    "q90": 4.7728,
+    "q95": 6.4984
+   },
+   "y_icicibank_5d_ret_pct": {
+    "q05": -4.8381,
+    "q10": -3.5691,
+    "q50": -0.2206,
+    "q90": 3.7516,
+    "q95": 5.0834
+   },
+   "y_hdfcbank_5d_ret_pct": {
+    "q05": -4.9027,
+    "q10": -3.7233,
+    "q50": -0.2786,
+    "q90": 3.3389,
+    "q95": 4.2465
+   },
+   "y_tcs_5d_ret_pct": {
+    "q05": -5.5081,
+    "q10": -4.4413,
+    "q50": -0.231,
+    "q90": 3.2186,
+    "q95": 4.6818
+   },
+   "y_infy_5d_ret_pct": {
+    "q05": -5.851,
+    "q10": -4.3314,
+    "q50": -0.0196,
+    "q90": 3.8913,
+    "q95": 4.9339
+   },
+   "y_lt_5d_ret_pct": {
+    "q05": -5.345,
+    "q10": -4.3836,
+    "q50": -0.0672,
+    "q90": 4.351,
+    "q95": 6.0564
+   },
+   "y_hindalco_5d_ret_pct": {
+    "q05": -7.1383,
+    "q10": -5.2948,
+    "q50": -0.0794,
+    "q90": 5.339,
+    "q95": 7.5566
+   },
+   "y_sunpharma_5d_ret_pct": {
+    "q05": -4.2825,
+    "q10": -3.2065,
+    "q50": 0.3125,
+    "q90": 4.1185,
+    "q95": 5.3618
+   }
+  }
+ },
+ "limitations": [
+  "Assumes the shocks happen within the same 5 trading sessions as the return; unspecified shocks are held at 0 change (an explicit scenario assumption).",
+  "Linear model: responses scale linearly; behaviour outside the training range is extrapolation and is refused by the backend.",
+  "Fitted mostly on ordinary weeks (411 of 493 are NORMAL); only 2 independent Black Swan episodes exist in the data.",
+  "Intervals come from historical residuals and assume similar error behaviour; they are not guarantees.",
+  "No inflation input exists; inflation sliders cannot affect this model."
+ ],
+ "provenance": {
+  "exported_at_utc": "2026-10-11T12:03:17+00:00",
+  "source_dataset": "research/black_swan/output/model_training_final.csv",
+  "source_dataset_sha256": "4cc595053b894f8d655ad224978310c06069d53cb527bb32a58bc06642208b7e",
+  "scenario_inputs_sha256": "38fb3e8a3269682ae0b31f251535779bf7846895a9db5a791a09e0bac6d1bc06",
+  "exporter": "research/black_swan/pipeline/export_models.py",
+  "estimator": "masked multi-output ridge (numpy)"
+ },
+ "model_version": "scenario_conditional_v1+4cc595053b89"
+}

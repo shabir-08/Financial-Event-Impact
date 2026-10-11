@@ -8,7 +8,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 
 from app import __version__
-from app.api import analysis, articles, assets, events, graphs, health, market
+from app.api import analysis, articles, assets, events, graphs, health, market, simulations
 from app.core.config import get_settings
 from app.core.errors import install_error_handlers
 from app.core.logging import configure_logging
@@ -48,7 +48,7 @@ def create_app(seed: bool = True) -> FastAPI:
     app.state.seed_catalog = seed
     install_error_handlers(app)
     for r in (health.router, articles.router, events.router, graphs.router, market.router, assets.router,
-              analysis.router):
+              analysis.router, simulations.router):
         app.include_router(r)
     return app
 

@@ -24,9 +24,30 @@ from app.core.config import Settings
 from app.domain import EdgeDirection, EdgeStatus, EntityOrigin, EntityType, RelationshipOrigin, RelationshipType
 from app.services.relationships.applicability import EventContext, evaluate_rule, evaluate_trigger
 from app.services.relationships.knowledge_base import KnowledgeBase
-from app.services.relationships.scoring import ScoreResult, score_article_claims, score_kb_rule, score_trigger
+from app.services.relationships.scoring import ScoreResult, combine, score_article_claims, score_kb_rule, score_trigger
 
 EVENT_PREFIX = "event:"
+SCENARIO_PREFIX = "scenario:"
+
+
+@dataclass
+class ScenarioSeed:
+    node_id: str
+    sign: int
+    parameter: str
+    value: float
+    unit: str
+    description: str
+
+
+@dataclass
+class ScenarioInput:
+    scenario_id: str
+    title: str
+    event_type: str
+    initiating_entities: list[str]
+    context_entities: list[str]
+    seeds: list[ScenarioSeed]
 
 
 @dataclass
@@ -180,6 +201,57 @@ class GraphBuilder:
                                          is_primary_effect=False, kb=self.kb, weights=self.weights),
                     [], traversable=False)
 
+        return self._finish(event_node, nodes, edges, ctx, excluded)
+
+
+    def build_scenario(self, data: "ScenarioInput") -> GraphBuild:
+        """Scenario graph for the Black Swan simulator, built with the same trigger / expansion / pruning
+        steps as event graphs. User shocks become ASSUMED edges from the scenario node to their variables;
+        initiating entities get display-only involvement edges. Nothing is added to the knowledge base."""
+        event_node = SCENARIO_PREFIX + data.scenario_id
+        nodes: dict[str, NodeSpec] = {
+            event_node: NodeSpec(event_node, EntityType.EVENT.value, data.title[:255], EntityOrigin.SCENARIO,
+                                 {"event_type": data.event_type, "is_hypothetical_scenario": True})
+        }
+        edges: dict[tuple[str, str], EdgeSpec] = {}
+        excluded: list[dict[str, Any]] = []
+        named = [e for e in [*data.initiating_entities, *data.context_entities] if self.kb.node_exists(e)]
+        for e in data.initiating_entities:
+            if self.kb.node_exists(e):
+                self._add_node(nodes, e, EntityOrigin.SCENARIO)
+                edges[(event_node, e)] = EdgeSpec(
+                    event_node, e, RelationshipType.ASSOCIATED_WITH.value, 0, EdgeStatus.ASSUMED,
+                    RelationshipOrigin.SCENARIO, "Initiating entity named by the scenario definition.",
+                    combine(confidence=1.0, evidence=1.0, relevance=1.0, historical=None,
+                            historical_status="NOT_APPLICABLE", applicability=1.0, weights=self.weights,
+                            notes={"evidence_source": "scenario_definition"}),
+                    [EvidenceRef("SCENARIO_DEFINITION", reference=data.scenario_id)], traversable=False)
+            else:
+                excluded.append({"kind": "scenario_entity_not_in_kb", "entity_id": e})
+        primary: dict[str, int] = {}
+        for seed in data.seeds:
+            if not self.kb.node_exists(seed.node_id):
+                excluded.append({"kind": "seed_variable_not_in_kb", "node_id": seed.node_id})
+                continue
+            primary[seed.node_id] = seed.sign
+            self._add_node(nodes, seed.node_id, EntityOrigin.SCENARIO)
+            edges[(event_node, seed.node_id)] = EdgeSpec(
+                event_node, seed.node_id,
+                {1: RelationshipType.INCREASES, -1: RelationshipType.REDUCES}.get(seed.sign, RelationshipType.INFLUENCES).value,
+                seed.sign, EdgeStatus.ASSUMED, RelationshipOrigin.SCENARIO, seed.description,
+                combine(confidence=1.0, evidence=1.0, relevance=1.0, historical=None, historical_status="NOT_APPLICABLE",
+                        applicability=1.0, weights=self.weights,
+                        notes={"evidence_source": "user_assumption", "parameter": seed.parameter, "value": seed.value}),
+                [EvidenceRef("USER_ASSUMPTION", reference=f"{seed.parameter}={seed.value}", passage=seed.description)],
+                conditions={"parameter": seed.parameter, "value": seed.value, "unit": seed.unit})
+        ctx = EventContext(event_type=data.event_type,
+                           entity_ids=set(named) | {v for e in named if (v := self.kb.effect_variable(e))},
+                           primary_effects=primary)
+        return self._finish(event_node, nodes, edges, ctx, excluded)
+
+    def _finish(self, event_node: str, nodes: dict[str, NodeSpec], edges: dict[tuple[str, str], EdgeSpec],
+                ctx: EventContext, excluded: list[dict[str, Any]]) -> GraphBuild:
+        """Shared tail: event triggers, bounded KB expansion, pruning, stats."""
         # 3. event triggers
         for trig in self.kb.triggers:
             decision = evaluate_trigger(trig, ctx)
@@ -210,6 +282,7 @@ class GraphBuilder:
             "reported_edges": sum(1 for e in edges.values() if e.status == EdgeStatus.REPORTED and e.traversable),
             "unverified_edges": sum(1 for e in edges.values() if e.status == EdgeStatus.UNVERIFIED),
             "inferred_edges": sum(1 for e in edges.values() if e.status == EdgeStatus.INFERRED),
+            "assumed_edges": sum(1 for e in edges.values() if e.status == EdgeStatus.ASSUMED),
             "involvement_edges": sum(1 for e in edges.values() if not e.traversable),
             "asset_nodes": sum(1 for n in nodes if self.kb.is_asset(n)),
             "pruned_nodes": removed,
@@ -331,7 +404,7 @@ class GraphBuilder:
         while changed:
             changed = False
             for n in list(g.nodes):
-                if n == event_node or self.kb.is_asset(n) or nodes[n].origin == EntityOrigin.ARTICLE:
+                if n == event_node or self.kb.is_asset(n) or nodes[n].origin in (EntityOrigin.ARTICLE, EntityOrigin.SCENARIO):
                     continue
                 if not any(g.edges[n, t]["traversable"] for t in g.successors(n)):
                     for p in list(g.predecessors(n)):

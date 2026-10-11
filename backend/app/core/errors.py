@@ -62,6 +62,13 @@ class LLMOutputError(AppError):
     code = "llm_output_invalid"
 
 
+class InvalidRequestError(AppError):
+    """Request is well-formed JSON but semantically invalid (unknown parameter, out-of-range value...)."""
+
+    status_code = 422
+    code = "invalid_request"
+
+
 class ConflictError(AppError):
     status_code = 409
     code = "conflict"

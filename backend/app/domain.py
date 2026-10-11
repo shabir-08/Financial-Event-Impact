@@ -99,6 +99,7 @@ class EdgeStatus(StrEnum):
     OBSERVED = "OBSERVED"  # measured in market data
     INFERRED = "INFERRED"  # derived from the economic knowledge base
     UNVERIFIED = "UNVERIFIED"  # claimed by extraction but evidence could not be verified
+    ASSUMED = "ASSUMED"  # hypothetical shock supplied by a simulator user (not an observation)
 
 
 class RelationshipOrigin(StrEnum):
@@ -106,6 +107,7 @@ class RelationshipOrigin(StrEnum):
     KNOWLEDGE_BASE = "KNOWLEDGE_BASE"
     EVENT_TRIGGER = "EVENT_TRIGGER"
     MARKET_DATA = "MARKET_DATA"
+    SCENARIO = "SCENARIO"  # simulator scenario definition / user assumption
 
 
 class MoveDirection(StrEnum):
@@ -141,6 +143,7 @@ class NormalizationStatus(StrEnum):
 class EntityOrigin(StrEnum):
     ARTICLE = "ARTICLE"  # explicitly mentioned in a source article
     INFERRED = "INFERRED"  # introduced by economic inference
+    SCENARIO = "SCENARIO"  # named by a simulator scenario definition
 
 
 class ArticleStatus(StrEnum):

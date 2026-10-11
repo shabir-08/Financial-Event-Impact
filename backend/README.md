@@ -307,6 +307,36 @@ data, not instructions.
 validation), `FAILED` (with a structured error). `mode` is `LIVE` (real LLM) or `SIMULATED` (mock LLM
 and/or simulated articles).
 
+### 5.11 Black Swan simulator (`app/services/simulation/`)
+Hypothetical "what if" scenarios, kept separate from reported events (origin `SCENARIO`, edge status
+`ASSUMED`, `is_hypothetical: true`).
+
+* **Scenario catalog** — `data/simulation/scenarios.json`: 5 templates (oil supply shock, Middle East
+  crisis, US rate shock, US–China trade war, pandemic supply-chain shock) and a parameter registry with
+  units and the *accepted input range* (UI slider bounds). The loader fails if a scenario references a
+  node or analog event missing from the knowledge base. Requests are validated, never clamped.
+* **Graph** — `GraphBuilder.build_scenario` reuses the event pipeline: the user's shocks become
+  `ASSUMED` seed edges into knowledge-base variables, then the same trigger/expansion/pruning and
+  `PathAnalyzer` run. A shock's sign sets the direction (`oil -20%` flips every path). Serialised for 3D
+  with stable edge ids (`seed:…`, `involves:…`, KB rule ids) and a visual layer per node
+  (`data/simulation/visual_layers.json`: 1 global events/actors, 2 economic variables, 3 sectors and
+  sector conditions, 4 companies and markets). Layers are display metadata only.
+* **Predictions** — only from `data/models/scenario_conditional_v1.json` (exported by
+  `research/black_swan/pipeline/export_models.py`): a ridge model of 5-session returns for 18 Indian
+  assets given same-week moves in Brent, S&P 500, USD/INR, gold and the US 10Y. It is a *conditional
+  historical association*, not a forecast. Walk-forward MAE 2.62 vs 2.78 for a zero baseline. Intervals
+  are empirical out-of-sample residual quantiles. Statuses: `available`, `available_with_warnings`
+  (input in the outer 1% tails), `out_of_domain` (outside the training min/max: estimates are `null`,
+  graph still returned), `no_supported_inputs`, `model_unavailable`, `unsupported_horizon`. Model inputs
+  that you leave out are held at 0, and the response says so. `forecast_trailing_v1` is loaded but
+  reported as unusable for hypothetical shocks.
+* **Graph signal ≠ prediction** — each node has `graph_signal` (KB pathway direction, a support score)
+  and a separate `prediction` (model estimate, or a status explaining why there is none).
+* **Timeline** — `mode: "illustrative"`: stages group path nodes by layer; durations are `null`
+  because no reaction-time model is validated.
+* **Persistence** — `simulation_runs` table. Identical requests under the same model, KB and catalog
+  versions return the stored result (`cached: true`, same `simulation_id`).
+
 ---
 
 ## 6. API reference
@@ -334,6 +364,13 @@ Interactive documentation: `/docs` (Swagger) and `/redoc`. Errors always have th
 | GET | `/api/assets` | Asset catalog with provider symbols |
 | GET | `/api/assets/{asset_id}/history` | Daily bars + returns, gaps, freshness, availability status + limitation code |
 | GET | `/api/analysis/{id}` | Run status, steps, warnings, errors, explanation (`include_evidence_package=true` for the full package) |
+| GET | `/api/scenarios` | Simulator scenario templates: parameters, units, accepted range vs model-validated range |
+| GET | `/api/scenarios/{id}` | One scenario template |
+| GET | `/api/graph/3d` | Full knowledge graph + scenario nodes with layer metadata (frontend computes positions) |
+| POST | `/api/simulations` | Run a hypothetical scenario: graph, paths, model estimates (or status), timeline, warnings |
+| GET | `/api/simulations/{id}` | A stored simulation result |
+| GET | `/api/entities/{id}` | Node details: KB identity, relationships, listed instruments, model-target flag |
+| GET | `/api/entities/{id}/historical` | Observed daily bars for an asset / company's listed equity / variable's tracking instrument (UNAVAILABLE + reason otherwise) |
 
 Graph, path and evidence endpoints accept `analysis_id` to read a specific run; by default they use the
 event's latest run.
@@ -421,5 +458,10 @@ tests/                    unit / integration / api
   history. There is no licensed source for Indian G-Sec yields or Russian equities.
 * Event windows use daily closes. Intraday timing and differences between exchange calendars and
   publication times are approximated, as documented in §5.6.
+* **Simulator estimates** come from one linear model trained on 493 weeks (2016–2026). The gain over a
+  zero baseline is small (MAE 2.62 vs 2.78), it captures co-movement within the same week rather than
+  causation, and it has only a 5-trading-day horizon. Inflation and policy-rate parameters have no model
+  input, so they shape the graph only. 10 of the 18 model targets have no knowledge-graph node. They
+  appear only in `predictions.assets`.
 * Background jobs use FastAPI `BackgroundTasks` (in-process, not durable across restarts). Job status
   is persisted in `analysis_runs`, but a crashed process leaves runs in `RUNNING`.

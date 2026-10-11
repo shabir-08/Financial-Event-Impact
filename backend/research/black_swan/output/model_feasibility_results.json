@@ -1,0 +1,186 @@
+{
+  "experiment_A_event_level": {
+    "description": "Event-level ridge (lambda=5, standardised), Nifty 5d return on contemporaneous shocks; leave-one-validation-group-out",
+    "n_events": 50,
+    "n_validation_groups": 26,
+    "features": [
+      "brent_shock_5d_pct",
+      "ust10y_shock_5d_bp",
+      "sp500_shock_1d_pct",
+      "nifty_realized_vol_20d_pre_ann_pct"
+    ],
+    "model": {
+      "n": 50,
+      "MAE": 4.0606,
+      "RMSE": 5.8242,
+      "directional_accuracy": 0.52
+    },
+    "baseline_zero": {
+      "n": 50,
+      "MAE": 3.5819,
+      "RMSE": 5.4401,
+      "directional_accuracy": 0.0
+    },
+    "baseline_train_mean": {
+      "n": 50,
+      "MAE": 3.7846,
+      "RMSE": 5.5052,
+      "directional_accuracy": 0.52
+    },
+    "full_sample_coefficients_per_1sd": {
+      "intercept": -1.205,
+      "brent_shock_5d_pct": 1.3235,
+      "ust10y_shock_5d_bp": -0.5954,
+      "sp500_shock_1d_pct": 2.5451,
+      "nifty_realized_vol_20d_pre_ann_pct": 0.2461
+    },
+    "caveat": "Shocks are contemporaneous (scenario inputs), so this measures conditional association, not forecasting skill."
+  },
+  "experiment_B1_daily_predictive": {
+    "description": "Daily walk-forward ridge: Nifty return on day t using only information available before the Indian open (US/London/NY-noon data dated t-1, Nifty t-1). Train on all prior years, test each year.",
+    "features": [
+      "sp_prev",
+      "brent_prev",
+      "inr_prev",
+      "vix_prev",
+      "r_prev"
+    ],
+    "test_years": [
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024",
+      "2025",
+      "2026"
+    ],
+    "per_year": {
+      "2019": {
+        "n": 241,
+        "MAE": 0.65,
+        "RMSE": 0.896,
+        "directional_accuracy": 0.556
+      },
+      "2020": {
+        "n": 250,
+        "MAE": 1.1909,
+        "RMSE": 1.9449,
+        "directional_accuracy": 0.628
+      },
+      "2021": {
+        "n": 248,
+        "MAE": 0.7519,
+        "RMSE": 1.0218,
+        "directional_accuracy": 0.5242
+      },
+      "2022": {
+        "n": 248,
+        "MAE": 0.7747,
+        "RMSE": 1.0132,
+        "directional_accuracy": 0.6452
+      },
+      "2023": {
+        "n": 245,
+        "MAE": 0.466,
+        "RMSE": 0.5909,
+        "directional_accuracy": 0.551
+      },
+      "2024": {
+        "n": 246,
+        "MAE": 0.6134,
+        "RMSE": 0.8765,
+        "directional_accuracy": 0.5714
+      },
+      "2025": {
+        "n": 248,
+        "MAE": 0.5737,
+        "RMSE": 0.774,
+        "directional_accuracy": 0.496
+      },
+      "2026": {
+        "n": 190,
+        "MAE": 0.6757,
+        "RMSE": 0.8803,
+        "directional_accuracy": 0.5947
+      }
+    },
+    "model_all_test": {
+      "n": 1916,
+      "MAE": 0.7144,
+      "RMSE": 1.0771,
+      "directional_accuracy": 0.5702
+    },
+    "baseline_zero": {
+      "n": 1916,
+      "MAE": 0.7258,
+      "RMSE": 1.0919,
+      "directional_accuracy": 0.0
+    },
+    "baseline_train_mean": {
+      "n": 1916,
+      "MAE": 0.7238,
+      "RMSE": 1.0912,
+      "directional_accuracy": 0.5373
+    },
+    "full_sample_coefficients_per_1sd": {
+      "intercept": 0.0442,
+      "sp_prev": 0.3688,
+      "brent_prev": -0.042,
+      "inr_prev": -0.0556,
+      "vix_prev": 0.0916,
+      "r_prev": -0.1201
+    },
+    "note": "October 2026 is incomplete (data to 2026-10-09)."
+  },
+  "experiment_B2_weekly_scenario_sensitivity": {
+    "description": "Walk-forward ridge on non-overlapping 5-session blocks: Nifty 5d return vs contemporaneous Brent, S&P 500, USD/INR (%) and US10Y (bp) changes. A scenario-sensitivity model, not a forecaster.",
+    "n_blocks": 493,
+    "n_test_blocks": 382,
+    "features": [
+      "brent",
+      "sp",
+      "inr",
+      "ust"
+    ],
+    "model_all_test": {
+      "n": 382,
+      "MAE": 1.3765,
+      "RMSE": 1.869,
+      "directional_accuracy": 0.678
+    },
+    "baseline_zero": {
+      "n": 382,
+      "MAE": 1.6467,
+      "RMSE": 2.2571,
+      "directional_accuracy": 0.0
+    },
+    "out_of_sample_R2": 0.3077,
+    "model_event_blocks": {
+      "n": 42,
+      "MAE": 2.0934,
+      "RMSE": 2.8721,
+      "directional_accuracy": 0.7381
+    },
+    "model_non_event_blocks": {
+      "n": 340,
+      "MAE": 1.288,
+      "RMSE": 1.7045,
+      "directional_accuracy": 0.6706
+    },
+    "full_sample_coefficients_per_1sd": {
+      "intercept": 0.2157,
+      "brent": -0.0084,
+      "sp": 0.917,
+      "inr": -0.7089,
+      "ust": 0.0002
+    },
+    "feature_sd_full_sample": {
+      "brent": 6.1911,
+      "sp": 2.3373,
+      "inr": 0.6719,
+      "ust": 11.8602
+    }
+  },
+  "data_end": "2026-10-09"
+}

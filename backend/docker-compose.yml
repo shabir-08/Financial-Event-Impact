@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: fig-postgres
+    environment:
+      POSTGRES_USER: fig
+      POSTGRES_PASSWORD: fig
+      POSTGRES_DB: financial_impact_graph
+    ports:
+      - "5433:5432"
+    volumes:
+      - fig-pgdata:/var/lib/postgresql/data
+      - ./scripts/init-test-db.sql:/docker-entrypoint-initdb.d/init-test-db.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U fig -d financial_impact_graph"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  fig-pgdata:

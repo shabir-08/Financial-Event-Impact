@@ -1,0 +1,12 @@
+{
+  "_comment": "Heuristic source-quality tiers by domain (0-1). Unknown domains are NOT scored zero: they get the neutral default and are flagged as unassessed. These tiers are editorial judgements, not a measured reliability metric.",
+  "default_unassessed": 0.6,
+  "tiers": {
+    "reuters.com": 0.9, "bloomberg.com": 0.9, "ft.com": 0.9, "wsj.com": 0.9, "apnews.com": 0.85,
+    "cnbc.com": 0.8, "economictimes.indiatimes.com": 0.8, "livemint.com": 0.8, "business-standard.com": 0.8,
+    "thehindubusinessline.com": 0.8, "moneycontrol.com": 0.75, "financialexpress.com": 0.75, "marketwatch.com": 0.75,
+    "nytimes.com": 0.8, "theguardian.com": 0.75, "bbc.co.uk": 0.8, "bbc.com": 0.8, "scmp.com": 0.75, "caixinglobal.com": 0.75,
+    "timesofisrael.com": 0.7, "haaretz.com": 0.7, "globes.co.il": 0.75, "themoscowtimes.com": 0.7, "interfax.com": 0.7,
+    "federalreserve.gov": 0.95, "rbi.org.in": 0.95, "opec.org": 0.9, "ustr.gov": 0.95, "treasury.gov": 0.95
+  }
+}

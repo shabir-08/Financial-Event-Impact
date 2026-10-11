@@ -1,0 +1,29 @@
+{
+  "_comment": "Event-level rules: connect an event of a given type, involving given entities, to a variable even when the article does not name that variable. sign_source FIXED uses effect_sign; PRIMARY_EFFECT uses the direction the article reported for primary_effect_variable (unknown -> context-dependent).",
+  "triggers": [
+    {"id": "kb.trigger.us_china_tariffs", "event_types": ["TARIFF_TRADE"], "requires_entities_all": ["country:us", "country:china"],
+     "target": "variable:us_tariffs_on_china", "relationship_type": "INCREASES", "sign_source": "FIXED", "effect_sign": 1,
+     "mechanism": "The reported tariff action changes the US tariff rate applied to Chinese goods.", "reliability": 0.8, "economic_relevance": 0.9,
+     "note": "Assumes the action raises tariffs; a reported tariff cut/rollback is handled via the article's primary effect instead."},
+    {"id": "kb.trigger.middle_east_conflict", "event_types": ["WAR_CONFLICT", "GEOPOLITICAL"], "requires_entities_any": ["region:middle_east", "country:israel", "country:iran", "country:saudi_arabia", "region:red_sea"],
+     "target": "variable:middle_east_geopolitical_risk", "relationship_type": "INCREASES", "sign_source": "FIXED", "effect_sign": 1,
+     "mechanism": "Conflict or escalation in the region raises perceived geopolitical risk.", "reliability": 0.7, "economic_relevance": 0.8,
+     "note": "De-escalation news would reverse the sign; the article's primary effect overrides this trigger when present."},
+    {"id": "kb.trigger.red_sea_shipping", "event_types": ["WAR_CONFLICT", "GEOPOLITICAL", "SUPPLY_CHAIN"], "requires_entities_any": ["region:red_sea", "sector:shipping"],
+     "target": "variable:shipping_route_disruption", "relationship_type": "INCREASES", "sign_source": "FIXED", "effect_sign": 1,
+     "mechanism": "Attacks or threats near key chokepoints disrupt shipping routes.", "reliability": 0.65, "economic_relevance": 0.7, "note": ""},
+    {"id": "kb.trigger.russia_sanctions", "event_types": ["SANCTIONS"], "requires_entities_any": ["country:russia"],
+     "target": "variable:sanctions_on_russia", "relationship_type": "INCREASES", "sign_source": "FIXED", "effect_sign": 1,
+     "mechanism": "New sanctions increase restrictions on Russian trade and finance.", "reliability": 0.75, "economic_relevance": 0.85,
+     "note": "Sanctions relief would reverse the sign."},
+    {"id": "kb.trigger.fed_decision", "event_types": ["INTEREST_RATE_CHANGE", "MONETARY_POLICY"], "requires_entities_any": ["institution:fed"],
+     "target": "variable:us_policy_rate", "relationship_type": "INFLUENCES", "sign_source": "PRIMARY_EFFECT", "primary_effect_variable": "variable:us_policy_rate",
+     "mechanism": "The Federal Reserve sets the federal funds target range.", "reliability": 0.9, "economic_relevance": 0.9, "note": ""},
+    {"id": "kb.trigger.rbi_decision", "event_types": ["INTEREST_RATE_CHANGE", "MONETARY_POLICY"], "requires_entities_any": ["institution:rbi"],
+     "target": "variable:india_policy_rate", "relationship_type": "INFLUENCES", "sign_source": "PRIMARY_EFFECT", "primary_effect_variable": "variable:india_policy_rate",
+     "mechanism": "The RBI Monetary Policy Committee sets the repo rate.", "reliability": 0.9, "economic_relevance": 0.9, "note": ""},
+    {"id": "kb.trigger.opec_decision", "event_types": ["ENERGY_SUPPLY", "COMMODITY_PRICE_CHANGE"], "requires_entities_any": ["institution:opec_plus"],
+     "target": "variable:opec_production", "relationship_type": "INFLUENCES", "sign_source": "PRIMARY_EFFECT", "primary_effect_variable": "variable:opec_production",
+     "mechanism": "OPEC+ sets production quotas for member states.", "reliability": 0.8, "economic_relevance": 0.85, "note": ""}
+  ]
+}

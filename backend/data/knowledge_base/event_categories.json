@@ -1,0 +1,29 @@
+{
+  "_comment": "Category metadata used by the stage-1 pre-filter and by the mock LLM classifier. Adding a category = add an EventType enum value + an entry here; no pipeline changes needed.",
+  "categories": {
+    "MONETARY_POLICY": {"keywords": ["central bank", "monetary policy", "policy meeting", "quantitative", "balance sheet", "liquidity", "forward guidance", "hawkish", "dovish"]},
+    "INTEREST_RATE_CHANGE": {"keywords": ["rate hike", "rate cut", "raises rates", "cuts rates", "raised rates", "cut rates", "interest rate", "repo rate", "federal funds", "basis points", "bps", "holds rates", "kept rates"]},
+    "INFLATION": {"keywords": ["inflation", "cpi", "consumer prices", "price index", "wholesale prices", "wpi"]},
+    "GDP_GROWTH": {"keywords": ["gdp", "economic growth", "recession", "contraction", "growth forecast", "output grew"]},
+    "EMPLOYMENT": {"keywords": ["payrolls", "unemployment", "jobless", "jobs report", "labor market", "labour market", "hiring"]},
+    "COMMODITY_PRICE_CHANGE": {"keywords": ["crude", "oil prices", "brent", "wti", "gold prices", "commodity", "natural gas prices", "copper", "wheat", "surged", "slumped", "per barrel"]},
+    "ENERGY_SUPPLY": {"keywords": ["opec", "output cut", "production cut", "oil supply", "refinery", "pipeline", "lng", "barrels per day", "bpd"]},
+    "GEOPOLITICAL": {"keywords": ["tensions", "diplomatic", "escalation", "geopolitical", "strait of hormuz", "red sea", "ceasefire", "summit"]},
+    "WAR_CONFLICT": {"keywords": ["war", "invasion", "missile", "drone attack", "airstrike", "military", "conflict", "attack on"]},
+    "SANCTIONS": {"keywords": ["sanction", "embargo", "price cap", "blacklist", "export ban", "asset freeze"]},
+    "TARIFF_TRADE": {"keywords": ["tariff", "duties", "trade war", "import tax", "trade deal", "anti-dumping", "export controls", "trade restrictions"]},
+    "SUPPLY_CHAIN": {"keywords": ["supply chain", "shortage", "port congestion", "shipping disruption", "chip shortage", "logistics"]},
+    "CORPORATE_EARNINGS": {"keywords": ["quarterly results", "earnings", "net profit", "revenue", "q1", "q2", "q3", "q4", "eps", "guidance"]},
+    "MERGER_ACQUISITION": {"keywords": ["acquire", "acquisition", "merger", "takeover", "buyout", "stake purchase", "deal valued"]},
+    "CORPORATE_ANNOUNCEMENT": {"keywords": ["announced", "launch", "ceo", "layoffs", "buyback", "dividend", "capex", "expansion plan"]},
+    "BANKING_CREDIT": {"keywords": ["bank", "credit", "loan", "default", "npa", "bad loans", "deposit", "liquidity crunch", "bank failure"]},
+    "GOVERNMENT_POLICY": {"keywords": ["budget", "fiscal", "subsidy", "government", "excise duty", "windfall tax", "stimulus", "policy"]},
+    "FINANCIAL_REGULATION": {"keywords": ["regulator", "sebi", "sec ", "regulation", "rules", "compliance", "capital requirements", "basel"]},
+    "SOVEREIGN_DEBT": {"keywords": ["sovereign", "bond auction", "debt ceiling", "credit rating", "downgrade", "default on debt", "imf"]},
+    "CURRENCY_MARKET": {"keywords": ["rupee", "dollar", "yuan", "currency", "forex", "exchange rate", "depreciat", "appreciat", "shekel", "rouble", "ruble"]},
+    "MARKET_DISRUPTION": {"keywords": ["circuit breaker", "trading halt", "flash crash", "outage", "sell-off", "selloff", "market rout"]},
+    "OTHER": {"keywords": []}
+  },
+  "financial_terms": ["interest", "basis points", "federal reserve", "central bank", "tariff", "yields", "crude", "market", "stocks", "shares", "investors", "prices", "economy", "economic", "trade", "bank", "rate", "inflation", "oil", "currency", "bond", "yield", "index", "exports", "imports", "revenue", "profit"],
+  "noise_terms": ["cricket", "bollywood", "celebrity", "recipe", "horoscope", "football", "movie review", "fashion week"]
+}

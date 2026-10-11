@@ -80,13 +80,15 @@ class ArticleOut(ORM):
     is_simulated: bool
     input_origin: str
     error: dict[str, Any] | None = None
+    image_url: str | None = None
 
 
 class IngestRequest(BaseModel):
-    provider: Literal["gdelt", "finnhub", "fixture"] | None = Field(
+    provider: Literal["gdelt", "finnhub", "fixture", "rss"] | None = Field(
         None, description="Override NEWS_PROVIDER for this call. 'fixture' loads SIMULATED demo articles.")
     query: str | None = Field(None, max_length=500)
     limit: int = Field(25, ge=1, le=100)
+    feeds: list[str] | None = Field(None, max_length=50, description="provider=rss only: feed keys to read (GET /api/articles/news-sources); default all")
     process: bool = Field(False, description="Run event detection on newly inserted articles (background).")
     analyze: bool = Field(True, description="When processing, also run full impact analysis for detected events.")
 
@@ -100,6 +102,7 @@ class IngestResponse(BaseModel):
     invalid: int
     article_ids: list[str]
     processing: Literal["not_requested", "scheduled"]
+    notes: list[str] = []
 
 
 class ProcessArticleResponse(BaseModel):
@@ -112,6 +115,17 @@ class ProcessArticleResponse(BaseModel):
 
 
 # --------------------------------------------------------------------- events
+class LeadArticle(BaseModel):
+    article_id: str
+    headline: str
+    source_name: str | None
+    url: str | None
+    published_at: datetime | None
+    image_url: str | None
+    provider: str
+    is_simulated: bool
+
+
 class EventSummary(ORM):
     id: str
     event_type: str
@@ -125,6 +139,7 @@ class EventSummary(ORM):
     is_simulated: bool
     latest_analysis_id: str | None
     created_at: datetime
+    lead_article: LeadArticle | None = None
 
 
 class EventArticleOut(BaseModel):

@@ -36,6 +36,8 @@ class FetchResult(BaseModel):
     #: Raw items the adapter could not normalise (missing headline, malformed fields...).
     invalid_count: int = 0
     query: str | None = None
+    #: Non-fatal problems, e.g. one RSS feed of several failed.
+    notes: list[str] = []
 
 
 class NewsProvider(Protocol):

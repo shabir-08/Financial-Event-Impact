@@ -7,10 +7,10 @@ from __future__ import annotations
 
 from functools import lru_cache
 from pathlib import Path
-from typing import Literal
+from typing import Annotated, Literal
 
 from pydantic import Field, SecretStr, field_validator, model_validator
-from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic_settings import BaseSettings, NoDecode, SettingsConfigDict
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 DATA_DIR = PROJECT_ROOT / "data"
@@ -63,8 +63,10 @@ class Settings(BaseSettings):
     # OpenAI-compatible providers (Gemini, Groq, xAI Grok, Ollama) - one adapter, per-provider settings.
     gemini_api_key: SecretStr | None = None
     gemini_model: str = "gemini-2.5-flash"
+    #: Gemini 2.5 "thinking" tokens count against max_tokens; low effort keeps long JSON outputs from truncating.
+    gemini_reasoning_effort: Literal["none", "low", "medium", "high"] | None = "low"
     groq_api_key: SecretStr | None = None
-    groq_model: str = "llama-3.3-70b-versatile"
+    groq_model: str = "openai/gpt-oss-120b"
     xai_api_key: SecretStr | None = None
     xai_model: str = ""  # no default: set the Grok model your account has access to
     ollama_base_url: str = "http://localhost:11434/v1"
@@ -75,13 +77,26 @@ class Settings(BaseSettings):
     llm_http_max_retries: int = 1
 
     # Fallback chain (LLM_PROVIDER=fallback): tried in order; members without credentials are skipped.
-    llm_fallback_chain: list[str] = ["gemini", "groq"]
+    # NoDecode: env values are comma-separated strings (parsed by the validator below), not JSON.
+    llm_fallback_chain: Annotated[list[str], NoDecode] = ["gemini", "groq"]
     #: After a rate limit / outage, skip that provider for this many seconds.
     llm_fallback_cooldown_seconds: float = 60.0
+    #: When all providers are rate-limited, wait up to this long in total for one to recover (0 = fail at once).
+    llm_fallback_max_wait_seconds: float = Field(default=90.0, ge=0, le=600)
 
     # --- News ----------------------------------------------------------------
-    news_provider: Literal["gdelt", "finnhub", "fixture"] = "gdelt"
+    news_provider: Literal["gdelt", "finnhub", "fixture", "rss"] = "gdelt"
     finnhub_api_key: SecretStr | None = None
+    #: Publisher RSS/Atom feeds, "key|Display name|https://url" (comma-separated in .env). No API key needed.
+    rss_feeds: Annotated[list[str], NoDecode] = [
+        "hindustan_times_india|Hindustan Times - India|https://www.hindustantimes.com/feeds/rss/india-news/rssfeed.xml",
+        "hindustan_times_business|Hindustan Times - Business|https://www.hindustantimes.com/feeds/rss/business/rssfeed.xml",
+        "economic_times_markets|Economic Times - Markets|https://economictimes.indiatimes.com/markets/rssfeeds/1977021501.cms",
+        "livemint_markets|Mint - Markets|https://www.livemint.com/rss/markets",
+        "bbc_business|BBC News - Business|https://feeds.bbci.co.uk/news/business/rss.xml",
+        "bbc_world|BBC News - World|https://feeds.bbci.co.uk/news/world/rss.xml",
+        "bloomberg_markets|Bloomberg - Markets|https://feeds.bloomberg.com/markets/news.rss",
+    ]
     gdelt_default_query: str = (
         '(oil OR tariff OR "interest rate" OR inflation OR sanctions OR rupee OR "central bank")'
         " sourcelang:english"
@@ -105,7 +120,7 @@ class Settings(BaseSettings):
     path_max_per_asset: int = Field(default=5, ge=1, le=50)
     path_length_decay: float = Field(default=0.9, gt=0, le=1)
     market_max_assets: int = Field(default=8, ge=0, le=50)
-    market_event_windows: list[int] = [1, 3, 5, 20]
+    market_event_windows: Annotated[list[int], NoDecode] = [1, 3, 5, 20]
     historical_min_comparisons: int = Field(default=2, ge=1)
     historical_max_comparisons: int = Field(default=5, ge=1)
 
@@ -115,6 +130,25 @@ class Settings(BaseSettings):
     simulation_model_dir: Path = DATA_DIR / "models"
     simulation_scenario_model_id: str = "scenario_conditional_v1"
     simulation_forecast_model_id: str = "forecast_trailing_v1"
+    pattern_library_file: Path = DATA_DIR / "patterns" / "pattern_library_v1.json"
+
+    # --- Browser access (CORS) -----------------------------------------------------
+    #: Comma-separated origins allowed to call the API from a browser (the Vite dev server by default).
+    cors_allowed_origins: Annotated[list[str], NoDecode] = ["http://localhost:5173", "http://127.0.0.1:5173"]
+
+    @field_validator("rss_feeds", mode="before")
+    @classmethod
+    def _parse_feeds(cls, v: object) -> object:
+        if isinstance(v, str):
+            return [x.strip() for x in v.split(",") if x.strip()]
+        return v
+
+    @field_validator("cors_allowed_origins", mode="before")
+    @classmethod
+    def _parse_origins(cls, v: object) -> object:
+        if isinstance(v, str):
+            return [x.strip().rstrip("/") for x in v.split(",") if x.strip()]
+        return v
 
     @field_validator("llm_fallback_chain", mode="before")
     @classmethod

@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from typing import Any
 
 from app.core.errors import AppError
+from app.services.explanations.evidence_package import compact_for_llm
 from app.services.explanations.validation import sanitize, validate_explanation
 from app.services.llm.base import LLMProvider
 
@@ -21,7 +22,9 @@ class ExplanationOutcome:
     fallback_trail: list | None = None
 
 
-async def explain(llm: LLMProvider, package: dict[str, Any]) -> ExplanationOutcome:
+async def explain(llm: LLMProvider, full_package: dict[str, Any]) -> ExplanationOutcome:
+    # The model sees (and is validated against) the compact package; the full package is stored by the caller.
+    package = compact_for_llm(full_package)
     feedback = None
     issues: list[str] = []
     for attempt in (1, 2):

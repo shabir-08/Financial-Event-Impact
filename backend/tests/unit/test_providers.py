@@ -130,3 +130,39 @@ class TestMarketProviders:
     def test_alphavantage_requires_key(self):
         with pytest.raises(ConfigurationError):
             AlphaVantageProvider(S(market_data_api_key=None))
+
+
+@respx.mock
+async def test_gdelt_429_without_retry_after_respects_5_second_rule(settings, monkeypatch):
+    """GDELT allows one request per 5 s and sends no Retry-After: never burst retries (it prolongs the throttle)."""
+    import app.services.http as http_mod
+    import app.services.news.gdelt as gd
+
+    sleeps: list[float] = []
+
+    async def fake_sleep(s):
+        sleeps.append(s)
+
+    monkeypatch.setattr(http_mod.asyncio, "sleep", fake_sleep)
+    monkeypatch.setattr(gd.asyncio, "sleep", fake_sleep)
+    monkeypatch.setattr(gd, "_gdelt_last_request", 0.0)
+    route = respx.get(GDELT_URL).mock(return_value=httpx.Response(429, text="Please limit requests to one every 5 seconds"))
+    s = settings.model_copy(update={"http_max_retries": 3, "http_backoff_seconds": 0.0})
+    with pytest.raises(RateLimitedError):
+        await GDELTNewsProvider(s).fetch(query="oil", limit=5)
+    assert route.call_count == 2  # one request + at most one retry
+    assert any(x >= gd.GDELT_MIN_INTERVAL_SECONDS for x in sleeps)  # spaced by >= the documented interval
+
+
+async def test_gdelt_requests_are_spaced_process_wide(monkeypatch):
+    import app.services.news.gdelt as gd
+
+    sleeps: list[float] = []
+
+    async def fake_sleep(s):
+        sleeps.append(s)
+
+    monkeypatch.setattr(gd.asyncio, "sleep", fake_sleep)
+    monkeypatch.setattr(gd, "_gdelt_last_request", gd.time.monotonic())
+    await gd._gdelt_spacing()  # immediately after a request -> must wait almost the full interval
+    assert sleeps and sleeps[0] > gd.GDELT_MIN_INTERVAL_SECONDS - 1

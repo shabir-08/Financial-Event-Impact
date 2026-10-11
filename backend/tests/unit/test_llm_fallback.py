@@ -170,3 +170,75 @@ class TestFallbackChain:
         assert {s["provider"] for s in p.skipped} == {"gemini", "xai"}
         with pytest.raises(ConfigurationError):
             build_llm_provider(S(llm_provider="fallback", gemini_api_key=None, groq_api_key=None), kb)
+
+
+def test_list_settings_accept_comma_separated_env(monkeypatch):
+    """LLM_FALLBACK_CHAIN / CORS_ALLOWED_ORIGINS are documented as comma-separated env values."""
+    from app.core.config import Settings
+
+    monkeypatch.setenv("LLM_FALLBACK_CHAIN", "groq, gemini")
+    monkeypatch.setenv("CORS_ALLOWED_ORIGINS", "http://localhost:5199, https://app.example/")
+    s = Settings(_env_file=None)
+    assert s.llm_fallback_chain == ["groq", "gemini"]
+    assert s.cors_allowed_origins == ["http://localhost:5199", "https://app.example"]
+
+
+def test_env_example_loads_without_errors(tmp_path):
+    """A .env copied from .env.example must load (list settings are comma-separated there)."""
+    from pathlib import Path
+
+    from app.core.config import Settings
+
+    env = tmp_path / ".env"
+    env.write_text((Path(__file__).resolve().parents[2] / ".env.example").read_text(encoding="utf-8"), encoding="utf-8")
+    s = Settings(_env_file=env)
+    assert s.market_event_windows == [1, 3, 5, 20] and s.llm_fallback_chain == ["gemini", "groq"]
+
+
+class FlakyStub(Stub):
+    """Rate-limited for the first `fail_times` calls, then succeeds."""
+
+    def __init__(self, name, fail_times):
+        super().__init__(name)
+        self.fail_times = fail_times
+
+    async def extract_entities(self, article, event):
+        self.calls += 1
+        if self.calls <= self.fail_times:
+            raise RateLimitedError(f"{self.name} rate limit exceeded", provider=self.name, retryable=True)
+        return LLMResult[EntityExtraction](output=EntityExtraction(entities=[]), provider=self.name,
+                                           model=self.model, simulated=False)
+
+
+class TestWaitForRateLimits:
+    async def _chain(self, providers, max_wait):
+        from app.schemas.llm import EventClassification
+
+        clock, slept = Clock(), []
+
+        async def fake_sleep(s):
+            slept.append(s)
+            clock.t += s
+
+        chain = FallbackLLMProvider(providers, cooldown_seconds=60, clock=clock, max_wait_seconds=max_wait, sleep=fake_sleep)
+        return chain, slept, EventClassification(**VALID)
+
+    async def test_waits_when_all_rate_limited_then_succeeds(self):
+        gem, groq = FlakyStub("gemini", 1), FlakyStub("groq", 1)
+        chain, slept, ev = await self._chain([gem, groq], max_wait=90)
+        r = await chain.extract_entities(ART, ev)
+        assert r.provider == "gemini" and slept and 55 <= slept[0] <= 62  # waited for the 60 s cooldown
+        assert any(t["outcome"] == "waited_for_rate_limit" for t in r.fallback_trail)
+
+    async def test_no_wait_for_non_rate_limit_failures(self):
+        chain, slept, ev = await self._chain([Stub("gemini", ProviderError("down", provider="gemini")),
+                                              Stub("groq", LLMOutputError("bad json"))], max_wait=90)
+        with pytest.raises(ProviderError):
+            await chain.extract_entities(ART, ev)
+        assert slept == []
+
+    async def test_wait_is_capped(self):
+        chain, slept, ev = await self._chain([FlakyStub("gemini", 99), FlakyStub("groq", 99)], max_wait=30)
+        with pytest.raises(ProviderError) as ei:
+            await chain.extract_entities(ART, ev)
+        assert slept == [] and ei.value.details["attempts"]  # 60 s cooldown > 30 s cap -> fail without waiting

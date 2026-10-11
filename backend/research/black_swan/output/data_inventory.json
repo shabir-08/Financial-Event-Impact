@@ -1,0 +1,2878 @@
+{
+ "generated_at_utc": "2026-10-11T15:41:58+00:00",
+ "baseline": {
+  "path": "research/black_swan/output/model_training_final.csv",
+  "sha256": "4cc595053b894f8d655ad224978310c06069d53cb527bb32a58bc06642208b7e",
+  "shape": [
+   493,
+   39
+  ],
+  "columns": [
+   "week_start",
+   "week_end",
+   "split",
+   "cv_group",
+   "x_brent_5d_ret_pct",
+   "x_sp500_5d_ret_pct",
+   "x_usdinr_5d_ret_pct",
+   "x_gold_5d_ret_pct",
+   "x_ust10y_5d_chg_bp",
+   "x_vix_level_at_start",
+   "x_nifty_prev_20d_ret_pct",
+   "x_nifty_prev_20d_vol_ann_pct",
+   "x_is_event",
+   "x_event_geopolitical",
+   "x_event_macro_policy",
+   "x_event_financial_crisis",
+   "x_event_commodity_supply",
+   "x_event_other_shock",
+   "y_nifty50_5d_ret_pct",
+   "y_niftybank_5d_ret_pct",
+   "y_niftyit_5d_ret_pct",
+   "y_niftypharma_5d_ret_pct",
+   "y_ongc_5d_ret_pct",
+   "y_ioc_5d_ret_pct",
+   "y_bpcl_5d_ret_pct",
+   "y_reliance_5d_ret_pct",
+   "y_indigo_5d_ret_pct",
+   "y_asianpaint_5d_ret_pct",
+   "y_sbin_5d_ret_pct",
+   "y_icicibank_5d_ret_pct",
+   "y_hdfcbank_5d_ret_pct",
+   "y_tcs_5d_ret_pct",
+   "y_infy_5d_ret_pct",
+   "y_lt_5d_ret_pct",
+   "y_hindalco_5d_ret_pct",
+   "y_sunpharma_5d_ret_pct",
+   "regime",
+   "event_ids",
+   "known_event_ids"
+  ],
+  "features": [
+   "x_brent_5d_ret_pct",
+   "x_sp500_5d_ret_pct",
+   "x_usdinr_5d_ret_pct",
+   "x_gold_5d_ret_pct",
+   "x_ust10y_5d_chg_bp",
+   "x_vix_level_at_start",
+   "x_nifty_prev_20d_ret_pct",
+   "x_nifty_prev_20d_vol_ann_pct",
+   "x_is_event",
+   "x_event_geopolitical",
+   "x_event_macro_policy",
+   "x_event_financial_crisis",
+   "x_event_commodity_supply",
+   "x_event_other_shock"
+  ],
+  "targets": [
+   "y_nifty50_5d_ret_pct",
+   "y_niftybank_5d_ret_pct",
+   "y_niftyit_5d_ret_pct",
+   "y_niftypharma_5d_ret_pct",
+   "y_ongc_5d_ret_pct",
+   "y_ioc_5d_ret_pct",
+   "y_bpcl_5d_ret_pct",
+   "y_reliance_5d_ret_pct",
+   "y_indigo_5d_ret_pct",
+   "y_asianpaint_5d_ret_pct",
+   "y_sbin_5d_ret_pct",
+   "y_icicibank_5d_ret_pct",
+   "y_hdfcbank_5d_ret_pct",
+   "y_tcs_5d_ret_pct",
+   "y_infy_5d_ret_pct",
+   "y_lt_5d_ret_pct",
+   "y_hindalco_5d_ret_pct",
+   "y_sunpharma_5d_ret_pct"
+  ],
+  "split": {
+   "train": 308,
+   "test": 185
+  },
+  "evaluation_test_mae": {
+   "zero_baseline": 2.3503,
+   "train_mean_baseline": 2.3394,
+   "ridge": 2.3399,
+   "random_forest": 2.3412,
+   "xgboost": 2.379
+  },
+  "evaluation_source": "output/model_selection/model_selection_summary.json",
+  "selected_model": "ridge"
+ },
+ "model_artifacts": {
+  "forecast_trailing_v1.json": {
+   "sha256": "ffaef70234b6dc41a25bd88585ce919930fbff4921a39ce7f6983ea2801e9d41",
+   "model_version": "forecast_trailing_v1+4cc595053b89"
+  },
+  "forecast_trailing_v2.json": {
+   "sha256": "154b2061f2fe7e21cb9b5a4584dcad22424280725d1a1fa2ccfe06e5192bcd26",
+   "model_version": "forecast_trailing_v2+4cc595053b89"
+  },
+  "scenario_conditional_v1.json": {
+   "sha256": "82179fefa955a0dbff23afcd125105b8180d7e1e5e66588c59f0aaf9933766c2",
+   "model_version": "scenario_conditional_v1+4cc595053b89"
+  }
+ },
+ "raw_manifest": {
+  "NIFTY50": {
+   "status": "RETRIEVED",
+   "rows": 2733,
+   "first": "2015-09-01",
+   "last": "2026-10-09",
+   "retrieved_at_utc": "2026-10-11T08:10:45+00:00"
+  },
+  "NIFTYBANK": {
+   "status": "RETRIEVED",
+   "rows": 2737,
+   "first": "2015-09-01",
+   "last": "2026-10-09",
+   "retrieved_at_utc": "2026-10-11T08:10:47+00:00"
+  },
+  "NIFTYIT": {
+   "status": "RETRIEVED",
+   "rows": 2737,
+   "first": "2015-09-01",
+   "last": "2026-10-09",
+   "retrieved_at_utc": "2026-10-11T08:10:49+00:00"
+  },
+  "NIFTYPHARMA": {
+   "status": "RETRIEVED",
+   "rows": 2736,
+   "first": "2015-09-01",
+   "last": "2026-10-09",
+   "retrieved_at_utc": "2026-10-11T08:10:51+00:00"
+  },
+  "ONGC": {
+   "status": "RETRIEVED",
+   "rows": 2738,
+   "first": "2015-09-01",
+   "last": "2026-10-09",
+   "retrieved_at_utc": "2026-10-11T08:10:53+00:00"
+  },
+  "IOC": {
+   "status": "RETRIEVED",
+   "rows": 2738,
+   "first": "2015-09-01",
+   "last": "2026-10-09",
+   "retrieved_at_utc": "2026-10-11T08:10:55+00:00"
+  },
+  "BPCL": {
+   "status": "RETRIEVED",
+   "rows": 2738,
+   "first": "2015-09-01",
+   "last": "2026-10-09",
+   "retrieved_at_utc": "2026-10-11T08:10:58+00:00"
+  },
+  "RELIANCE": {
+   "status": "RETRIEVED",
+   "rows": 2738,
+   "first": "2015-09-01",
+   "last": "2026-10-09",
+   "retrieved_at_utc": "2026-10-11T08:11:00+00:00"
+  },
+  "INDIGO": {
+   "status": "RETRIEVED",
+   "rows": 2692,
+   "first": "2015-11-10",
+   "last": "2026-10-09",
+   "retrieved_at_utc": "2026-10-11T08:11:03+00:00"
+  },
+  "ASIANPAINT": {
+   "status": "RETRIEVED",
+   "rows": 2738,
+   "first": "2015-09-01",
+   "last": "2026-10-09",
+   "retrieved_at_utc": "2026-10-11T08:11:06+00:00"
+  },
+  "SBIN": {
+   "status": "RETRIEVED",
+   "rows": 2738,
+   "first": "2015-09-01",
+   "last": "2026-10-09",
+   "retrieved_at_utc": "2026-10-11T08:11:08+00:00"
+  },
+  "ICICIBANK": {
+   "status": "RETRIEVED",
+   "rows": 2738,
+   "first": "2015-09-01",
+   "last": "2026-10-09",
+   "retrieved_at_utc": "2026-10-11T08:11:12+00:00"
+  },
+  "HDFCBANK": {
+   "status": "RETRIEVED",
+   "rows": 2738,
+   "first": "2015-09-01",
+   "last": "2026-10-09",
+   "retrieved_at_utc": "2026-10-11T08:11:13+00:00"
+  },
+  "TCS": {
+   "status": "RETRIEVED",
+   "rows": 2738,
+   "first": "2015-09-01",
+   "last": "2026-10-09",
+   "retrieved_at_utc": "2026-10-11T08:11:16+00:00"
+  },
+  "INFY": {
+   "status": "RETRIEVED",
+   "rows": 2738,
+   "first": "2015-09-01",
+   "last": "2026-10-09",
+   "retrieved_at_utc": "2026-10-11T08:11:18+00:00"
+  },
+  "LT": {
+   "status": "RETRIEVED",
+   "rows": 2738,
+   "first": "2015-09-01",
+   "last": "2026-10-09",
+   "retrieved_at_utc": "2026-10-11T08:11:21+00:00"
+  },
+  "HINDALCO": {
+   "status": "RETRIEVED",
+   "rows": 2738,
+   "first": "2015-09-01",
+   "last": "2026-10-09",
+   "retrieved_at_utc": "2026-10-11T08:11:23+00:00"
+  },
+  "SUNPHARMA": {
+   "status": "RETRIEVED",
+   "rows": 2738,
+   "first": "2015-09-01",
+   "last": "2026-10-09",
+   "retrieved_at_utc": "2026-10-11T08:11:25+00:00"
+  },
+  "SP500": {
+   "status": "RETRIEVED",
+   "rows": 2793,
+   "first": "2015-09-01",
+   "last": "2026-10-09",
+   "retrieved_at_utc": "2026-10-11T08:11:27+00:00"
+  },
+  "NASDAQ": {
+   "status": "RETRIEVED",
+   "rows": 2793,
+   "first": "2015-09-01",
+   "last": "2026-10-09",
+   "retrieved_at_utc": "2026-10-11T08:11:29+00:00"
+  },
+  "SSE": {
+   "status": "RETRIEVED",
+   "rows": 2692,
+   "first": "2015-09-01",
+   "last": "2026-10-09",
+   "retrieved_at_utc": "2026-10-11T08:11:31+00:00"
+  },
+  "TA35": {
+   "status": "RETRIEVED",
+   "rows": 2219,
+   "first": "2015-09-01",
+   "last": "2026-10-09",
+   "retrieved_at_utc": "2026-10-11T08:11:32+00:00"
+  },
+  "STOXX50": {
+   "status": "RETRIEVED",
+   "rows": 2793,
+   "first": "2015-09-01",
+   "last": "2026-10-09",
+   "retrieved_at_utc": "2026-10-11T08:11:33+00:00"
+  },
+  "IMOEX": {
+   "status": "RETRIEVED",
+   "rows": 2796,
+   "first": "2015-09-01",
+   "last": "2026-10-09",
+   "retrieved_at_utc": "2026-10-11T08:11:48+00:00"
+  },
+  "RTSI": {
+   "status": "RETRIEVED",
+   "rows": 2795,
+   "first": "2015-09-01",
+   "last": "2026-10-09",
+   "retrieved_at_utc": "2026-10-11T08:12:25+00:00"
+  },
+  "BRENT": {
+   "status": "RETRIEVED",
+   "rows": 2818,
+   "first": "2015-09-01",
+   "last": "2026-10-06",
+   "retrieved_at_utc": "2026-10-11T08:12:31+00:00"
+  },
+  "WTI": {
+   "status": "RETRIEVED",
+   "rows": 2777,
+   "first": "2015-09-01",
+   "last": "2026-10-06",
+   "retrieved_at_utc": "2026-10-11T08:12:34+00:00"
+  },
+  "HENRYHUB": {
+   "status": "RETRIEVED",
+   "rows": 2797,
+   "first": "2015-09-01",
+   "last": "2026-10-06",
+   "retrieved_at_utc": "2026-10-11T08:12:36+00:00"
+  },
+  "GOLD": {
+   "status": "RETRIEVED",
+   "rows": 2793,
+   "first": "2015-09-01",
+   "last": "2026-10-09",
+   "retrieved_at_utc": "2026-10-11T08:12:41+00:00"
+  },
+  "USDINR": {
+   "status": "RETRIEVED",
+   "rows": 2770,
+   "first": "2015-09-01",
+   "last": "2026-10-02",
+   "retrieved_at_utc": "2026-10-11T08:12:44+00:00"
+  },
+  "USDCNY": {
+   "status": "RETRIEVED",
+   "rows": 2770,
+   "first": "2015-09-01",
+   "last": "2026-10-02",
+   "retrieved_at_utc": "2026-10-11T08:12:47+00:00"
+  },
+  "USDRUB": {
+   "status": "RETRIEVED",
+   "rows": 2891,
+   "first": "2015-09-01",
+   "last": "2026-10-09",
+   "retrieved_at_utc": "2026-10-11T08:12:53+00:00"
+  },
+  "USDILS": {
+   "status": "RETRIEVED",
+   "rows": 2890,
+   "first": "2015-09-01",
+   "last": "2026-10-09",
+   "retrieved_at_utc": "2026-10-11T08:12:55+00:00"
+  },
+  "DXY": {
+   "status": "RETRIEVED",
+   "rows": 2794,
+   "first": "2015-09-01",
+   "last": "2026-10-09",
+   "retrieved_at_utc": "2026-10-11T08:12:56+00:00"
+  },
+  "UST10Y": {
+   "status": "RETRIEVED",
+   "rows": 2776,
+   "first": "2015-09-01",
+   "last": "2026-10-08",
+   "retrieved_at_utc": "2026-10-11T08:13:00+00:00"
+  },
+  "UST2Y": {
+   "status": "RETRIEVED",
+   "rows": 2776,
+   "first": "2015-09-01",
+   "last": "2026-10-08",
+   "retrieved_at_utc": "2026-10-11T08:13:02+00:00"
+  },
+  "FEDFUNDS": {
+   "status": "RETRIEVED",
+   "rows": 4056,
+   "first": "2015-09-01",
+   "last": "2026-10-08",
+   "retrieved_at_utc": "2026-10-11T08:13:05+00:00"
+  },
+  "VIX": {
+   "status": "RETRIEVED",
+   "rows": 2825,
+   "first": "2015-09-01",
+   "last": "2026-10-08",
+   "retrieved_at_utc": "2026-10-11T08:13:08+00:00"
+  },
+  "IN10Y_M": {
+   "status": "RETRIEVED",
+   "rows": 131,
+   "first": "2015-09-01",
+   "last": "2026-07-01",
+   "retrieved_at_utc": "2026-10-11T08:13:09+00:00"
+  }
+ },
+ "missing_or_unavailable": [
+  {
+   "series": "India VIX",
+   "status": "not in data/raw; not downloaded by fetch.py",
+   "consequence": "no India-specific implied volatility; CBOE VIX and realised NIFTY volatility used instead"
+  },
+  {
+   "series": "Pre-2015 market history (e.g. 2008 global financial crisis)",
+   "status": "raw series start 2015-09-01",
+   "consequence": "GFC and earlier episodes cannot be measured from existing data"
+  },
+  {
+   "series": "Sector indices beyond Bank/IT/Pharma (e.g. NIFTY Energy, Auto, FMCG)",
+   "status": "not downloaded",
+   "consequence": "sector analysis limited to NIFTY Bank, IT, Pharma and single stocks"
+  }
+ ],
+ "files": [
+  {
+   "path": "research/black_swan/data/raw/ASIANPAINT.csv",
+   "sha256": "835862ad0e427f00dc08ff109fd8e6bad4604eb5217ef587b50e2c48d6c9ba38",
+   "bytes": 123329,
+   "rows": 2738,
+   "columns": 3,
+   "column_names": [
+    "date",
+    "value",
+    "close"
+   ],
+   "date_column": "date",
+   "date_min": "2015-09-01",
+   "date_max": "2026-10-09",
+   "missing_values_total": 0,
+   "columns_with_missing": {},
+   "duplicate_rows": 0,
+   "key": [
+    "date"
+   ],
+   "duplicate_keys": 0,
+   "near_duplicate_numeric_pairs": [
+    [
+     "close",
+     "value"
+    ]
+   ],
+   "kind": "raw",
+   "purpose": "Daily series ASIANPAINT - Asian Paints",
+   "source": "yahoo_chart:ASIANPAINT.NS",
+   "adjustment": "Yahoo adjclose (splits+dividends, back-adjusted at retrieval)",
+   "suitable_for_training": "input to feature pipelines only",
+   "asset_coverage": [
+    "ASIANPAINT"
+   ]
+  },
+  {
+   "path": "research/black_swan/data/raw/BPCL.csv",
+   "sha256": "2e860dffcd0ca18f8efa356b4b6b61e221ce0fdd4e2921b421f97c800655d3db",
+   "bytes": 128158,
+   "rows": 2738,
+   "columns": 3,
+   "column_names": [
+    "date",
+    "value",
+    "close"
+   ],
+   "date_column": "date",
+   "date_min": "2015-09-01",
+   "date_max": "2026-10-09",
+   "missing_values_total": 0,
+   "columns_with_missing": {},
+   "duplicate_rows": 0,
+   "key": [
+    "date"
+   ],
+   "duplicate_keys": 0,
+   "near_duplicate_numeric_pairs": [],
+   "kind": "raw",
+   "purpose": "Daily series BPCL - Bharat Petroleum",
+   "source": "yahoo_chart:BPCL.NS",
+   "adjustment": "Yahoo adjclose (splits+dividends, back-adjusted at retrieval)",
+   "suitable_for_training": "input to feature pipelines only",
+   "asset_coverage": [
+    "BPCL"
+   ]
+  },
+  {
+   "path": "research/black_swan/data/raw/BRENT.csv",
+   "sha256": "91945e6dbfc8d630497eff0faf14408a400eae264b65634285c04f2f4c230e14",
+   "bytes": 67470,
+   "rows": 2818,
+   "columns": 3,
+   "column_names": [
+    "date",
+    "value",
+    "close"
+   ],
+   "date_column": "date",
+   "date_min": "2015-09-01",
+   "date_max": "2026-10-06",
+   "missing_values_total": 0,
+   "columns_with_missing": {},
+   "duplicate_rows": 0,
+   "key": [
+    "date"
+   ],
+   "duplicate_keys": 0,
+   "near_duplicate_numeric_pairs": [
+    [
+     "close",
+     "value"
+    ]
+   ],
+   "kind": "raw",
+   "purpose": "Daily series BRENT - Brent crude spot (Europe, FOB)",
+   "source": "fred:DCOILBRENTEU",
+   "adjustment": "none (price index)",
+   "suitable_for_training": "input to feature pipelines only",
+   "asset_coverage": [
+    "BRENT"
+   ]
+  },
+  {
+   "path": "research/black_swan/data/raw/DXY.csv",
+   "sha256": "e940005ffe2d635485060de0779b67e13d22ccd38bbee7cb54e61e6358f0e7d8",
+   "bytes": 132548,
+   "rows": 2794,
+   "columns": 3,
+   "column_names": [
+    "date",
+    "value",
+    "close"
+   ],
+   "date_column": "date",
+   "date_min": "2015-09-01",
+   "date_max": "2026-10-09",
+   "missing_values_total": 0,
+   "columns_with_missing": {},
+   "duplicate_rows": 0,
+   "key": [
+    "date"
+   ],
+   "duplicate_keys": 0,
+   "near_duplicate_numeric_pairs": [
+    [
+     "close",
+     "value"
+    ]
+   ],
+   "kind": "raw",
+   "purpose": "Daily series DXY - US Dollar Index",
+   "source": "yahoo_chart:DX-Y.NYB",
+   "adjustment": "none (price index)",
+   "suitable_for_training": "input to feature pipelines only",
+   "asset_coverage": [
+    "DXY"
+   ]
+  },
+  {
+   "path": "research/black_swan/data/raw/FEDFUNDS.csv",
+   "sha256": "502dd81e10e050e5bd3fae8f715f46dc772eda31a18bdd62fd1c1d1727fafd38",
+   "bytes": 88378,
+   "rows": 4056,
+   "columns": 3,
+   "column_names": [
+    "date",
+    "value",
+    "close"
+   ],
+   "date_column": "date",
+   "date_min": "2015-09-01",
+   "date_max": "2026-10-08",
+   "missing_values_total": 0,
+   "columns_with_missing": {},
+   "duplicate_rows": 0,
+   "key": [
+    "date"
+   ],
+   "duplicate_keys": 0,
+   "near_duplicate_numeric_pairs": [
+    [
+     "close",
+     "value"
+    ]
+   ],
+   "kind": "raw",
+   "purpose": "Daily series FEDFUNDS - Effective federal funds rate",
+   "source": "fred:DFF",
+   "adjustment": "none (price index)",
+   "suitable_for_training": "input to feature pipelines only",
+   "asset_coverage": [
+    "FEDFUNDS"
+   ]
+  },
+  {
+   "path": "research/black_swan/data/raw/GOLD.csv",
+   "sha256": "e35b4c084773724812b2f0f330a5ceaa602263d969a93fce1602e7108b0ee470",
+   "bytes": 122714,
+   "rows": 2793,
+   "columns": 3,
+   "column_names": [
+    "date",
+    "value",
+    "close"
+   ],
+   "date_column": "date",
+   "date_min": "2015-09-01",
+   "date_max": "2026-10-09",
+   "missing_values_total": 0,
+   "columns_with_missing": {},
+   "duplicate_rows": 0,
+   "key": [
+    "date"
+   ],
+   "duplicate_keys": 0,
+   "near_duplicate_numeric_pairs": [
+    [
+     "close",
+     "value"
+    ]
+   ],
+   "kind": "raw",
+   "purpose": "Daily series GOLD - Gold futures (COMEX front month)",
+   "source": "yahoo_chart:GC=F",
+   "adjustment": "continuous front-month; roll jumps not removed",
+   "suitable_for_training": "input to feature pipelines only",
+   "asset_coverage": [
+    "GOLD"
+   ]
+  },
+  {
+   "path": "research/black_swan/data/raw/HDFCBANK.csv",
+   "sha256": "4a4cd3aca627645b5b03c7f1aec74a2d2656bfa54f937c75709e03d1f6b912c9",
+   "bytes": 124769,
+   "rows": 2738,
+   "columns": 3,
+   "column_names": [
+    "date",
+    "value",
+    "close"
+   ],
+   "date_column": "date",
+   "date_min": "2015-09-01",
+   "date_max": "2026-10-09",
+   "missing_values_total": 0,
+   "columns_with_missing": {},
+   "duplicate_rows": 0,
+   "key": [
+    "date"
+   ],
+   "duplicate_keys": 0,
+   "near_duplicate_numeric_pairs": [
+    [
+     "close",
+     "value"
+    ]
+   ],
+   "kind": "raw",
+   "purpose": "Daily series HDFCBANK - HDFC Bank",
+   "source": "yahoo_chart:HDFCBANK.NS",
+   "adjustment": "Yahoo adjclose (splits+dividends, back-adjusted at retrieval)",
+   "suitable_for_training": "input to feature pipelines only",
+   "asset_coverage": [
+    "HDFCBANK"
+   ]
+  },
+  {
+   "path": "research/black_swan/data/raw/HENRYHUB.csv",
+   "sha256": "a41af82f37a99f4580dc4837f3fdbada19ec25d29a479afca3dd470fcb8aa0a8",
+   "bytes": 60864,
+   "rows": 2797,
+   "columns": 3,
+   "column_names": [
+    "date",
+    "value",
+    "close"
+   ],
+   "date_column": "date",
+   "date_min": "2015-09-01",
+   "date_max": "2026-10-06",
+   "missing_values_total": 0,
+   "columns_with_missing": {},
+   "duplicate_rows": 0,
+   "key": [
+    "date"
+   ],
+   "duplicate_keys": 0,
+   "near_duplicate_numeric_pairs": [
+    [
+     "close",
+     "value"
+    ]
+   ],
+   "kind": "raw",
+   "purpose": "Daily series HENRYHUB - Henry Hub natural gas spot",
+   "source": "fred:DHHNGSP",
+   "adjustment": "none (price index)",
+   "suitable_for_training": "input to feature pipelines only",
+   "asset_coverage": [
+    "HENRYHUB"
+   ]
+  },
+  {
+   "path": "research/black_swan/data/raw/HINDALCO.csv",
+   "sha256": "aa1612265042321b237cf1a6aff8e04c2235feaf82d91c76709c7add31d30514",
+   "bytes": 125387,
+   "rows": 2738,
+   "columns": 3,
+   "column_names": [
+    "date",
+    "value",
+    "close"
+   ],
+   "date_column": "date",
+   "date_min": "2015-09-01",
+   "date_max": "2026-10-09",
+   "missing_values_total": 0,
+   "columns_with_missing": {},
+   "duplicate_rows": 0,
+   "key": [
+    "date"
+   ],
+   "duplicate_keys": 0,
+   "near_duplicate_numeric_pairs": [
+    [
+     "close",
+     "value"
+    ]
+   ],
+   "kind": "raw",
+   "purpose": "Daily series HINDALCO - Hindalco Industries",
+   "source": "yahoo_chart:HINDALCO.NS",
+   "adjustment": "Yahoo adjclose (splits+dividends, back-adjusted at retrieval)",
+   "suitable_for_training": "input to feature pipelines only",
+   "asset_coverage": [
+    "HINDALCO"
+   ]
+  },
+  {
+   "path": "research/black_swan/data/raw/ICICIBANK.csv",
+   "sha256": "35f73549d576948b7405d366c23e51a1054f6ae2c52de8909ac7e355b33d63d8",
+   "bytes": 125896,
+   "rows": 2738,
+   "columns": 3,
+   "column_names": [
+    "date",
+    "value",
+    "close"
+   ],
+   "date_column": "date",
+   "date_min": "2015-09-01",
+   "date_max": "2026-10-09",
+   "missing_values_total": 0,
+   "columns_with_missing": {},
+   "duplicate_rows": 0,
+   "key": [
+    "date"
+   ],
+   "duplicate_keys": 0,
+   "near_duplicate_numeric_pairs": [
+    [
+     "close",
+     "value"
+    ]
+   ],
+   "kind": "raw",
+   "purpose": "Daily series ICICIBANK - ICICI Bank",
+   "source": "yahoo_chart:ICICIBANK.NS",
+   "adjustment": "Yahoo adjclose (splits+dividends, back-adjusted at retrieval)",
+   "suitable_for_training": "input to feature pipelines only",
+   "asset_coverage": [
+    "ICICIBANK"
+   ]
+  },
+  {
+   "path": "research/black_swan/data/raw/IMOEX.csv",
+   "sha256": "51fb9676a284fd2fe01ae41e3e40d5f3c1fc8da83d9bf13be44beac2f967fee0",
+   "bytes": 77770,
+   "rows": 2796,
+   "columns": 3,
+   "column_names": [
+    "date",
+    "value",
+    "close"
+   ],
+   "date_column": "date",
+   "date_min": "2015-09-01",
+   "date_max": "2026-10-09",
+   "missing_values_total": 0,
+   "columns_with_missing": {},
+   "duplicate_rows": 0,
+   "key": [
+    "date"
+   ],
+   "duplicate_keys": 0,
+   "near_duplicate_numeric_pairs": [
+    [
+     "close",
+     "value"
+    ]
+   ],
+   "kind": "raw",
+   "purpose": "Daily series IMOEX - MOEX Russia Index",
+   "source": "moex_iss:IMOEX",
+   "adjustment": "none (price index)",
+   "suitable_for_training": "input to feature pipelines only",
+   "asset_coverage": [
+    "IMOEX"
+   ]
+  },
+  {
+   "path": "research/black_swan/data/raw/IN10Y_M.csv",
+   "sha256": "dcb10b8ab90a04990f50ad73970f8d1b3824526ed818a28a5ff47d2b010b1243",
+   "bytes": 3528,
+   "rows": 131,
+   "columns": 3,
+   "column_names": [
+    "date",
+    "value",
+    "close"
+   ],
+   "date_column": "date",
+   "date_min": "2015-09-01",
+   "date_max": "2026-07-01",
+   "missing_values_total": 0,
+   "columns_with_missing": {},
+   "duplicate_rows": 0,
+   "key": [
+    "date"
+   ],
+   "duplicate_keys": 0,
+   "near_duplicate_numeric_pairs": [
+    [
+     "close",
+     "value"
+    ]
+   ],
+   "kind": "raw",
+   "purpose": "Daily series IN10Y_M - India 10-year government bond yield (monthly, OECD MEI)",
+   "source": "fred:INDIRLTLT01STM",
+   "adjustment": "none (price index)",
+   "suitable_for_training": "input to feature pipelines only",
+   "asset_coverage": [
+    "IN10Y_M"
+   ]
+  },
+  {
+   "path": "research/black_swan/data/raw/INDIGO.csv",
+   "sha256": "41ea4201b712a67ae9b4ed505f2288fc143de6e20ba1b9733ea34ed740363dc2",
+   "bytes": 117622,
+   "rows": 2692,
+   "columns": 3,
+   "column_names": [
+    "date",
+    "value",
+    "close"
+   ],
+   "date_column": "date",
+   "date_min": "2015-11-10",
+   "date_max": "2026-10-09",
+   "missing_values_total": 0,
+   "columns_with_missing": {},
+   "duplicate_rows": 0,
+   "key": [
+    "date"
+   ],
+   "duplicate_keys": 0,
+   "near_duplicate_numeric_pairs": [
+    [
+     "close",
+     "value"
+    ]
+   ],
+   "kind": "raw",
+   "purpose": "Daily series INDIGO - InterGlobe Aviation (IndiGo)",
+   "source": "yahoo_chart:INDIGO.NS",
+   "adjustment": "Yahoo adjclose (splits+dividends, back-adjusted at retrieval)",
+   "suitable_for_training": "input to feature pipelines only",
+   "asset_coverage": [
+    "INDIGO"
+   ]
+  },
+  {
+   "path": "research/black_swan/data/raw/INFY.csv",
+   "sha256": "1a79f5e0b6ec90491a008a3a121d4d5371ba7477a1e194d0e1471fc6dab5b3fc",
+   "bytes": 125469,
+   "rows": 2738,
+   "columns": 3,
+   "column_names": [
+    "date",
+    "value",
+    "close"
+   ],
+   "date_column": "date",
+   "date_min": "2015-09-01",
+   "date_max": "2026-10-09",
+   "missing_values_total": 0,
+   "columns_with_missing": {},
+   "duplicate_rows": 0,
+   "key": [
+    "date"
+   ],
+   "duplicate_keys": 0,
+   "near_duplicate_numeric_pairs": [],
+   "kind": "raw",
+   "purpose": "Daily series INFY - Infosys",
+   "source": "yahoo_chart:INFY.NS",
+   "adjustment": "Yahoo adjclose (splits+dividends, back-adjusted at retrieval)",
+   "suitable_for_training": "input to feature pipelines only",
+   "asset_coverage": [
+    "INFY"
+   ]
+  },
+  {
+   "path": "research/black_swan/data/raw/IOC.csv",
+   "sha256": "ab7d98ee1bb26815cc25fce2100e83ed52ecd4f66004e4bef0d0cd1e6fa6686e",
+   "bytes": 129342,
+   "rows": 2738,
+   "columns": 3,
+   "column_names": [
+    "date",
+    "value",
+    "close"
+   ],
+   "date_column": "date",
+   "date_min": "2015-09-01",
+   "date_max": "2026-10-09",
+   "missing_values_total": 0,
+   "columns_with_missing": {},
+   "duplicate_rows": 0,
+   "key": [
+    "date"
+   ],
+   "duplicate_keys": 0,
+   "near_duplicate_numeric_pairs": [],
+   "kind": "raw",
+   "purpose": "Daily series IOC - Indian Oil Corporation",
+   "source": "yahoo_chart:IOC.NS",
+   "adjustment": "Yahoo adjclose (splits+dividends, back-adjusted at retrieval)",
+   "suitable_for_training": "input to feature pipelines only",
+   "asset_coverage": [
+    "IOC"
+   ]
+  },
+  {
+   "path": "research/black_swan/data/raw/LT.csv",
+   "sha256": "5dbb6e5cec9425f43e031b57f8bbaf1692a522ab89f1289b45adc735c314eff4",
+   "bytes": 124507,
+   "rows": 2738,
+   "columns": 3,
+   "column_names": [
+    "date",
+    "value",
+    "close"
+   ],
+   "date_column": "date",
+   "date_min": "2015-09-01",
+   "date_max": "2026-10-09",
+   "missing_values_total": 0,
+   "columns_with_missing": {},
+   "duplicate_rows": 0,
+   "key": [
+    "date"
+   ],
+   "duplicate_keys": 0,
+   "near_duplicate_numeric_pairs": [
+    [
+     "close",
+     "value"
+    ]
+   ],
+   "kind": "raw",
+   "purpose": "Daily series LT - Larsen & Toubro",
+   "source": "yahoo_chart:LT.NS",
+   "adjustment": "Yahoo adjclose (splits+dividends, back-adjusted at retrieval)",
+   "suitable_for_training": "input to feature pipelines only",
+   "asset_coverage": [
+    "LT"
+   ]
+  },
+  {
+   "path": "research/black_swan/data/raw/NASDAQ.csv",
+   "sha256": "7469192a8b7dbf0387dbb927cf2878e4c7050c6fe5cd00513a7ae659744633d6",
+   "bytes": 120684,
+   "rows": 2793,
+   "columns": 3,
+   "column_names": [
+    "date",
+    "value",
+    "close"
+   ],
+   "date_column": "date",
+   "date_min": "2015-09-01",
+   "date_max": "2026-10-09",
+   "missing_values_total": 0,
+   "columns_with_missing": {},
+   "duplicate_rows": 0,
+   "key": [
+    "date"
+   ],
+   "duplicate_keys": 0,
+   "near_duplicate_numeric_pairs": [
+    [
+     "close",
+     "value"
+    ]
+   ],
+   "kind": "raw",
+   "purpose": "Daily series NASDAQ - Nasdaq Composite",
+   "source": "yahoo_chart:^IXIC",
+   "adjustment": "none (price index)",
+   "suitable_for_training": "input to feature pipelines only",
+   "asset_coverage": [
+    "NASDAQ"
+   ]
+  },
+  {
+   "path": "research/black_swan/data/raw/NIFTY50.csv",
+   "sha256": "efe03f6e55a50777c62ce6ebd88536210690951350e306beab4d59e555c7fefd",
+   "bytes": 111682,
+   "rows": 2733,
+   "columns": 3,
+   "column_names": [
+    "date",
+    "value",
+    "close"
+   ],
+   "date_column": "date",
+   "date_min": "2015-09-01",
+   "date_max": "2026-10-09",
+   "missing_values_total": 0,
+   "columns_with_missing": {},
+   "duplicate_rows": 0,
+   "key": [
+    "date"
+   ],
+   "duplicate_keys": 0,
+   "near_duplicate_numeric_pairs": [
+    [
+     "close",
+     "value"
+    ]
+   ],
+   "kind": "raw",
+   "purpose": "Daily series NIFTY50 - NIFTY 50",
+   "source": "yahoo_chart:^NSEI",
+   "adjustment": "none (price index)",
+   "suitable_for_training": "input to feature pipelines only",
+   "asset_coverage": [
+    "NIFTY50"
+   ]
+  },
+  {
+   "path": "research/black_swan/data/raw/NIFTYBANK.csv",
+   "sha256": "a5ca1d13750d9f4ad1bcb1cd29cacb74f7eb80898002e3f1bd49ef8368bcffea",
+   "bytes": 108036,
+   "rows": 2737,
+   "columns": 3,
+   "column_names": [
+    "date",
+    "value",
+    "close"
+   ],
+   "date_column": "date",
+   "date_min": "2015-09-01",
+   "date_max": "2026-10-09",
+   "missing_values_total": 0,
+   "columns_with_missing": {},
+   "duplicate_rows": 0,
+   "key": [
+    "date"
+   ],
+   "duplicate_keys": 0,
+   "near_duplicate_numeric_pairs": [
+    [
+     "close",
+     "value"
+    ]
+   ],
+   "kind": "raw",
+   "purpose": "Daily series NIFTYBANK - NIFTY Bank",
+   "source": "yahoo_chart:^NSEBANK",
+   "adjustment": "none (price index)",
+   "suitable_for_training": "input to feature pipelines only",
+   "asset_coverage": [
+    "NIFTYBANK"
+   ]
+  },
+  {
+   "path": "research/black_swan/data/raw/NIFTYIT.csv",
+   "sha256": "cec1ee61b2a30f20b22c2775a39a7789b51354a55c7dd24f49341bcead96f0e8",
+   "bytes": 110934,
+   "rows": 2737,
+   "columns": 3,
+   "column_names": [
+    "date",
+    "value",
+    "close"
+   ],
+   "date_column": "date",
+   "date_min": "2015-09-01",
+   "date_max": "2026-10-09",
+   "missing_values_total": 0,
+   "columns_with_missing": {},
+   "duplicate_rows": 0,
+   "key": [
+    "date"
+   ],
+   "duplicate_keys": 0,
+   "near_duplicate_numeric_pairs": [
+    [
+     "close",
+     "value"
+    ]
+   ],
+   "kind": "raw",
+   "purpose": "Daily series NIFTYIT - NIFTY IT",
+   "source": "yahoo_chart:^CNXIT",
+   "adjustment": "none (price index)",
+   "suitable_for_training": "input to feature pipelines only",
+   "asset_coverage": [
+    "NIFTYIT"
+   ]
+  },
+  {
+   "path": "research/black_swan/data/raw/NIFTYPHARMA.csv",
+   "sha256": "b12c8ef782c87c7cb0d88788dadfb2b38c878d6ea7ec609ebd60d69d94020634",
+   "bytes": 111956,
+   "rows": 2736,
+   "columns": 3,
+   "column_names": [
+    "date",
+    "value",
+    "close"
+   ],
+   "date_column": "date",
+   "date_min": "2015-09-01",
+   "date_max": "2026-10-09",
+   "missing_values_total": 0,
+   "columns_with_missing": {},
+   "duplicate_rows": 0,
+   "key": [
+    "date"
+   ],
+   "duplicate_keys": 0,
+   "near_duplicate_numeric_pairs": [
+    [
+     "close",
+     "value"
+    ]
+   ],
+   "kind": "raw",
+   "purpose": "Daily series NIFTYPHARMA - NIFTY Pharma",
+   "source": "yahoo_chart:^CNXPHARMA",
+   "adjustment": "none (price index)",
+   "suitable_for_training": "input to feature pipelines only",
+   "asset_coverage": [
+    "NIFTYPHARMA"
+   ]
+  },
+  {
+   "path": "research/black_swan/data/raw/ONGC.csv",
+   "sha256": "5b82b1ba429b7173655e01fa30037037552065e5c47eb19e5b6bd2c09ecf1a57",
+   "bytes": 127734,
+   "rows": 2738,
+   "columns": 3,
+   "column_names": [
+    "date",
+    "value",
+    "close"
+   ],
+   "date_column": "date",
+   "date_min": "2015-09-01",
+   "date_max": "2026-10-09",
+   "missing_values_total": 0,
+   "columns_with_missing": {},
+   "duplicate_rows": 0,
+   "key": [
+    "date"
+   ],
+   "duplicate_keys": 0,
+   "near_duplicate_numeric_pairs": [],
+   "kind": "raw",
+   "purpose": "Daily series ONGC - Oil and Natural Gas Corporation",
+   "source": "yahoo_chart:ONGC.NS",
+   "adjustment": "Yahoo adjclose (splits+dividends, back-adjusted at retrieval)",
+   "suitable_for_training": "input to feature pipelines only",
+   "asset_coverage": [
+    "ONGC"
+   ]
+  },
+  {
+   "path": "research/black_swan/data/raw/RELIANCE.csv",
+   "sha256": "984d0ab420e09c7da97159597295a5e7647cd00664edf15f6a6f46d6d94e2d74",
+   "bytes": 129131,
+   "rows": 2738,
+   "columns": 3,
+   "column_names": [
+    "date",
+    "value",
+    "close"
+   ],
+   "date_column": "date",
+   "date_min": "2015-09-01",
+   "date_max": "2026-10-09",
+   "missing_values_total": 0,
+   "columns_with_missing": {},
+   "duplicate_rows": 0,
+   "key": [
+    "date"
+   ],
+   "duplicate_keys": 0,
+   "near_duplicate_numeric_pairs": [
+    [
+     "close",
+     "value"
+    ]
+   ],
+   "kind": "raw",
+   "purpose": "Daily series RELIANCE - Reliance Industries",
+   "source": "yahoo_chart:RELIANCE.NS",
+   "adjustment": "Yahoo adjclose (splits+dividends, back-adjusted at retrieval)",
+   "suitable_for_training": "input to feature pipelines only",
+   "asset_coverage": [
+    "RELIANCE"
+   ]
+  },
+  {
+   "path": "research/black_swan/data/raw/RTSI.csv",
+   "sha256": "c86c9bcf5515b524924fd7a16dcd652dce92a7c67bd8065c4b8f0aff18104d46",
+   "bytes": 76482,
+   "rows": 2795,
+   "columns": 3,
+   "column_names": [
+    "date",
+    "value",
+    "close"
+   ],
+   "date_column": "date",
+   "date_min": "2015-09-01",
+   "date_max": "2026-10-09",
+   "missing_values_total": 0,
+   "columns_with_missing": {},
+   "duplicate_rows": 0,
+   "key": [
+    "date"
+   ],
+   "duplicate_keys": 0,
+   "near_duplicate_numeric_pairs": [
+    [
+     "close",
+     "value"
+    ]
+   ],
+   "kind": "raw",
+   "purpose": "Daily series RTSI - RTS Index (USD)",
+   "source": "moex_iss:RTSI",
+   "adjustment": "none (price index)",
+   "suitable_for_training": "input to feature pipelines only",
+   "asset_coverage": [
+    "RTSI"
+   ]
+  },
+  {
+   "path": "research/black_swan/data/raw/SBIN.csv",
+   "sha256": "e9e7abdb7c3748e589e383650ae3a307bf3c69fcd40a87b0b4bc62684ba28d88",
+   "bytes": 125233,
+   "rows": 2738,
+   "columns": 3,
+   "column_names": [
+    "date",
+    "value",
+    "close"
+   ],
+   "date_column": "date",
+   "date_min": "2015-09-01",
+   "date_max": "2026-10-09",
+   "missing_values_total": 0,
+   "columns_with_missing": {},
+   "duplicate_rows": 0,
+   "key": [
+    "date"
+   ],
+   "duplicate_keys": 0,
+   "near_duplicate_numeric_pairs": [
+    [
+     "close",
+     "value"
+    ]
+   ],
+   "kind": "raw",
+   "purpose": "Daily series SBIN - State Bank of India",
+   "source": "yahoo_chart:SBIN.NS",
+   "adjustment": "Yahoo adjclose (splits+dividends, back-adjusted at retrieval)",
+   "suitable_for_training": "input to feature pipelines only",
+   "asset_coverage": [
+    "SBIN"
+   ]
+  },
+  {
+   "path": "research/black_swan/data/raw/SP500.csv",
+   "sha256": "c0e6227ea69f984b52a92d7efbfaae27e43c2cd2f0b1892f8c7dd227a7fbb727",
+   "bytes": 125302,
+   "rows": 2793,
+   "columns": 3,
+   "column_names": [
+    "date",
+    "value",
+    "close"
+   ],
+   "date_column": "date",
+   "date_min": "2015-09-01",
+   "date_max": "2026-10-09",
+   "missing_values_total": 0,
+   "columns_with_missing": {},
+   "duplicate_rows": 0,
+   "key": [
+    "date"
+   ],
+   "duplicate_keys": 0,
+   "near_duplicate_numeric_pairs": [
+    [
+     "close",
+     "value"
+    ]
+   ],
+   "kind": "raw",
+   "purpose": "Daily series SP500 - S&P 500",
+   "source": "yahoo_chart:^GSPC",
+   "adjustment": "none (price index)",
+   "suitable_for_training": "input to feature pipelines only",
+   "asset_coverage": [
+    "SP500"
+   ]
+  },
+  {
+   "path": "research/black_swan/data/raw/SSE.csv",
+   "sha256": "298f0359287de0488be8b757b26adf0ef6377365f9afba5418c7ee739b557e53",
+   "bytes": 123420,
+   "rows": 2692,
+   "columns": 3,
+   "column_names": [
+    "date",
+    "value",
+    "close"
+   ],
+   "date_column": "date",
+   "date_min": "2015-09-01",
+   "date_max": "2026-10-09",
+   "missing_values_total": 0,
+   "columns_with_missing": {},
+   "duplicate_rows": 0,
+   "key": [
+    "date"
+   ],
+   "duplicate_keys": 0,
+   "near_duplicate_numeric_pairs": [
+    [
+     "close",
+     "value"
+    ]
+   ],
+   "kind": "raw",
+   "purpose": "Daily series SSE - SSE Composite (Shanghai)",
+   "source": "yahoo_chart:000001.SS",
+   "adjustment": "none (price index)",
+   "suitable_for_training": "input to feature pipelines only",
+   "asset_coverage": [
+    "SSE"
+   ]
+  },
+  {
+   "path": "research/black_swan/data/raw/STOXX50.csv",
+   "sha256": "383802f73058c1a2cfcff98a281c632c0d81dc2e07f3dd3f1047701caadc42d3",
+   "bytes": 125360,
+   "rows": 2793,
+   "columns": 3,
+   "column_names": [
+    "date",
+    "value",
+    "close"
+   ],
+   "date_column": "date",
+   "date_min": "2015-09-01",
+   "date_max": "2026-10-09",
+   "missing_values_total": 0,
+   "columns_with_missing": {},
+   "duplicate_rows": 0,
+   "key": [
+    "date"
+   ],
+   "duplicate_keys": 0,
+   "near_duplicate_numeric_pairs": [
+    [
+     "close",
+     "value"
+    ]
+   ],
+   "kind": "raw",
+   "purpose": "Daily series STOXX50 - EURO STOXX 50",
+   "source": "yahoo_chart:^STOXX50E",
+   "adjustment": "none (price index)",
+   "suitable_for_training": "input to feature pipelines only",
+   "asset_coverage": [
+    "STOXX50"
+   ]
+  },
+  {
+   "path": "research/black_swan/data/raw/SUNPHARMA.csv",
+   "sha256": "0f10211b86d0f11205d2fe1847ec064efe175a4f64583bc1706b11d209493d49",
+   "bytes": 124746,
+   "rows": 2738,
+   "columns": 3,
+   "column_names": [
+    "date",
+    "value",
+    "close"
+   ],
+   "date_column": "date",
+   "date_min": "2015-09-01",
+   "date_max": "2026-10-09",
+   "missing_values_total": 0,
+   "columns_with_missing": {},
+   "duplicate_rows": 0,
+   "key": [
+    "date"
+   ],
+   "duplicate_keys": 0,
+   "near_duplicate_numeric_pairs": [
+    [
+     "close",
+     "value"
+    ]
+   ],
+   "kind": "raw",
+   "purpose": "Daily series SUNPHARMA - Sun Pharmaceutical",
+   "source": "yahoo_chart:SUNPHARMA.NS",
+   "adjustment": "Yahoo adjclose (splits+dividends, back-adjusted at retrieval)",
+   "suitable_for_training": "input to feature pipelines only",
+   "asset_coverage": [
+    "SUNPHARMA"
+   ]
+  },
+  {
+   "path": "research/black_swan/data/raw/TA35.csv",
+   "sha256": "7728eef7eb91cee44b243283ad9db1767f6d07cd0146adc9de30e8ec5e9429a4",
+   "bytes": 104382,
+   "rows": 2219,
+   "columns": 3,
+   "column_names": [
+    "date",
+    "value",
+    "close"
+   ],
+   "date_column": "date",
+   "date_min": "2015-09-01",
+   "date_max": "2026-10-09",
+   "missing_values_total": 0,
+   "columns_with_missing": {},
+   "duplicate_rows": 0,
+   "key": [
+    "date"
+   ],
+   "duplicate_keys": 0,
+   "near_duplicate_numeric_pairs": [
+    [
+     "close",
+     "value"
+    ]
+   ],
+   "kind": "raw",
+   "purpose": "Daily series TA35 - TA-35 (Tel Aviv)",
+   "source": "yahoo_chart:TA35.TA",
+   "adjustment": "none (price index)",
+   "suitable_for_training": "input to feature pipelines only",
+   "asset_coverage": [
+    "TA35"
+   ]
+  },
+  {
+   "path": "research/black_swan/data/raw/TCS.csv",
+   "sha256": "2f5ebfddc0ec0d9d1dee6bd92de9aa519b6192bea33322ec6a426aac4c61adee",
+   "bytes": 123357,
+   "rows": 2738,
+   "columns": 3,
+   "column_names": [
+    "date",
+    "value",
+    "close"
+   ],
+   "date_column": "date",
+   "date_min": "2015-09-01",
+   "date_max": "2026-10-09",
+   "missing_values_total": 0,
+   "columns_with_missing": {},
+   "duplicate_rows": 0,
+   "key": [
+    "date"
+   ],
+   "duplicate_keys": 0,
+   "near_duplicate_numeric_pairs": [],
+   "kind": "raw",
+   "purpose": "Daily series TCS - Tata Consultancy Services",
+   "source": "yahoo_chart:TCS.NS",
+   "adjustment": "Yahoo adjclose (splits+dividends, back-adjusted at retrieval)",
+   "suitable_for_training": "input to feature pipelines only",
+   "asset_coverage": [
+    "TCS"
+   ]
+  },
+  {
+   "path": "research/black_swan/data/raw/USDCNY.csv",
+   "sha256": "94b6d3ff4cca6130822ecf5240dca624e6886d390a35b942703e4364b68dfc69",
+   "bytes": 70548,
+   "rows": 2770,
+   "columns": 3,
+   "column_names": [
+    "date",
+    "value",
+    "close"
+   ],
+   "date_column": "date",
+   "date_min": "2015-09-01",
+   "date_max": "2026-10-02",
+   "missing_values_total": 0,
+   "columns_with_missing": {},
+   "duplicate_rows": 0,
+   "key": [
+    "date"
+   ],
+   "duplicate_keys": 0,
+   "near_duplicate_numeric_pairs": [
+    [
+     "close",
+     "value"
+    ]
+   ],
+   "kind": "raw",
+   "purpose": "Daily series USDCNY - USD/CNY (Fed H.10 noon buying rate)",
+   "source": "fred:DEXCHUS",
+   "adjustment": "none (price index)",
+   "suitable_for_training": "input to feature pipelines only",
+   "asset_coverage": [
+    "USDCNY"
+   ]
+  },
+  {
+   "path": "research/black_swan/data/raw/USDILS.csv",
+   "sha256": "17adb4467d7c359d0b3fed7a94e4b064c4eccedb23706947a020a9c9b0c82857",
+   "bytes": 141620,
+   "rows": 2890,
+   "columns": 3,
+   "column_names": [
+    "date",
+    "value",
+    "close"
+   ],
+   "date_column": "date",
+   "date_min": "2015-09-01",
+   "date_max": "2026-10-09",
+   "missing_values_total": 0,
+   "columns_with_missing": {},
+   "duplicate_rows": 0,
+   "key": [
+    "date"
+   ],
+   "duplicate_keys": 0,
+   "near_duplicate_numeric_pairs": [
+    [
+     "close",
+     "value"
+    ]
+   ],
+   "kind": "raw",
+   "purpose": "Daily series USDILS - USD/ILS (Yahoo)",
+   "source": "yahoo_chart:ILS=X",
+   "adjustment": "none (price index)",
+   "suitable_for_training": "input to feature pipelines only",
+   "asset_coverage": [
+    "USDILS"
+   ]
+  },
+  {
+   "path": "research/black_swan/data/raw/USDINR.csv",
+   "sha256": "59b5a569ec64c264f498c410ff44642244618301dbea05ae1a4ca459ab8bcd4a",
+   "bytes": 65956,
+   "rows": 2770,
+   "columns": 3,
+   "column_names": [
+    "date",
+    "value",
+    "close"
+   ],
+   "date_column": "date",
+   "date_min": "2015-09-01",
+   "date_max": "2026-10-02",
+   "missing_values_total": 0,
+   "columns_with_missing": {},
+   "duplicate_rows": 0,
+   "key": [
+    "date"
+   ],
+   "duplicate_keys": 0,
+   "near_duplicate_numeric_pairs": [
+    [
+     "close",
+     "value"
+    ]
+   ],
+   "kind": "raw",
+   "purpose": "Daily series USDINR - USD/INR (Fed H.10 noon buying rate)",
+   "source": "fred:DEXINUS",
+   "adjustment": "none (price index)",
+   "suitable_for_training": "input to feature pipelines only",
+   "asset_coverage": [
+    "USDINR"
+   ]
+  },
+  {
+   "path": "research/black_swan/data/raw/USDRUB.csv",
+   "sha256": "b115a2b34538ec0702daa812e72686d91e4135aa83fdb345ce8c7c5d3d26c426",
+   "bytes": 137474,
+   "rows": 2891,
+   "columns": 3,
+   "column_names": [
+    "date",
+    "value",
+    "close"
+   ],
+   "date_column": "date",
+   "date_min": "2015-09-01",
+   "date_max": "2026-10-09",
+   "missing_values_total": 0,
+   "columns_with_missing": {},
+   "duplicate_rows": 0,
+   "key": [
+    "date"
+   ],
+   "duplicate_keys": 0,
+   "near_duplicate_numeric_pairs": [
+    [
+     "close",
+     "value"
+    ]
+   ],
+   "kind": "raw",
+   "purpose": "Daily series USDRUB - USD/RUB (Yahoo)",
+   "source": "yahoo_chart:RUB=X",
+   "adjustment": "none (price index)",
+   "suitable_for_training": "input to feature pipelines only",
+   "asset_coverage": [
+    "USDRUB"
+   ]
+  },
+  {
+   "path": "research/black_swan/data/raw/UST10Y.csv",
+   "sha256": "5cea3e96c5e699ad66d33b79762e4534501d255bb3e9e7931ce75b712409c85b",
+   "bytes": 60602,
+   "rows": 2776,
+   "columns": 3,
+   "column_names": [
+    "date",
+    "value",
+    "close"
+   ],
+   "date_column": "date",
+   "date_min": "2015-09-01",
+   "date_max": "2026-10-08",
+   "missing_values_total": 0,
+   "columns_with_missing": {},
+   "duplicate_rows": 0,
+   "key": [
+    "date"
+   ],
+   "duplicate_keys": 0,
+   "near_duplicate_numeric_pairs": [
+    [
+     "close",
+     "value"
+    ]
+   ],
+   "kind": "raw",
+   "purpose": "Daily series UST10Y - US 10-year Treasury yield (constant maturity)",
+   "source": "fred:DGS10",
+   "adjustment": "none (price index)",
+   "suitable_for_training": "input to feature pipelines only",
+   "asset_coverage": [
+    "UST10Y"
+   ]
+  },
+  {
+   "path": "research/black_swan/data/raw/UST2Y.csv",
+   "sha256": "dca028e9ef98bb4ee8fc7814f89d9bfd6f7aea723672a1d1ffdc2f0c780984a1",
+   "bytes": 60548,
+   "rows": 2776,
+   "columns": 3,
+   "column_names": [
+    "date",
+    "value",
+    "close"
+   ],
+   "date_column": "date",
+   "date_min": "2015-09-01",
+   "date_max": "2026-10-08",
+   "missing_values_total": 0,
+   "columns_with_missing": {},
+   "duplicate_rows": 0,
+   "key": [
+    "date"
+   ],
+   "duplicate_keys": 0,
+   "near_duplicate_numeric_pairs": [
+    [
+     "close",
+     "value"
+    ]
+   ],
+   "kind": "raw",
+   "purpose": "Daily series UST2Y - US 2-year Treasury yield (constant maturity)",
+   "source": "fred:DGS2",
+   "adjustment": "none (price index)",
+   "suitable_for_training": "input to feature pipelines only",
+   "asset_coverage": [
+    "UST2Y"
+   ]
+  },
+  {
+   "path": "research/black_swan/data/raw/VIX.csv",
+   "sha256": "2c6271f0db6a7f3165d756412a36734f2b22f7bb4a36d843b0f0311a0661f345",
+   "bytes": 67114,
+   "rows": 2825,
+   "columns": 3,
+   "column_names": [
+    "date",
+    "value",
+    "close"
+   ],
+   "date_column": "date",
+   "date_min": "2015-09-01",
+   "date_max": "2026-10-08",
+   "missing_values_total": 0,
+   "columns_with_missing": {},
+   "duplicate_rows": 0,
+   "key": [
+    "date"
+   ],
+   "duplicate_keys": 0,
+   "near_duplicate_numeric_pairs": [
+    [
+     "close",
+     "value"
+    ]
+   ],
+   "kind": "raw",
+   "purpose": "Daily series VIX - CBOE VIX",
+   "source": "fred:VIXCLS",
+   "adjustment": "none (price index)",
+   "suitable_for_training": "input to feature pipelines only",
+   "asset_coverage": [
+    "VIX"
+   ]
+  },
+  {
+   "path": "research/black_swan/data/raw/WTI.csv",
+   "sha256": "d2665eaec200791d53dbce607c6c640ba6bbfef7b8636a7791c4221fa604bb85",
+   "bytes": 66376,
+   "rows": 2777,
+   "columns": 3,
+   "column_names": [
+    "date",
+    "value",
+    "close"
+   ],
+   "date_column": "date",
+   "date_min": "2015-09-01",
+   "date_max": "2026-10-06",
+   "missing_values_total": 0,
+   "columns_with_missing": {},
+   "duplicate_rows": 0,
+   "key": [
+    "date"
+   ],
+   "duplicate_keys": 0,
+   "near_duplicate_numeric_pairs": [
+    [
+     "close",
+     "value"
+    ]
+   ],
+   "kind": "raw",
+   "purpose": "Daily series WTI - WTI crude spot (Cushing)",
+   "source": "fred:DCOILWTICO",
+   "adjustment": "none (price index)",
+   "suitable_for_training": "input to feature pipelines only",
+   "asset_coverage": [
+    "WTI"
+   ]
+  },
+  {
+   "path": "research/black_swan/output/channel_associations.csv",
+   "sha256": "22bd3514f6a81bdbf9dd8f4f36d634f990d08ba9a5fef79eaa0eb66054e0d60c",
+   "bytes": 5365,
+   "rows": 25,
+   "columns": 9,
+   "column_names": [
+    "shock",
+    "target",
+    "target_window_days",
+    "n_events",
+    "share_same_sign",
+    "pearson_corr",
+    "event_ids",
+    "n_abs_t_ge_2",
+    "n_independent_validation_groups"
+   ],
+   "missing_values_total": 18,
+   "columns_with_missing": {
+    "n_abs_t_ge_2": 18
+   },
+   "duplicate_rows": 0,
+   "near_duplicate_numeric_pairs": [
+    [
+     "n_events",
+     "n_independent_validation_groups"
+    ]
+   ],
+   "kind": "derived",
+   "purpose": "Measured direction agreement between oil shocks and Indian assets",
+   "suitable_for_training": false,
+   "source": "research/black_swan/pipeline (derived from data/raw and curated sources)"
+  },
+  {
+   "path": "research/black_swan/output/daily_training_table.csv",
+   "sha256": "7c5aaa67c99cef9b528d6d944b3e58e1f3aa3c7af9f360964191b955da64834d",
+   "bytes": 547769,
+   "rows": 2470,
+   "columns": 37,
+   "column_names": [
+    "date",
+    "year",
+    "x_sp500_prev_ret_pct",
+    "x_brent_prev_ret_pct",
+    "x_usdinr_prev_ret_pct",
+    "x_gold_prev_ret_pct",
+    "x_ust10y_prev_chg_bp",
+    "x_vix_prev_level",
+    "x_nifty_prev_ret_pct",
+    "y_nifty50_ret_pct",
+    "y_niftybank_ret_pct",
+    "y_niftyit_ret_pct",
+    "y_niftypharma_ret_pct",
+    "y_ongc_ret_pct",
+    "y_ioc_ret_pct",
+    "y_bpcl_ret_pct",
+    "y_reliance_ret_pct",
+    "y_indigo_ret_pct",
+    "y_asianpaint_ret_pct",
+    "y_sbin_ret_pct",
+    "y_icicibank_ret_pct",
+    "y_hdfcbank_ret_pct",
+    "y_tcs_ret_pct",
+    "y_infy_ret_pct",
+    "y_lt_ret_pct",
+    "y_hindalco_ret_pct",
+    "y_sunpharma_ret_pct",
+    "regime",
+    "is_event",
+    "is_black_swan",
+    "event_ids",
+    "event_classes",
+    "event_categories",
+    "event_countries",
+    "days_since_event_start",
+    "event_validation_group",
+    "event_episode_ids"
+   ],
+   "date_column": "date",
+   "date_min": "2016-10-03",
+   "date_max": "2026-10-09",
+   "missing_values_total": 15661,
+   "columns_with_missing": {
+    "y_niftypharma_ret_pct": 2,
+    "event_ids": 2237,
+    "event_classes": 2237,
+    "event_categories": 2237,
+    "event_countries": 2237,
+    "days_since_event_start": 2237,
+    "event_validation_group": 2237,
+    "event_episode_ids": 2237
+   },
+   "duplicate_rows": 0,
+   "key": [
+    "date"
+   ],
+   "duplicate_keys": 0,
+   "near_duplicate_numeric_pairs": [],
+   "kind": "derived",
+   "purpose": "Daily labels and pre-open inputs (pre-audit daily table)",
+   "suitable_for_training": false,
+   "source": "research/black_swan/pipeline (derived from data/raw and curated sources)"
+  },
+  {
+   "path": "research/black_swan/output/data_quality_report.csv",
+   "sha256": "8103716344f18461da0f38170801101387a47d80830bd08a5441775c695ffb39",
+   "bytes": 7836,
+   "rows": 56,
+   "columns": 8,
+   "column_names": [
+    "scope",
+    "item",
+    "rows_in_research_period",
+    "first",
+    "last",
+    "gaps_of_3plus_weekdays",
+    "largest_gaps",
+    "issues"
+   ],
+   "missing_values_total": 119,
+   "columns_with_missing": {
+    "rows_in_research_period": 9,
+    "first": 17,
+    "last": 17,
+    "gaps_of_3plus_weekdays": 17,
+    "largest_gaps": 50,
+    "issues": 9
+   },
+   "duplicate_rows": 0,
+   "near_duplicate_numeric_pairs": [],
+   "kind": "report",
+   "purpose": "Known gaps, closures, discrepancies, structural breaks",
+   "suitable_for_training": false,
+   "source": "research/black_swan/pipeline (derived from data/raw and curated sources)"
+  },
+  {
+   "path": "research/black_swan/output/data_sources.csv",
+   "sha256": "bcfebfd058aad9e0a0b1e8b434ded0090e1c503c7e0cc36d7cb8a8bd7c8f2635",
+   "bytes": 19822,
+   "rows": 48,
+   "columns": 19,
+   "column_names": [
+    "dataset",
+    "internal_symbol",
+    "provider",
+    "instrument_id",
+    "url",
+    "frequency",
+    "date_coverage",
+    "units",
+    "currency",
+    "time_zone",
+    "session_close_local",
+    "adjustment_method",
+    "missing_data_limitations",
+    "access_method",
+    "api_requirements",
+    "licensing",
+    "retrieval_status",
+    "retrieved_at_utc",
+    "evidence_class"
+   ],
+   "missing_values_total": 126,
+   "columns_with_missing": {
+    "internal_symbol": 9,
+    "instrument_id": 9,
+    "url": 9,
+    "frequency": 9,
+    "date_coverage": 9,
+    "units": 9,
+    "currency": 9,
+    "time_zone": 9,
+    "session_close_local": 9,
+    "adjustment_method": 9,
+    "access_method": 8,
+    "api_requirements": 9,
+    "licensing": 9,
+    "retrieval_status": 1,
+    "retrieved_at_utc": 9
+   },
+   "duplicate_rows": 0,
+   "kind": "metadata",
+   "purpose": "Provenance of every dataset sought, with evidence class",
+   "suitable_for_training": false,
+   "source": "research/black_swan/pipeline (derived from data/raw and curated sources)"
+  },
+  {
+   "path": "research/black_swan/output/economic_channels.csv",
+   "sha256": "ebe46cf650357ec631c96253c25e22b1298c4c0777301c8822268632bc10f676",
+   "bytes": 13193,
+   "rows": 20,
+   "columns": 14,
+   "column_names": [
+    "relationship_id",
+    "source_entity",
+    "target_entity",
+    "relationship_type",
+    "direction",
+    "economic_mechanism",
+    "event_id",
+    "supporting_evidence",
+    "source_url",
+    "evidence_date",
+    "evidence_type",
+    "limitations",
+    "confidence_level",
+    "confidence_method"
+   ],
+   "missing_values_total": 0,
+   "columns_with_missing": {},
+   "duplicate_rows": 0,
+   "key": [
+    "event_id"
+   ],
+   "duplicate_keys": 3,
+   "constant_columns": [
+    "confidence_method"
+   ],
+   "kind": "curated",
+   "purpose": "Knowledge-graph channels with evidence and confidence",
+   "suitable_for_training": false,
+   "source": "research/black_swan/pipeline (derived from data/raw and curated sources)"
+  },
+  {
+   "path": "research/black_swan/output/event_market_returns.csv",
+   "sha256": "b2d3d4e20c46ed54c545324dedc4e1a4be5b370b4f0ddd623b2728ce16334717",
+   "bytes": 4864894,
+   "rows": 11322,
+   "columns": 35,
+   "column_names": [
+    "event_id",
+    "asset_symbol",
+    "asset_name",
+    "asset_class",
+    "market",
+    "currency",
+    "asset_group",
+    "window_trading_days",
+    "event_reference_time_utc",
+    "event_time_precision",
+    "baseline_date",
+    "baseline_price",
+    "window_start_date",
+    "window_end_date",
+    "ending_price",
+    "absolute_price_change",
+    "percentage_return",
+    "change_bp",
+    "value_kind",
+    "data_frequency",
+    "price_adjustment_method",
+    "source",
+    "window_status",
+    "data_quality_flag",
+    "benchmark_symbol",
+    "benchmark_return_pct",
+    "market_adjusted_return_pct",
+    "mm_alpha",
+    "mm_beta",
+    "mm_resid_sd",
+    "mm_estimation_days",
+    "car_market_model_pct",
+    "car_t_stat",
+    "concurrent_events_in_window",
+    "confounding_note"
+   ],
+   "date_column": "baseline_date",
+   "date_min": "2016-11-07",
+   "date_max": "2026-10-06",
+   "missing_values_total": 75468,
+   "columns_with_missing": {
+    "window_start_date": 30,
+    "window_end_date": 162,
+    "ending_price": 162,
+    "absolute_price_change": 162,
+    "percentage_return": 770,
+    "change_bp": 10720,
+    "benchmark_symbol": 6188,
+    "benchmark_return_pct": 6188,
+    "market_adjusted_return_pct": 6188,
+    "mm_alpha": 6188,
+    "mm_beta": 6188,
+    "mm_resid_sd": 6188,
+    "mm_estimation_days": 6188,
+    "car_market_model_pct": 6188,
+    "car_t_stat": 6188,
+    "concurrent_events_in_window": 7770
+   },
+   "duplicate_rows": 0,
+   "key": [
+    "event_id",
+    "asset_symbol",
+    "window_trading_days"
+   ],
+   "duplicate_keys": 0,
+   "constant_columns": [
+    "data_frequency"
+   ],
+   "near_duplicate_numeric_pairs": [
+    [
+     "absolute_price_change",
+     "change_bp"
+    ],
+    [
+     "baseline_price",
+     "ending_price"
+    ]
+   ],
+   "kind": "derived",
+   "purpose": "Event x asset x window (1/3/5/10/20/60 sessions) returns and abnormal returns",
+   "suitable_for_training": false,
+   "source": "research/black_swan/pipeline (derived from data/raw and curated sources)",
+   "asset_coverage": [
+    "ASIANPAINT",
+    "BPCL",
+    "BRENT",
+    "DXY",
+    "GOLD",
+    "HDFCBANK",
+    "HENRYHUB",
+    "HINDALCO",
+    "ICICIBANK",
+    "IMOEX",
+    "INDIGO",
+    "INFY",
+    "IOC",
+    "LT",
+    "NASDAQ",
+    "NIFTY50",
+    "NIFTYBANK",
+    "NIFTYIT",
+    "NIFTYPHARMA",
+    "ONGC",
+    "RELIANCE",
+    "RTSI",
+    "SBIN",
+    "SP500",
+    "SSE",
+    "STOXX50",
+    "SUNPHARMA",
+    "TA35",
+    "TCS",
+    "USDCNY",
+    "USDILS",
+    "USDINR",
+    "USDRUB",
+    "UST10Y",
+    "UST2Y",
+    "VIX",
+    "WTI"
+   ]
+  },
+  {
+   "path": "research/black_swan/output/event_severity_measured.csv",
+   "sha256": "aecba7a456ee47c47d244a5501d307aac548315cdf24381342e450fbc15699de",
+   "bytes": 3807,
+   "rows": 51,
+   "columns": 13,
+   "column_names": [
+    "event_id",
+    "nifty50_abs1d_percentile",
+    "nifty50_abs5d_percentile",
+    "sp500_abs5d_percentile",
+    "brent_abs5d_percentile",
+    "usdinr_abs5d_percentile",
+    "ust10y_abs5d_percentile",
+    "origin_market_index",
+    "origin_index_abs1d_percentile",
+    "severity_measured_max_percentile",
+    "severity_tier",
+    "data_availability",
+    "core_assets_with_5d_window"
+   ],
+   "missing_values_total": 5,
+   "columns_with_missing": {
+    "nifty50_abs5d_percentile": 1,
+    "sp500_abs5d_percentile": 1,
+    "brent_abs5d_percentile": 1,
+    "usdinr_abs5d_percentile": 1,
+    "ust10y_abs5d_percentile": 1
+   },
+   "duplicate_rows": 0,
+   "key": [
+    "event_id"
+   ],
+   "duplicate_keys": 0,
+   "near_duplicate_numeric_pairs": [],
+   "kind": "derived",
+   "purpose": "Per-event percentile of moves among same-length windows",
+   "suitable_for_training": false,
+   "source": "research/black_swan/pipeline (derived from data/raw and curated sources)"
+  },
+  {
+   "path": "research/black_swan/output/events_master.csv",
+   "sha256": "b8ca956ac011d6b715e3a72fe1d9befb53a40eac190dd8e5e7b3423475b8135e",
+   "bytes": 48556,
+   "rows": 51,
+   "columns": 44,
+   "column_names": [
+    "event_id",
+    "event_name",
+    "event_start_date",
+    "event_end_date",
+    "info_time_utc",
+    "time_precision",
+    "country",
+    "countries_involved",
+    "event_category",
+    "event_subcategory",
+    "event_description",
+    "trigger_type",
+    "unexpectedness",
+    "novelty",
+    "event_severity",
+    "economic_channels",
+    "global_relevance",
+    "india_relevance",
+    "oil_market_relevance",
+    "currency_market_relevance",
+    "equity_market_relevance",
+    "bond_market_relevance",
+    "shipping_market_relevance",
+    "black_swan_classification",
+    "classification_rationale",
+    "data_availability",
+    "episode_id",
+    "parent_event_id",
+    "relation_type",
+    "validation_group",
+    "source_urls",
+    "nifty50_abs1d_percentile",
+    "nifty50_abs5d_percentile",
+    "sp500_abs5d_percentile",
+    "brent_abs5d_percentile",
+    "usdinr_abs5d_percentile",
+    "ust10y_abs5d_percentile",
+    "origin_market_index",
+    "origin_index_abs1d_percentile",
+    "severity_measured_max_percentile",
+    "severity_tier",
+    "core_assets_with_5d_window",
+    "relevance_columns_basis",
+    "research_date"
+   ],
+   "date_column": "event_start_date",
+   "date_min": "2016-11-08",
+   "date_max": "2026-10-07",
+   "missing_values_total": 129,
+   "columns_with_missing": {
+    "event_end_date": 22,
+    "oil_market_relevance": 15,
+    "bond_market_relevance": 11,
+    "shipping_market_relevance": 25,
+    "parent_event_id": 29,
+    "relation_type": 22,
+    "nifty50_abs5d_percentile": 1,
+    "sp500_abs5d_percentile": 1,
+    "brent_abs5d_percentile": 1,
+    "usdinr_abs5d_percentile": 1,
+    "ust10y_abs5d_percentile": 1
+   },
+   "duplicate_rows": 0,
+   "key": [
+    "event_id"
+   ],
+   "duplicate_keys": 0,
+   "constant_columns": [
+    "relevance_columns_basis",
+    "research_date"
+   ],
+   "near_duplicate_numeric_pairs": [],
+   "kind": "curated",
+   "purpose": "Curated event metadata with sources, timing, episode and validation groups",
+   "suitable_for_training": false,
+   "source": "research/black_swan/pipeline (derived from data/raw and curated sources)"
+  },
+  {
+   "path": "research/black_swan/output/excluded_candidates.csv",
+   "sha256": "d9e3cfa11cf15e7ed0887bd0059bad01ff4256db0f1fca716d9fdde4a51da30c",
+   "bytes": 804,
+   "rows": 7,
+   "columns": 2,
+   "column_names": [
+    "candidate_event",
+    "reason_excluded"
+   ],
+   "missing_values_total": 0,
+   "columns_with_missing": {},
+   "duplicate_rows": 0,
+   "kind": "curated",
+   "purpose": "Candidate events rejected, with reasons",
+   "suitable_for_training": false,
+   "source": "research/black_swan/pipeline (derived from data/raw and curated sources)"
+  },
+  {
+   "path": "research/black_swan/output/market_observations.csv",
+   "sha256": "1b8e1f4d789cb1b5d965ae2cdd916c204a6068dd4c0acee8411902ef5aa6a390",
+   "bytes": 11488609,
+   "rows": 105974,
+   "columns": 9,
+   "column_names": [
+    "date",
+    "asset_symbol",
+    "value",
+    "value_kind",
+    "currency",
+    "frequency",
+    "adjustment",
+    "source",
+    "in_research_period"
+   ],
+   "date_column": "date",
+   "date_min": "2015-09-01",
+   "date_max": "2026-10-09",
+   "missing_values_total": 0,
+   "columns_with_missing": {},
+   "duplicate_rows": 0,
+   "key": [
+    "date",
+    "asset_symbol"
+   ],
+   "duplicate_keys": 0,
+   "kind": "derived (raw copy)",
+   "purpose": "All raw observations in long format (git-ignored: Yahoo licensing)",
+   "suitable_for_training": false,
+   "source": "research/black_swan/pipeline (derived from data/raw and curated sources)",
+   "asset_coverage": [
+    "ASIANPAINT",
+    "BPCL",
+    "BRENT",
+    "DXY",
+    "FEDFUNDS",
+    "GOLD",
+    "HDFCBANK",
+    "HENRYHUB",
+    "HINDALCO",
+    "ICICIBANK",
+    "IMOEX",
+    "IN10Y_M",
+    "INDIGO",
+    "INFY",
+    "IOC",
+    "LT",
+    "NASDAQ",
+    "NIFTY50",
+    "NIFTYBANK",
+    "NIFTYIT",
+    "NIFTYPHARMA",
+    "ONGC",
+    "RELIANCE",
+    "RTSI",
+    "SBIN",
+    "SP500",
+    "SSE",
+    "STOXX50",
+    "SUNPHARMA",
+    "TA35",
+    "TCS",
+    "USDCNY",
+    "USDILS",
+    "USDINR",
+    "USDRUB",
+    "UST10Y",
+    "UST2Y",
+    "VIX",
+    "WTI"
+   ]
+  },
+  {
+   "path": "research/black_swan/output/model_coefficients.csv",
+   "sha256": "63cef1e88a2a2692ba2809dfdf1ea14f828eb28aee16c31e19cff789eefc6359",
+   "bytes": 6180,
+   "rows": 15,
+   "columns": 19,
+   "column_names": [
+    "Unnamed: 0",
+    "y_nifty50_5d_ret_pct",
+    "y_niftybank_5d_ret_pct",
+    "y_niftyit_5d_ret_pct",
+    "y_niftypharma_5d_ret_pct",
+    "y_ongc_5d_ret_pct",
+    "y_ioc_5d_ret_pct",
+    "y_bpcl_5d_ret_pct",
+    "y_reliance_5d_ret_pct",
+    "y_indigo_5d_ret_pct",
+    "y_asianpaint_5d_ret_pct",
+    "y_sbin_5d_ret_pct",
+    "y_icicibank_5d_ret_pct",
+    "y_hdfcbank_5d_ret_pct",
+    "y_tcs_5d_ret_pct",
+    "y_infy_5d_ret_pct",
+    "y_lt_5d_ret_pct",
+    "y_hindalco_5d_ret_pct",
+    "y_sunpharma_5d_ret_pct"
+   ],
+   "missing_values_total": 0,
+   "columns_with_missing": {},
+   "duplicate_rows": 0,
+   "near_duplicate_numeric_pairs": [],
+   "kind": "report",
+   "purpose": "Coefficients from train_model.py",
+   "suitable_for_training": false,
+   "source": "research/black_swan/pipeline (derived from data/raw and curated sources)"
+  },
+  {
+   "path": "research/black_swan/output/model_feature_schema.csv",
+   "sha256": "19daf2ad990d62ce1500fd380aeed48ebc24ad505cc01c62ecedb81d94d48baf",
+   "bytes": 3517,
+   "rows": 24,
+   "columns": 10,
+   "column_names": [
+    "feature_name",
+    "definition",
+    "data_type",
+    "unit",
+    "source",
+    "availability_timestamp",
+    "missing_data_policy",
+    "event_specific",
+    "available_at_prediction_time",
+    "role"
+   ],
+   "missing_values_total": 0,
+   "columns_with_missing": {},
+   "duplicate_rows": 0,
+   "kind": "metadata",
+   "purpose": "Schema of model_feature_table.csv",
+   "suitable_for_training": false,
+   "source": "research/black_swan/pipeline (derived from data/raw and curated sources)"
+  },
+  {
+   "path": "research/black_swan/output/model_feature_table.csv",
+   "sha256": "9bef1892e78743c1f95867608db0a5e4cdb3c826e2a2dd0775979a6cd0cdc0bb",
+   "bytes": 252291,
+   "rows": 918,
+   "columns": 30,
+   "column_names": [
+    "event_id",
+    "event_date",
+    "episode_id",
+    "validation_group",
+    "target_asset",
+    "event_category",
+    "classification",
+    "origin_country",
+    "unexpectedness",
+    "event_time_precision",
+    "prediction_timestamp_baseline_close",
+    "nifty_ret_20d_pre_pct",
+    "nifty_realized_vol_20d_pre_ann_pct",
+    "vix_level_pre",
+    "brent_ret_20d_pre_pct",
+    "usdinr_ret_20d_pre_pct",
+    "sp500_ret_20d_pre_pct",
+    "ust10y_chg_20d_pre_bp",
+    "brent_shock_1d_pct",
+    "brent_shock_5d_pct",
+    "usdinr_shock_5d_pct",
+    "ust10y_shock_5d_bp",
+    "sp500_shock_1d_pct",
+    "vix_shock_1d_pts",
+    "gold_shock_5d_pct",
+    "target_ret_20d_pre_pct",
+    "y_target_ret_1d_pct",
+    "y_target_ret_5d_pct",
+    "y_target_ret_20d_pct",
+    "y_target_car_5d_pct"
+   ],
+   "missing_values_total": 194,
+   "columns_with_missing": {
+    "brent_shock_1d_pct": 18,
+    "brent_shock_5d_pct": 18,
+    "usdinr_shock_5d_pct": 18,
+    "ust10y_shock_5d_bp": 18,
+    "gold_shock_5d_pct": 18,
+    "y_target_ret_5d_pct": 18,
+    "y_target_ret_20d_pct": 18,
+    "y_target_car_5d_pct": 68
+   },
+   "duplicate_rows": 0,
+   "key": [
+    "event_id",
+    "target_asset"
+   ],
+   "duplicate_keys": 0,
+   "near_duplicate_numeric_pairs": [],
+   "kind": "derived (superseded)",
+   "purpose": "Pre-audit event x target table (superseded)",
+   "suitable_for_training": false,
+   "source": "research/black_swan/pipeline (derived from data/raw and curated sources)"
+  },
+  {
+   "path": "research/black_swan/output/model_training_final.csv",
+   "sha256": "4cc595053b894f8d655ad224978310c06069d53cb527bb32a58bc06642208b7e",
+   "bytes": 123039,
+   "rows": 493,
+   "columns": 39,
+   "column_names": [
+    "week_start",
+    "week_end",
+    "split",
+    "cv_group",
+    "x_brent_5d_ret_pct",
+    "x_sp500_5d_ret_pct",
+    "x_usdinr_5d_ret_pct",
+    "x_gold_5d_ret_pct",
+    "x_ust10y_5d_chg_bp",
+    "x_vix_level_at_start",
+    "x_nifty_prev_20d_ret_pct",
+    "x_nifty_prev_20d_vol_ann_pct",
+    "x_is_event",
+    "x_event_geopolitical",
+    "x_event_macro_policy",
+    "x_event_financial_crisis",
+    "x_event_commodity_supply",
+    "x_event_other_shock",
+    "y_nifty50_5d_ret_pct",
+    "y_niftybank_5d_ret_pct",
+    "y_niftyit_5d_ret_pct",
+    "y_niftypharma_5d_ret_pct",
+    "y_ongc_5d_ret_pct",
+    "y_ioc_5d_ret_pct",
+    "y_bpcl_5d_ret_pct",
+    "y_reliance_5d_ret_pct",
+    "y_indigo_5d_ret_pct",
+    "y_asianpaint_5d_ret_pct",
+    "y_sbin_5d_ret_pct",
+    "y_icicibank_5d_ret_pct",
+    "y_hdfcbank_5d_ret_pct",
+    "y_tcs_5d_ret_pct",
+    "y_infy_5d_ret_pct",
+    "y_lt_5d_ret_pct",
+    "y_hindalco_5d_ret_pct",
+    "y_sunpharma_5d_ret_pct",
+    "regime",
+    "event_ids",
+    "known_event_ids"
+   ],
+   "date_column": "week_start",
+   "date_min": "2016-10-03",
+   "date_max": "2026-09-25",
+   "missing_values_total": 859,
+   "columns_with_missing": {
+    "y_niftypharma_5d_ret_pct": 2,
+    "event_ids": 411,
+    "known_event_ids": 446
+   },
+   "duplicate_rows": 0,
+   "key": [
+    "week_start"
+   ],
+   "duplicate_keys": 0,
+   "near_duplicate_numeric_pairs": [],
+   "kind": "derived (verified)",
+   "purpose": "BASELINE training set: 14 causal features, 18 five-session targets, chronological split",
+   "suitable_for_training": true,
+   "source": "research/black_swan/pipeline (derived from data/raw and curated sources)"
+  },
+  {
+   "path": "research/black_swan/output/model_training_final_audit.csv",
+   "sha256": "e11c73b6c836363189532bc21be2150442358f7768270257a15a62c2e053b5d7",
+   "bytes": 113755,
+   "rows": 493,
+   "columns": 23,
+   "column_names": [
+    "week_start_close",
+    "week_end_close",
+    "feature_window_start_session",
+    "prediction_timestamp_utc",
+    "target_end_timestamp_utc",
+    "obs_brent_start_date",
+    "obs_brent_end_date",
+    "obs_sp500_start_date",
+    "obs_sp500_end_date",
+    "obs_usdinr_start_date",
+    "obs_usdinr_end_date",
+    "obs_gold_start_date",
+    "obs_gold_end_date",
+    "obs_ust10y_start_date",
+    "obs_ust10y_end_date",
+    "obs_vix_date",
+    "known_event_ids",
+    "known_event_public_at_utc",
+    "known_event_precisions",
+    "target_window_event_ids",
+    "target_window_validation_group",
+    "target_window_episode_ids",
+    "cv_group"
+   ],
+   "date_column": "week_start_close",
+   "date_min": "2016-10-03",
+   "date_max": "2026-09-25",
+   "missing_values_total": 2571,
+   "columns_with_missing": {
+    "known_event_ids": 446,
+    "known_event_public_at_utc": 446,
+    "known_event_precisions": 446,
+    "target_window_event_ids": 411,
+    "target_window_validation_group": 411,
+    "target_window_episode_ids": 411
+   },
+   "duplicate_rows": 0,
+   "kind": "metadata",
+   "purpose": "Per-row prediction timestamps and source observation dates",
+   "suitable_for_training": false,
+   "source": "research/black_swan/pipeline (derived from data/raw and curated sources)"
+  },
+  {
+   "path": "research/black_swan/output/model_training_final_event_distribution.csv",
+   "sha256": "25d66b1b18508426087bfea78dc40fbfb9c960640164fa12d1f95158e0c3455c",
+   "bytes": 878,
+   "rows": 7,
+   "columns": 5,
+   "column_names": [
+    "split",
+    "regime",
+    "rows",
+    "independent_cv_groups",
+    "event_ids"
+   ],
+   "missing_values_total": 4,
+   "columns_with_missing": {
+    "independent_cv_groups": 2,
+    "event_ids": 2
+   },
+   "duplicate_rows": 0,
+   "near_duplicate_numeric_pairs": [],
+   "kind": "report",
+   "purpose": "Event/regime distribution report",
+   "suitable_for_training": false,
+   "source": "research/black_swan/pipeline (derived from data/raw and curated sources)"
+  },
+  {
+   "path": "research/black_swan/output/model_training_final_missing_values.csv",
+   "sha256": "979d8aa2d1681825cf8a83f059d7f25d1a70093eb0c3a5fdb9d9eab131321bca",
+   "bytes": 1795,
+   "rows": 39,
+   "columns": 6,
+   "column_names": [
+    "column",
+    "role",
+    "n_missing",
+    "n_missing_train",
+    "n_missing_test",
+    "reason_and_policy"
+   ],
+   "missing_values_total": 36,
+   "columns_with_missing": {
+    "reason_and_policy": 36
+   },
+   "duplicate_rows": 0,
+   "constant_columns": [
+    "n_missing_train"
+   ],
+   "near_duplicate_numeric_pairs": [
+    [
+     "n_missing",
+     "n_missing_test"
+    ]
+   ],
+   "kind": "report",
+   "purpose": "Missing-value report",
+   "suitable_for_training": false,
+   "source": "research/black_swan/pipeline (derived from data/raw and curated sources)"
+  },
+  {
+   "path": "research/black_swan/output/model_training_final_scenario_inputs.csv",
+   "sha256": "38fb3e8a3269682ae0b31f251535779bf7846895a9db5a791a09e0bac6d1bc06",
+   "bytes": 32739,
+   "rows": 493,
+   "columns": 9,
+   "column_names": [
+    "week_start",
+    "week_end",
+    "s_brent_5d_ret_pct_in_target_window",
+    "s_sp500_5d_ret_pct_in_target_window",
+    "s_usdinr_5d_ret_pct_in_target_window",
+    "s_gold_5d_ret_pct_in_target_window",
+    "s_ust10y_5d_chg_bp_in_target_window",
+    "regime",
+    "event_ids"
+   ],
+   "date_column": "week_start",
+   "date_min": "2016-10-03",
+   "date_max": "2026-09-25",
+   "missing_values_total": 411,
+   "columns_with_missing": {
+    "event_ids": 411
+   },
+   "duplicate_rows": 0,
+   "key": [
+    "week_start"
+   ],
+   "duplicate_keys": 0,
+   "near_duplicate_numeric_pairs": [],
+   "kind": "derived",
+   "purpose": "Same-week shocks (s_) for what-if/conditional analysis only",
+   "suitable_for_training": true,
+   "source": "research/black_swan/pipeline (derived from data/raw and curated sources)"
+  },
+  {
+   "path": "research/black_swan/output/model_training_final_schema.csv",
+   "sha256": "735567aaee169fbc2b007baee9bce76c2a4cc62c9ee4d88a4258b2f07d951545",
+   "bytes": 11715,
+   "rows": 39,
+   "columns": 9,
+   "column_names": [
+    "column",
+    "role",
+    "dtype",
+    "unit",
+    "definition",
+    "window",
+    "availability",
+    "missing_policy",
+    "audit_status"
+   ],
+   "missing_values_total": 0,
+   "columns_with_missing": {},
+   "duplicate_rows": 0,
+   "kind": "metadata",
+   "purpose": "Column roles, units, timing for the baseline",
+   "suitable_for_training": false,
+   "source": "research/black_swan/pipeline (derived from data/raw and curated sources)"
+  },
+  {
+   "path": "research/black_swan/output/weekly_training_table.csv",
+   "sha256": "002301769bb6eba3c7770b0e05680663aad2e686c2267242065a457e494eee6c",
+   "bytes": 244301,
+   "rows": 493,
+   "columns": 68,
+   "column_names": [
+    "week_start_close",
+    "week_end_close",
+    "year",
+    "feature_window_start_session",
+    "prediction_timestamp_utc",
+    "target_end_timestamp_utc",
+    "obs_brent_start_date",
+    "obs_brent_end_date",
+    "x_brent_5d_ret_pct",
+    "obs_sp500_start_date",
+    "obs_sp500_end_date",
+    "x_sp500_5d_ret_pct",
+    "obs_usdinr_start_date",
+    "obs_usdinr_end_date",
+    "x_usdinr_5d_ret_pct",
+    "obs_gold_start_date",
+    "obs_gold_end_date",
+    "x_gold_5d_ret_pct",
+    "obs_ust10y_start_date",
+    "obs_ust10y_end_date",
+    "x_ust10y_5d_chg_bp",
+    "s_brent_5d_ret_pct_in_target_window",
+    "s_sp500_5d_ret_pct_in_target_window",
+    "s_usdinr_5d_ret_pct_in_target_window",
+    "s_gold_5d_ret_pct_in_target_window",
+    "s_ust10y_5d_chg_bp_in_target_window",
+    "x_vix_level_at_start",
+    "obs_vix_date",
+    "x_nifty_prev_20d_ret_pct",
+    "x_nifty_prev_20d_vol_ann_pct",
+    "y_nifty50_5d_ret_pct",
+    "y_niftybank_5d_ret_pct",
+    "y_niftyit_5d_ret_pct",
+    "y_niftypharma_5d_ret_pct",
+    "y_ongc_5d_ret_pct",
+    "y_ioc_5d_ret_pct",
+    "y_bpcl_5d_ret_pct",
+    "y_reliance_5d_ret_pct",
+    "y_indigo_5d_ret_pct",
+    "y_asianpaint_5d_ret_pct",
+    "y_sbin_5d_ret_pct",
+    "y_icicibank_5d_ret_pct",
+    "y_hdfcbank_5d_ret_pct",
+    "y_tcs_5d_ret_pct",
+    "y_infy_5d_ret_pct",
+    "y_lt_5d_ret_pct",
+    "y_hindalco_5d_ret_pct",
+    "y_sunpharma_5d_ret_pct",
+    "x_is_event",
+    "x_event_geopolitical",
+    "x_event_macro_policy",
+    "x_event_financial_crisis",
+    "x_event_commodity_supply",
+    "x_event_other_shock",
+    "known_event_ids",
+    "known_event_public_at_utc",
+    "known_event_precisions",
+    "known_event_validation_groups",
+    "regime",
+    "is_event",
+    "is_black_swan",
+    "event_ids",
+    "event_classes",
+    "event_categories",
+    "event_countries",
+    "event_validation_group",
+    "event_episode_ids",
+    "cv_group"
+   ],
+   "date_column": "week_start_close",
+   "date_min": "2016-10-03",
+   "date_max": "2026-09-25",
+   "missing_values_total": 4252,
+   "columns_with_missing": {
+    "y_niftypharma_5d_ret_pct": 2,
+    "known_event_ids": 446,
+    "known_event_public_at_utc": 446,
+    "known_event_precisions": 446,
+    "known_event_validation_groups": 446,
+    "event_ids": 411,
+    "event_classes": 411,
+    "event_categories": 411,
+    "event_countries": 411,
+    "event_validation_group": 411,
+    "event_episode_ids": 411
+   },
+   "duplicate_rows": 0,
+   "near_duplicate_numeric_pairs": [],
+   "kind": "derived",
+   "purpose": "Working superset behind model_training_final.csv (timestamps, s_ shocks, labels)",
+   "suitable_for_training": false,
+   "source": "research/black_swan/pipeline (derived from data/raw and curated sources)"
+  },
+  {
+   "path": "research/black_swan/output/backups/model_training_final.pre_audit_20261011-164027.csv",
+   "sha256": "5743aa458e8d10c810d7ea458c40258837f58a23b3c50d6aa4cab2278d5387f2",
+   "bytes": 123340,
+   "rows": 493,
+   "columns": 39,
+   "column_names": [
+    "week_start",
+    "week_end",
+    "split",
+    "cv_group",
+    "x_brent_5d_ret_pct",
+    "x_sp500_5d_ret_pct",
+    "x_usdinr_5d_ret_pct",
+    "x_gold_5d_ret_pct",
+    "x_ust10y_5d_chg_bp",
+    "x_vix_level_at_start",
+    "x_nifty_prev_20d_ret_pct",
+    "x_nifty_prev_20d_vol_ann_pct",
+    "x_is_event",
+    "x_is_black_swan",
+    "x_event_geopolitical",
+    "x_event_macro_policy",
+    "x_event_financial_crisis",
+    "x_event_commodity_supply",
+    "x_event_other_shock",
+    "y_nifty50_5d_ret_pct",
+    "y_niftybank_5d_ret_pct",
+    "y_niftyit_5d_ret_pct",
+    "y_niftypharma_5d_ret_pct",
+    "y_ongc_5d_ret_pct",
+    "y_ioc_5d_ret_pct",
+    "y_bpcl_5d_ret_pct",
+    "y_reliance_5d_ret_pct",
+    "y_indigo_5d_ret_pct",
+    "y_asianpaint_5d_ret_pct",
+    "y_sbin_5d_ret_pct",
+    "y_icicibank_5d_ret_pct",
+    "y_hdfcbank_5d_ret_pct",
+    "y_tcs_5d_ret_pct",
+    "y_infy_5d_ret_pct",
+    "y_lt_5d_ret_pct",
+    "y_hindalco_5d_ret_pct",
+    "y_sunpharma_5d_ret_pct",
+    "regime",
+    "event_ids"
+   ],
+   "date_column": "week_start",
+   "date_min": "2016-10-03",
+   "date_max": "2026-09-25",
+   "missing_values_total": 413,
+   "columns_with_missing": {
+    "y_niftypharma_5d_ret_pct": 2,
+    "event_ids": 411
+   },
+   "duplicate_rows": 0,
+   "key": [
+    "week_start"
+   ],
+   "duplicate_keys": 0,
+   "near_duplicate_numeric_pairs": [],
+   "kind": "backup",
+   "purpose": "Pre-audit copy kept for traceability (contains leakage; never train on it)",
+   "suitable_for_training": false
+  }
+ ]
+}

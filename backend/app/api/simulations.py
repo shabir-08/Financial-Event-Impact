@@ -11,7 +11,8 @@ from datetime import date, timedelta
 from fastapi import APIRouter, Depends, Query
 from sqlalchemy.orm import Session
 
-from app.api.deps import get_kb, get_market_provider, get_scenario_catalog, get_simulation_models, get_visual_layers
+from app.api.deps import (get_kb, get_market_provider, get_optional_pattern_library, get_scenario_catalog,
+                          get_simulation_models, get_visual_layers)
 from app.core.config import Settings, get_settings
 from app.core.errors import AppError, NotFoundError
 from app.database.session import get_db
@@ -40,8 +41,9 @@ ERRORS = {404: {"model": ErrorResponse}, 422: {"model": ErrorResponse}}
 
 def _orchestrator(db: Session = Depends(get_db), settings: Settings = Depends(get_settings),
                   kb: KnowledgeBase = Depends(get_kb), catalog: ScenarioCatalog = Depends(get_scenario_catalog),
-                  models: dict = Depends(get_simulation_models), layers: dict = Depends(get_visual_layers)) -> SimulationOrchestrator:
-    return SimulationOrchestrator(db, settings, kb, catalog, models, layers)
+                  models: dict = Depends(get_simulation_models), layers: dict = Depends(get_visual_layers),
+                  patterns=Depends(get_optional_pattern_library)) -> SimulationOrchestrator:
+    return SimulationOrchestrator(db, settings, kb, catalog, models, layers, patterns)
 
 
 @router.get("/api/scenarios", response_model=ScenarioListResponse)

@@ -138,3 +138,22 @@ class TestEntities:
         j = client.get("/api/entities/company:ongc/historical?start=2024-01-01&end=2024-01-31").json()
         assert j["asset_id"] == "asset:ongc_ns" and j["instrument_relation"] == "listed_equity"
         assert j["bars"] and j["simulated"] is True  # the fake provider labels its series simulated
+
+
+class TestHistoricalPatternsInSimulation:
+    def test_analogues_attached_and_labelled(self, client):
+        j = client.post("/api/simulations", json=OIL_REQ).json()
+        hp = j["historical_patterns"]
+        assert hp["status"] == "available" and hp["kind"] == "historical_observations"
+        assert hp["query"]["s_brent_5d_ret_pct_in_target_window"]["source"] == "user_assumption"
+        assert hp["query"]["x_nifty_prev_20d_vol_ann_pct"]["source"] == "latest_observed"
+        assert hp["n_analogues"] == 15 and hp["analogues"][0]["outcomes"]
+        assert j["versions"]["pattern_library_version"].startswith("pattern_library_v1+")
+        # graph, model predictions and historical analogues stay separate blocks
+        assert {"graph", "predictions", "historical_patterns"} <= set(j)
+
+    def test_unmatchable_scenario_reports_unavailable(self, client):
+        j = client.post("/api/simulations", json={"scenario_id": "us_interest_rate_shock",
+                                                  "shocks": {"policy_rate_change_bp": 75}}).json()
+        assert j["historical_patterns"]["status"] == "unavailable"
+        assert j["historical_patterns"]["details"]["errors"][0]["error"] == "no_matchable_parameters"

@@ -181,6 +181,8 @@ class OpenAICompatibleProvider:
         body: dict[str, Any] = {"model": self.model, "messages": messages,
                                 "max_tokens": self.settings.openai_compat_max_tokens,
                                 "temperature": self.settings.openai_compat_temperature}
+        if self.name == "gemini" and self.settings.gemini_reasoning_effort:
+            body["reasoning_effort"] = self.settings.gemini_reasoning_effort
         if self.json_mode == "json_schema":
             body["response_format"] = {"type": "json_schema",
                                        "json_schema": {"name": schema_name, "schema": json_schema, "strict": False}}

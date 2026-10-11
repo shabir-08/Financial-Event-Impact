@@ -1,0 +1,36 @@
+column,role,unit,formula,window,source_series,timing
+x_brent_5d_ret_pct,baseline_equivalent,see model_training_final_schema.csv,,,,identical to baseline column (tested)
+x_sp500_5d_ret_pct,baseline_equivalent,see model_training_final_schema.csv,,,,identical to baseline column (tested)
+x_usdinr_5d_ret_pct,baseline_equivalent,see model_training_final_schema.csv,,,,identical to baseline column (tested)
+x_gold_5d_ret_pct,baseline_equivalent,see model_training_final_schema.csv,,,,identical to baseline column (tested)
+x_ust10y_5d_chg_bp,baseline_equivalent,see model_training_final_schema.csv,,,,identical to baseline column (tested)
+x_vix_level_at_start,baseline_equivalent,see model_training_final_schema.csv,,,,identical to baseline column (tested)
+x_nifty_prev_20d_ret_pct,baseline_equivalent,see model_training_final_schema.csv,,,,identical to baseline column (tested)
+x_nifty_prev_20d_vol_ann_pct,baseline_equivalent,see model_training_final_schema.csv,,,,identical to baseline column (tested)
+x_nifty_prev_5d_ret_pct,feature,%,100*(close[d0]/close[d0-5]-1),5 NSE sessions,NIFTY50,NSE close dated <= d0 (prediction time = NSE close on d0)
+x_nifty_prev_10d_ret_pct,feature,%,100*(close[d0]/close[d0-10]-1),10 NSE sessions,NIFTY50,NSE close dated <= d0 (prediction time = NSE close on d0)
+x_nifty_prev_60d_ret_pct,feature,%,100*(close[d0]/close[d0-60]-1),60 NSE sessions,NIFTY50,NSE close dated <= d0 (prediction time = NSE close on d0)
+x_nifty_prev_5d_vol_ann_pct,feature,% p.a.,SD of last 5 daily returns x sqrt(252) x 100,5 returns ending d0,NIFTY50,NSE close dated <= d0 (prediction time = NSE close on d0)
+x_nifty_prev_60d_vol_ann_pct,feature,% p.a.,SD of last 60 daily returns x sqrt(252) x 100,60 returns ending d0,NIFTY50,NSE close dated <= d0 (prediction time = NSE close on d0)
+x_nifty_drawdown_from_60d_peak_pct,feature,%,100*(close[d0]/max(close over last 60 sessions)-1),60 NSE sessions,NIFTY50,NSE close dated <= d0 (prediction time = NSE close on d0)
+x_nifty_max_drawdown_60d_pct,feature,%,min over last 60 sessions of 100*(close/running max within window - 1),60 NSE sessions,NIFTY50,NSE close dated <= d0 (prediction time = NSE close on d0)
+x_nifty_rebound_from_60d_trough_pct,feature,%,100*(close[d0]/min(close over last 60 sessions)-1),60 NSE sessions,NIFTY50,NSE close dated <= d0 (prediction time = NSE close on d0)
+x_nifty_dist_ma20_pct,feature,%,100*(close[d0]/mean(last 20 closes)-1),20 NSE sessions,NIFTY50,NSE close dated <= d0 (prediction time = NSE close on d0)
+x_nifty_dist_ma50_pct,feature,%,100*(close[d0]/mean(last 50 closes)-1),50 NSE sessions,NIFTY50,NSE close dated <= d0 (prediction time = NSE close on d0)
+x_nifty_streak_sessions,feature,sessions,"signed count of consecutive same-sign daily returns ending d0 (+up, -down)",ending d0,NIFTY50,NSE close dated <= d0 (prediction time = NSE close on d0)
+x_niftybank_prev_5d_ret_pct,feature,%,100*(close[d0]/close[d0-5]-1),5 NSE sessions,NIFTYBANK,NSE close dated <= d0 (prediction time = NSE close on d0)
+x_niftybank_prev_20d_ret_pct,feature,%,100*(close[d0]/close[d0-20]-1),20 NSE sessions,NIFTYBANK,NSE close dated <= d0 (prediction time = NSE close on d0)
+x_niftybank_prev_20d_vol_ann_pct,feature,% p.a.,SD of last 20 daily returns x sqrt(252) x 100,20 returns ending d0,NIFTYBANK,NSE close dated <= d0 (prediction time = NSE close on d0)
+x_niftyit_prev_20d_ret_pct,feature,%,100*(close[d0]/close[d0-20]-1),20 NSE sessions,NIFTYIT,NSE close dated <= d0 (prediction time = NSE close on d0)
+x_niftypharma_prev_20d_ret_pct,feature,%,100*(close[d0]/close[d0-20]-1),20 NSE sessions,NIFTYPHARMA,NSE close dated <= d0 (prediction time = NSE close on d0)
+x_brent_20d_ret_pct,feature,%,100*(v[last obs < p20]/... ) see timing,20 NSE sessions before d0,BRENT,observations dated < d0; window start = last obs dated < the NSE session k sessions before d0
+x_brent_20d_vol_ann_pct,feature,% p.a.,SD of last 20 daily returns (obs dated < d0) x sqrt(252) x 100,20 obs before d0,BRENT,observations dated < d0; window start = last obs dated < the NSE session k sessions before d0
+x_usdinr_20d_ret_pct,feature,%,change between last obs < p20 and last obs < d0; + = rupee weaker,20 NSE sessions before d0,USDINR,observations dated < d0; window start = last obs dated < the NSE session k sessions before d0
+x_usdinr_20d_vol_ann_pct,feature,% p.a.,SD of last 20 daily returns (obs dated < d0) x sqrt(252) x 100,20 obs before d0,USDINR,observations dated < d0; window start = last obs dated < the NSE session k sessions before d0
+x_sp500_20d_ret_pct,feature,%,change between last obs < p20 and last obs < d0,20 NSE sessions before d0,SP500,observations dated < d0; window start = last obs dated < the NSE session k sessions before d0
+x_sp500_20d_vol_ann_pct,feature,% p.a.,SD of last 20 daily returns (obs dated < d0) x sqrt(252) x 100,20 obs before d0,SP500,observations dated < d0; window start = last obs dated < the NSE session k sessions before d0
+x_gold_20d_ret_pct,feature,%,change between last obs < p20 and last obs < d0,20 NSE sessions before d0,GOLD,observations dated < d0; window start = last obs dated < the NSE session k sessions before d0
+x_ust10y_20d_chg_bp,feature,bp,100*(yield[last obs < d0] - yield[last obs < p20]),20 NSE sessions before d0,UST10Y,observations dated < d0; window start = last obs dated < the NSE session k sessions before d0
+x_vix_5d_chg_pts,feature,index pts,VIX[last obs < d0] - VIX[last obs < p5],5 NSE sessions before d0,VIX,observations dated < d0; window start = last obs dated < the NSE session k sessions before d0
+o_nifty_window_max_drawdown_pct,outcome_descriptor,%,min over closes d0..d1 of 100*(close/running max from d0 - 1),target window,NIFTY50,known only at week_end; NEVER an input
+o_nifty_window_realized_vol_ann_pct,outcome_descriptor,% p.a.,SD of the 5 daily returns d0->d1 x sqrt(252) x 100,target window,NIFTY50,known only at week_end; NEVER an input

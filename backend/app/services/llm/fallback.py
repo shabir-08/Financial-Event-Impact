@@ -13,6 +13,7 @@ key, unknown model) or an output error (invalid/refused output after its own ret
 
 from __future__ import annotations
 
+import asyncio
 import logging
 import time
 from typing import Any
@@ -38,7 +39,8 @@ class FallbackLLMProvider:
     simulated = False
 
     def __init__(self, providers: list[LLMProvider], cooldown_seconds: float = 60.0,
-                 skipped: list[dict[str, str]] | None = None, clock=time.monotonic) -> None:
+                 skipped: list[dict[str, str]] | None = None, clock=time.monotonic,
+                 max_wait_seconds: float = 0.0, sleep=asyncio.sleep) -> None:
         if not providers:
             raise ConfigurationError("LLM fallback chain has no usable providers",
                                      details={"integration": "llm", "skipped": skipped or []})
@@ -48,6 +50,10 @@ class FallbackLLMProvider:
         self.cooldown_seconds = cooldown_seconds
         self.skipped = skipped or []  # providers left out at build time (e.g. missing key)
         self._clock = clock
+        self._sleep = sleep
+        #: When EVERY provider is rate-limited / cooling down, wait (up to this many seconds in total) for the
+        #: earliest cooldown to end and try again, instead of failing. Free tiers reset within a minute.
+        self.max_wait_seconds = max_wait_seconds
         self._cooldown_until: dict[str, float] = {}
         self.model = " > ".join(f"{p.name}:{p.model}" for p in providers)
 
@@ -55,6 +61,28 @@ class FallbackLLMProvider:
         self._cooldown_until[provider.name] = self._clock() + seconds
 
     async def _call(self, method: str, *args: Any, **kwargs: Any) -> LLMResult:
+        waited = 0.0
+        all_trails: list[dict[str, Any]] = []
+        while True:
+            try:
+                result = await self._call_once(method, *args, **kwargs)
+                return result.model_copy(update={"fallback_trail": all_trails + result.fallback_trail})
+            except ProviderError as exc:
+                trail = exc.details.get("attempts", [])
+                all_trails += trail
+                only_rate_limits = trail and all(t["outcome"] == "skipped_cooldown" or t.get("error_code") == "rate_limited"
+                                                 for t in trail)
+                remaining = [u - self._clock() for u in self._cooldown_until.values()]
+                wait = max(1.0, min(remaining) + 1.0) if remaining else 1.0
+                if not only_rate_limits or waited + wait > self.max_wait_seconds:
+                    raise ProviderError(exc.message, provider="fallback", retryable=True, attempts=all_trails,
+                                        waited_seconds=round(waited, 1)) from exc
+                log.info("All LLM providers rate-limited for %s; waiting %.0fs before retrying", method, wait)
+                all_trails.append({"provider": "fallback", "outcome": "waited_for_rate_limit", "seconds": round(wait, 1)})
+                await self._sleep(wait)
+                waited += wait
+
+    async def _call_once(self, method: str, *args: Any, **kwargs: Any) -> LLMResult:
         trail: list[dict[str, Any]] = []
         now = self._clock()
         for p in self.providers:

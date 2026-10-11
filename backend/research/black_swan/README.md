@@ -8,6 +8,7 @@ source URLs. Nothing is interpolated, synthetic or estimated from charts.
 * **Research date:** 2026-10-11. **Data end:** 2026-10-09. **October 2026 is incomplete**: FRED FX runs
   to 2026-10-02 and Brent to 2026-10-06.
 * **Findings and recommendations:** [`REPORT.md`](REPORT.md).
+* **ML model, end to end** (data extraction → dataset → leakage audit → training → evaluation → backend use): [`ML_MODEL_README.md`](ML_MODEL_README.md).
 * **Reproduce:** `python run_all.py` uses the cached downloads in `data/raw/`; `python run_all.py --refresh`
   downloads everything again. It needs `pandas`, `numpy` and `httpx` (the backend's `.venv` has them).
 * **Backend model artifacts:** `pipeline/export_models.py`, which `run_all.py` also runs, writes
@@ -15,6 +16,33 @@ source URLs. Nothing is interpolated, synthetic or estimated from charts.
   (recorded only; it cannot take hypothetical shocks). Each artifact holds the coefficients,
   standardisation, feature domain, walk-forward metrics, residual-quantile intervals and the SHA-256 of
   the training CSV.
+* **Model comparison (zero baseline, Ridge, Random Forest, XGBoost):** this step needs
+  `pip install -r requirements-ml.txt`. It is not part of `run_all.py` because it takes about 25 minutes.
+  1. `python pipeline/verify_training_dataset.py` recomputes every feature, target and event flag from
+     `data/raw/` and checks timing.
+  2. `python pipeline/train_candidates.py` tunes on train-only folds (2019–2022), scores each tuned
+     model once on the test split, and holds out each event group in turn.
+  3. `python pipeline/export_forecast_v2.py` writes `../../data/models/forecast_trailing_v2.json`.
+
+  Results go to `output/model_selection/`. Ridge was selected, but it is effectively a per-asset
+  training-mean predictor. Its test MAE (2.3399 vs 2.3503 for the zero baseline) has a 95% CI that
+  includes no difference. The test years contain no Black Swan weeks.
+* **Historical pattern tracking:** details and results are in
+  [`output/pattern_tracking_implementation_report.md`](output/pattern_tracking_implementation_report.md).
+  * `pipeline/data_inventory.py` writes `output/data_inventory.json/.md`, recording file hashes and the baseline hash
+    before any change.
+  * `pipeline/market_features.py` writes `output/market_features_{daily,weekly,schema}.csv`: 25 new trailing
+    features, all as of the prediction timestamp.
+  * `pipeline/event_responses.py` writes `output/historical_event_responses.csv`: the 51 events with their market
+    responses, pre-event conditions and recovery.
+  * `pipeline/build_training_v2.py` writes `output/model_training_v2.csv`: the baseline plus the 25 new features.
+    It is experimental; the baseline file is unchanged.
+  * `pipeline/pattern_library.py` writes `../../data/patterns/pattern_library_v1.json`, which the backend's
+    `/api/market-patterns/*` endpoints and the simulator use.
+
+  `run_all.py` runs the steps above. The slow experiments are run by hand:
+  `python pipeline/run_v2_experiments.py`, which takes 30–60 minutes and writes to `output/model_selection_v2/`,
+  then `python pipeline/regime_performance.py`.
 
 ## Files (`output/`)
 

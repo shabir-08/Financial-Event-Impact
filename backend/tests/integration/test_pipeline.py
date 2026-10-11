@@ -92,7 +92,7 @@ class TestMockPipeline:
         run = db.get(AnalysisRun, event.latest_analysis_id)
         assert run.status == RunStatus.COMPLETED and run.mode == RunMode.SIMULATED
         assert [s["step"] for s in run.steps] == ["graph_build", "path_analysis", "market_analysis", "persistence",
-                                                  "explanation"]
+                                                  "explanation", "lineage"]
         assert run.explanation_status == "VALID" and run.explanation["simulated"] is True
 
         # Graph persisted and reconstructable from DB rows.

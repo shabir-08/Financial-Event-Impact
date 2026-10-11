@@ -1,0 +1,133 @@
+== forecast_v2: 39 features, models ['ridge', 'random_forest', 'xgboost', 'knn_analogue']
+validated ridge: best {'alpha': 10000} MAE 3.1779 (zero 3.1866)
+validated random_forest: best {'max_depth': 2, 'min_samples_leaf': 20, 'max_features': 'sqrt'} MAE 3.1896 (zero 3.1866)
+validated xgboost: best {'max_depth': 1, 'learning_rate': 0.03, 'n_estimators': 100, 'min_child_weight': 20} MAE 3.2372 (zero 3.1866)
+validated knn_analogue: best {'n_neighbors': 80} MAE 3.1940 (zero 3.1866)
+selected on validation: ridge
+F:\Eshita\Projects\Hackwave\financial-impact-graph\research\black_swan\pipeline\train_candidates.py:222: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  tp[f"{name}__{t}"] = P[:, j]
+== forecast_v1_knn: 14 features, models ['knn_analogue']
+validated knn_analogue: best {'n_neighbors': 80} MAE 3.1816 (zero 3.1866)
+selected on validation: knn_analogue
+== scenario_s5: 5 features, models ['ridge', 'random_forest', 'knn_analogue']
+validated ridge: best {'alpha': 100} MAE 2.9911 (zero 3.1866)
+validated random_forest: best {'max_depth': 3, 'min_samples_leaf': 5, 'max_features': 'sqrt'} MAE 3.0356 (zero 3.1866)
+validated knn_analogue: best {'n_neighbors': 40} MAE 3.0883 (zero 3.1866)
+selected on validation: ridge
+== scenario_s5_cond: 10 features, models ['ridge', 'random_forest', 'knn_analogue']
+validated ridge: best {'alpha': 100} MAE 3.0141 (zero 3.1866)
+validated random_forest: best {'max_depth': 3, 'min_samples_leaf': 5, 'max_features': 0.5} MAE 3.0431 (zero 3.1866)
+validated knn_analogue: best {'n_neighbors': 40} MAE 3.1223 (zero 3.1866)
+selected on validation: ridge
+{
+ "R1_forecast": {
+  "baseline_selected_validation_mae": 3.174723033478013,
+  "v2_selected": "ridge",
+  "v2_selected_validation_mae": 3.177859553007347,
+  "a_validation_better": false,
+  "b_vs_zero": {
+   "mae_diff_vs_zero": -0.008934560792361879,
+   "ci95": [
+    -0.034347928307090235,
+    0.01572077082423185
+   ],
+   "share_of_bootstrap_draws_better_than_zero": 0.7425,
+   "n_weeks": 185
+  },
+  "c_vs_baseline_ridge": {
+   "mae_diff": 0.001495755755403394,
+   "ci95": [
+    -0.0010226105245635497,
+    0.004028856868263242
+   ],
+   "n_weeks": 185
+  },
+  "improvement": false
+ },
+ "R2_scenario": {
+  "s5_selected": "ridge",
+  "s5_cond_selected": "ridge",
+  "s5_validation_mae": 2.991143767112224,
+  "s5_cond_validation_mae": 3.014095871996274,
+  "paired_test_s5cond_minus_s5": {
+   "mae_diff": 0.0028463524332953405,
+   "ci95": [
+    -0.006626865759535538,
+    0.012447242844424718
+   ],
+   "n_weeks": 185
+  },
+  "replace_scenario_feature_set": false
+ },
+ "summary": {
+  "forecast_v2": {
+   "selected": "ridge",
+   "validation_mae": {
+    "zero_baseline": 3.1866468855218857,
+    "train_mean_baseline": 3.1742649957385143,
+    "ridge": 3.177859553007347,
+    "random_forest": 3.189594140567636,
+    "xgboost": 3.2371983580134436,
+    "knn_analogue": 3.194030172558923,
+    "random_forest_per_target_at_shared_best": 3.1982176369635305
+   },
+   "test_mae": {
+    "zero_baseline": 2.3503,
+    "train_mean_baseline": 2.3394,
+    "ridge": 2.3414,
+    "random_forest": 2.34,
+    "xgboost": 2.3648,
+    "knn_analogue": 2.356
+   }
+  },
+  "forecast_v1_knn": {
+   "selected": "knn_analogue",
+   "validation_mae": {
+    "zero_baseline": 3.1866468855218857,
+    "train_mean_baseline": 3.1742649957385143,
+    "knn_analogue": 3.181633058010662
+   },
+   "test_mae": {
+    "zero_baseline": 2.3503,
+    "train_mean_baseline": 2.3394,
+    "knn_analogue": 2.3613
+   }
+  },
+  "scenario_s5": {
+   "selected": "ridge",
+   "validation_mae": {
+    "zero_baseline": 3.1866468855218857,
+    "train_mean_baseline": 3.1742649957385143,
+    "ridge": 2.991143767112224,
+    "random_forest": 3.035563697041523,
+    "knn_analogue": 3.0883014043209873,
+    "random_forest_per_target_at_shared_best": 3.0434423081785806
+   },
+   "test_mae": {
+    "zero_baseline": 2.3503,
+    "train_mean_baseline": 2.3394,
+    "ridge": 2.2377,
+    "random_forest": 2.257,
+    "knn_analogue": 2.3137
+   }
+  },
+  "scenario_s5_cond": {
+   "selected": "ridge",
+   "validation_mae": {
+    "zero_baseline": 3.1866468855218857,
+    "train_mean_baseline": 3.1742649957385143,
+    "ridge": 3.014095871996274,
+    "random_forest": 3.043110824142059,
+    "knn_analogue": 3.1223146808361393,
+    "random_forest_per_target_at_shared_best": 3.039595947403422
+   },
+   "test_mae": {
+    "zero_baseline": 2.3503,
+    "train_mean_baseline": 2.3394,
+    "ridge": 2.2405,
+    "random_forest": 2.2446,
+    "knn_analogue": 2.2938
+   }
+  }
+ }
+}

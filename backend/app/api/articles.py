@@ -39,6 +39,24 @@ def list_articles(
     return Page[ArticleOut](items=[ArticleOut.model_validate(a) for a in items], page=page, page_size=page_size, total=total)
 
 
+@router.get("/news-sources")
+def news_sources(settings: Settings = Depends(get_settings)) -> dict:
+    """News sources the backend can ingest from (no credentials are returned)."""
+    from app.services.news.rss import parse_feed_config
+
+    feeds = parse_feed_config(settings.rss_feeds)
+    finnhub_ok = bool(settings.finnhub_api_key and settings.finnhub_api_key.get_secret_value())
+    return {"default_provider": settings.news_provider, "providers": [
+        {"id": "rss", "name": "Publisher RSS feeds", "configured": bool(feeds), "needs_key": False,
+         "live": True, "note": "Headline, summary and link from each publisher's official feed; no API key.",
+         "feeds": [{"key": f.key, "name": f.name, "url": f.url} for f in feeds]},
+        {"id": "gdelt", "name": "GDELT (global news index)", "configured": True, "needs_key": False, "live": True,
+         "note": "Free; limited to one request every 5 seconds per IP and may throttle for longer."},
+        {"id": "finnhub", "name": "Finnhub market news", "configured": finnhub_ok, "needs_key": True, "live": True,
+         "note": "Requires FINNHUB_API_KEY." if not finnhub_ok else "Configured."},
+    ]}
+
+
 @router.get("/{article_id}", response_model=ArticleOut)
 def get_article(article_id: str, db: Session = Depends(get_db)) -> ArticleOut:
     art = db.get(Article, article_id)
@@ -51,7 +69,7 @@ def get_article(article_id: str, db: Session = Depends(get_db)) -> ArticleOut:
 async def ingest(req: IngestRequest, background: BackgroundTasks, db: Session = Depends(get_db),
                  settings: Settings = Depends(get_settings)) -> IngestResponse:
     """Fetch from the configured (or requested) news provider, normalise, deduplicate and store."""
-    provider = build_news_provider(settings, req.provider)
+    provider = build_news_provider(settings, req.provider, feeds=req.feeds)
     summary = await IngestionService(db, provider).ingest(query=req.query, limit=req.limit)
     processing = "not_requested"
     if req.process and summary.inserted:
@@ -61,7 +79,8 @@ async def ingest(req: IngestRequest, background: BackgroundTasks, db: Session = 
         processing = "scheduled"
     return IngestResponse(ingestion_run_id=summary.ingestion_run_id, provider=summary.provider,
                           fetched=summary.fetched, inserted=summary.inserted, duplicates=summary.duplicates,
-                          invalid=summary.invalid, article_ids=summary.article_ids, processing=processing)
+                          invalid=summary.invalid, article_ids=summary.article_ids, processing=processing,
+                          notes=summary.notes or [])
 
 
 @router.post("/{article_id}/process", response_model=ProcessArticleResponse)

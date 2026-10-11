@@ -1,0 +1,6 @@
+# Research-only: model comparison in pipeline/train_candidates.py (versions used: scikit-learn 1.9.1, xgboost 3.4.1).
+# The backend does not need these: exported artifacts are plain JSON coefficients.
+pandas>=2.2
+numpy>=2.1
+scikit-learn>=1.9
+xgboost>=3.4

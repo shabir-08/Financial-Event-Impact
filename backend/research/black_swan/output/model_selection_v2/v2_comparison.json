@@ -1,0 +1,113 @@
+{
+  "decision_rules": "(fixed before any of these experiments was run):\n  R1 forecast: v2 counts as an improvement only if (a) its validation-selected model has a lower validation\n     MAE than the baseline's selected model (ridge, 3.1747), (b) on test its MAE vs the zero baseline has a\n     95% week-block bootstrap CI entirely below 0, and (c) the paired test difference vs the baseline ridge\n     predictions has a 95% CI entirely below 0. Otherwise forecast_trailing_v2 stays the forecasting model.\n  R2 scenario: scenario_s5_cond replaces the s5 feature set only if its validation-selected model beats the\n     s5 validation-selected model on validation AND the paired test difference has a 95% CI entirely below 0.\n     Otherwise scenario_conditional_v1 stays.\n  Test results are computed once per experiment and never used to change features, grids or models.",
+  "R1_forecast": {
+    "baseline_selected_validation_mae": 3.174723033478013,
+    "v2_selected": "ridge",
+    "v2_selected_validation_mae": 3.177859553007347,
+    "a_validation_better": false,
+    "b_vs_zero": {
+      "mae_diff_vs_zero": -0.008934560792361879,
+      "ci95": [
+        -0.034347928307090235,
+        0.01572077082423185
+      ],
+      "share_of_bootstrap_draws_better_than_zero": 0.7425,
+      "n_weeks": 185
+    },
+    "c_vs_baseline_ridge": {
+      "mae_diff": 0.001495755755403394,
+      "ci95": [
+        -0.0010226105245635497,
+        0.004028856868263242
+      ],
+      "n_weeks": 185
+    },
+    "improvement": false
+  },
+  "R2_scenario": {
+    "s5_selected": "ridge",
+    "s5_cond_selected": "ridge",
+    "s5_validation_mae": 2.991143767112224,
+    "s5_cond_validation_mae": 3.014095871996274,
+    "paired_test_s5cond_minus_s5": {
+      "mae_diff": 0.0028463524332953405,
+      "ci95": [
+        -0.006626865759535538,
+        0.012447242844424718
+      ],
+      "n_weeks": 185
+    },
+    "replace_scenario_feature_set": false
+  },
+  "summary": {
+    "forecast_v2": {
+      "selected": "ridge",
+      "validation_mae": {
+        "zero_baseline": 3.1866468855218857,
+        "train_mean_baseline": 3.1742649957385143,
+        "ridge": 3.177859553007347,
+        "random_forest": 3.189594140567636,
+        "xgboost": 3.2371983580134436,
+        "knn_analogue": 3.194030172558923,
+        "random_forest_per_target_at_shared_best": 3.1982176369635305
+      },
+      "test_mae": {
+        "zero_baseline": 2.3503,
+        "train_mean_baseline": 2.3394,
+        "ridge": 2.3414,
+        "random_forest": 2.34,
+        "xgboost": 2.3648,
+        "knn_analogue": 2.356
+      }
+    },
+    "forecast_v1_knn": {
+      "selected": "knn_analogue",
+      "validation_mae": {
+        "zero_baseline": 3.1866468855218857,
+        "train_mean_baseline": 3.1742649957385143,
+        "knn_analogue": 3.181633058010662
+      },
+      "test_mae": {
+        "zero_baseline": 2.3503,
+        "train_mean_baseline": 2.3394,
+        "knn_analogue": 2.3613
+      }
+    },
+    "scenario_s5": {
+      "selected": "ridge",
+      "validation_mae": {
+        "zero_baseline": 3.1866468855218857,
+        "train_mean_baseline": 3.1742649957385143,
+        "ridge": 2.991143767112224,
+        "random_forest": 3.035563697041523,
+        "knn_analogue": 3.0883014043209873,
+        "random_forest_per_target_at_shared_best": 3.0434423081785806
+      },
+      "test_mae": {
+        "zero_baseline": 2.3503,
+        "train_mean_baseline": 2.3394,
+        "ridge": 2.2377,
+        "random_forest": 2.257,
+        "knn_analogue": 2.3137
+      }
+    },
+    "scenario_s5_cond": {
+      "selected": "ridge",
+      "validation_mae": {
+        "zero_baseline": 3.1866468855218857,
+        "train_mean_baseline": 3.1742649957385143,
+        "ridge": 3.014095871996274,
+        "random_forest": 3.043110824142059,
+        "knn_analogue": 3.1223146808361393,
+        "random_forest_per_target_at_shared_best": 3.039595947403422
+      },
+      "test_mae": {
+        "zero_baseline": 2.3503,
+        "train_mean_baseline": 2.3394,
+        "ridge": 2.2405,
+        "random_forest": 2.2446,
+        "knn_analogue": 2.2938
+      }
+    }
+  }
+}

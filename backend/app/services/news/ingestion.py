@@ -20,8 +20,12 @@ from app.services.text import canonical_url, domain_of, normalize_text, sha256_h
 log = logging.getLogger(__name__)
 
 
-def build_news_provider(settings: Settings, name: str | None = None) -> NewsProvider:
+def build_news_provider(settings: Settings, name: str | None = None, feeds: list[str] | None = None) -> NewsProvider:
     name = name or settings.news_provider
+    if name == "rss":
+        from app.services.news.rss import RSSNewsProvider
+
+        return RSSNewsProvider(settings, feeds=feeds)
     if name == "gdelt":
         from app.services.news.gdelt import GDELTNewsProvider
 
@@ -55,6 +59,7 @@ class IngestionSummary:
     duplicates: int
     invalid: int
     article_ids: list[str]
+    notes: list[str] | None = None
 
 
 class IngestionService:
@@ -81,7 +86,7 @@ class IngestionService:
         run.status, run.finished_at = "COMPLETED", utcnow()
         self.session.commit()
         return IngestionSummary(run.id, self.provider.name, len(result.articles), len(inserted), dupes,
-                                result.invalid_count, ids)
+                                result.invalid_count, ids, result.notes)
 
 
 def store_articles(session: Session, articles: list[NormalizedArticle],
@@ -102,6 +107,9 @@ def store_articles(session: Session, articles: list[NormalizedArticle],
         if existing is not None:
             dupes += 1
             all_ids.append(existing.id)
+            new_img = (na.metadata or {}).get("image_url")
+            if new_img and not (existing.extra or {}).get("image_url"):  # backfill images for earlier fetches
+                existing.extra = {**(existing.extra or {}), "image_url": new_img}
             continue
         art = Article(
             provider=na.provider,

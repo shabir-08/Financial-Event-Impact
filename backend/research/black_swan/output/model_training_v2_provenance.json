@@ -1,0 +1,39 @@
+{
+ "baseline_sha256": "4cc595053b894f8d655ad224978310c06069d53cb527bb32a58bc06642208b7e",
+ "market_features_weekly_sha256": "abc96335159d6f59c6b1ecdaa1bfcab8c5d9a27b92073fbbf0a3c4d910b2fec1",
+ "model_training_v2_sha256": "61e0b906081ad47b7a5caacf726f7eb74f91485cb7527d89d2f0aacca083f1e4",
+ "shape": [
+  493,
+  64
+ ],
+ "baseline_features": 14,
+ "new_features_kept": [
+  "x_nifty_prev_5d_ret_pct",
+  "x_nifty_prev_10d_ret_pct",
+  "x_nifty_prev_60d_ret_pct",
+  "x_nifty_prev_5d_vol_ann_pct",
+  "x_nifty_prev_60d_vol_ann_pct",
+  "x_nifty_drawdown_from_60d_peak_pct",
+  "x_nifty_max_drawdown_60d_pct",
+  "x_nifty_rebound_from_60d_trough_pct",
+  "x_nifty_dist_ma20_pct",
+  "x_nifty_dist_ma50_pct",
+  "x_nifty_streak_sessions",
+  "x_niftybank_prev_5d_ret_pct",
+  "x_niftybank_prev_20d_ret_pct",
+  "x_niftybank_prev_20d_vol_ann_pct",
+  "x_niftyit_prev_20d_ret_pct",
+  "x_niftypharma_prev_20d_ret_pct",
+  "x_brent_20d_ret_pct",
+  "x_brent_20d_vol_ann_pct",
+  "x_usdinr_20d_ret_pct",
+  "x_usdinr_20d_vol_ann_pct",
+  "x_sp500_20d_ret_pct",
+  "x_sp500_20d_vol_ann_pct",
+  "x_gold_20d_ret_pct",
+  "x_ust10y_20d_chg_bp",
+  "x_vix_5d_chg_pts"
+ ],
+ "dropped_as_redundant": [],
+ "redundancy_rule": "|r| >= 0.95 on train rows with an earlier feature"
+}

@@ -59,3 +59,37 @@ def test_log_redaction():
     f.filter(rec)
     msg = rec.getMessage()
     assert "supersecret" not in msg and "finnhubkey123" not in msg and "abc" not in msg
+
+
+def test_compact_package_respects_budget_and_declares_trims():
+    import json
+
+    from app.services.explanations.evidence_package import compact_for_llm
+    from app.services.explanations.validation import package_refs
+
+    path = lambda i: {"ref": f"PATH{i}", "rank": i, "target_asset": f"asset:a{i % 10}", "node_ids": ["event:x", "v", f"asset:a{i % 10}"],  # noqa: E731
+                      "node_labels": ["A very long event title " * 3, "Crude oil price", f"Asset {i}"], "relationship_refs": [f"R{i}"],
+                      "edge_statuses": ["INFERRED"], "path_score": 0.5, "impact_direction": "POTENTIAL_UPWARD_PRESSURE", "uncertainties": []}
+    big = {
+        "package_version": 12, "analysis_id": "a", "mode": "LIVE",
+        "event": {"id": "e", "title": "t", "summary": "s" * 2000, "reported_figures": [], "relevance_rationale": "r"},
+        "articles": [{"ref": "A1", "headline": "h", "source_name": "s", "published_at": None, "is_simulated": False}],
+        "passages": [{"ref": "P1", "article_ref": "A1", "text": "p" * 900, "verified_verbatim": True}],
+        "entities": [{"node_id": f"n{i}", "name": f"Entity {i}", "type": "COMPANY", "origin": "INFERRED",
+                      "normalization_status": "RESOLVED", "mention": f"m{i}"} for i in range(300)],
+        "relationships": [{"ref": f"R{i}", "source_label": "a", "target_label": "b", "relationship_type": "INCREASES", "direction": "POSITIVE",
+                           "status": "INFERRED", "mechanism": "m" * 400, "score": 0.5, "evidence": []} for i in range(40)],
+        "candidate_paths": [path(i) for i in range(40)],
+        "candidate_assets": [{"asset_id": f"asset:a{i}", "name": f"A{i}", "impact_direction": "X", "best_path_score": 0.5,
+                              "path_refs": ["PATH1"], "market_data_status": "AVAILABLE", "historical_status": None} for i in range(12)],
+        "market_observations": [{"ref": f"M{i}", "asset_id": f"asset:a{i % 12}", "kind": "HISTORICAL_EVENT", "status": "AVAILABLE",
+                                 "windows": [{"window_trading_days": 5, "return_pct": 1.234, "status": "AVAILABLE"}]} for i in range(60)],
+        "missing_data": [], "known_limitations": [],
+    }
+    c = compact_for_llm(big, token_budget=3000)
+    assert len(json.dumps(c, default=str)) // 3 <= 3000
+    assert c["trimmed_for_size"]["omitted"]  # the model is told what was left out
+    assert package_refs(c) <= package_refs(big)  # no new reference ids appear
+    small = compact_for_llm({**big, "entities": [], "candidate_paths": big["candidate_paths"][:2], "relationships": big["relationships"][:2],
+                             "market_observations": [], "candidate_assets": big["candidate_assets"][:2]}, token_budget=3000)
+    assert "trimmed_for_size" not in small

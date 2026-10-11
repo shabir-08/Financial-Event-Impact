@@ -1,0 +1,261 @@
+{
+  "label": "scenario_s5",
+  "dataset": {
+    "file": "output\\model_training_final.csv",
+    "sha256": "4cc595053b894f8d655ad224978310c06069d53cb527bb32a58bc06642208b7e",
+    "source_files": {
+      "output\\model_training_final.csv": "4cc595053b894f8d655ad224978310c06069d53cb527bb32a58bc06642208b7e",
+      "output\\model_training_final_scenario_inputs.csv": "38fb3e8a3269682ae0b31f251535779bf7846895a9db5a791a09e0bac6d1bc06"
+    },
+    "rows": 493,
+    "train_rows": 308,
+    "test_rows": 185,
+    "features": [
+      "s_brent_5d_ret_pct_in_target_window",
+      "s_sp500_5d_ret_pct_in_target_window",
+      "s_usdinr_5d_ret_pct_in_target_window",
+      "s_gold_5d_ret_pct_in_target_window",
+      "s_ust10y_5d_chg_bp_in_target_window"
+    ],
+    "targets": [
+      "y_nifty50_5d_ret_pct",
+      "y_niftybank_5d_ret_pct",
+      "y_niftyit_5d_ret_pct",
+      "y_niftypharma_5d_ret_pct",
+      "y_ongc_5d_ret_pct",
+      "y_ioc_5d_ret_pct",
+      "y_bpcl_5d_ret_pct",
+      "y_reliance_5d_ret_pct",
+      "y_indigo_5d_ret_pct",
+      "y_asianpaint_5d_ret_pct",
+      "y_sbin_5d_ret_pct",
+      "y_icicibank_5d_ret_pct",
+      "y_hdfcbank_5d_ret_pct",
+      "y_tcs_5d_ret_pct",
+      "y_infy_5d_ret_pct",
+      "y_lt_5d_ret_pct",
+      "y_hindalco_5d_ret_pct",
+      "y_sunpharma_5d_ret_pct"
+    ]
+  },
+  "protocol": "* Features: the 14 x_* columns, in file order. Targets: the 18 y_* columns (5-NSE-session % returns).\n* Hyperparameters are tuned ONLY on the train partition (week_end <= 2022) with expanding-window\n  chronological folds: validate on 2019, 2020, 2021, 2022, each fitted on all earlier train rows.\n* Model selection: lowest pooled validation MAE; a model must beat the zero-return baseline on\n  validation to be selected, otherwise the zero baseline is selected.\n* The test partition (week_end >= 2023) is evaluated ONCE per tuned candidate, after selection.\n* Missing targets (2 NaN in y_niftypharma_5d_ret_pct, both in test) are never imputed: per-target\n  models are fitted on that target's observed rows; metrics are computed on observed rows only.\n* Preprocessing (median imputer + standard scaler for ridge) is fitted inside each training fold.\n* Episode holdout: leave-one-event-group-out over every cv_group that contains an EVENT or\n  BLACK_SWAN row, with the selected hyperparameters fixed and a purge of the 4 rows after the held-out\n  block (their trailing features contain the held-out returns). This uses later periods for training\n  and therefore measures cross-episode generalisation, not a realistic forecast.",
+  "validation": {
+    "zero_baseline": {
+      "n": 3564,
+      "mae": 3.1866468855218857,
+      "rmse": 4.465753040523199,
+      "directional_accuracy": null,
+      "n_directional": 3560
+    },
+    "train_mean_baseline": {
+      "n": 3564,
+      "mae": 3.1742649957385143,
+      "rmse": 4.455117127702131,
+      "directional_accuracy": 0.5342696629213484,
+      "n_directional": 3560
+    },
+    "ridge": {
+      "best_params": {
+        "alpha": 100
+      },
+      "n": 3564,
+      "mae": 2.991143767112224,
+      "rmse": 4.205293937120456,
+      "directional_accuracy": 0.6137640449438202,
+      "n_directional": 3560,
+      "beats_zero": true
+    },
+    "random_forest": {
+      "best_params": {
+        "max_depth": 3,
+        "min_samples_leaf": 5,
+        "max_features": "sqrt"
+      },
+      "n": 3564,
+      "mae": 3.035563697041523,
+      "rmse": 4.265393677692416,
+      "directional_accuracy": 0.6103932584269663,
+      "n_directional": 3560,
+      "beats_zero": true
+    },
+    "knn_analogue": {
+      "best_params": {
+        "n_neighbors": 40
+      },
+      "n": 3564,
+      "mae": 3.0883014043209873,
+      "rmse": 4.337632332151396,
+      "directional_accuracy": 0.5848314606741573,
+      "n_directional": 3560,
+      "beats_zero": true
+    },
+    "random_forest_per_target_at_shared_best": {
+      "n": 3564,
+      "mae": 3.0434423081785806,
+      "rmse": 4.273210824300278,
+      "directional_accuracy": 0.6081460674157303,
+      "n_directional": 3560
+    }
+  },
+  "selected_model": "ridge",
+  "test": {
+    "zero_baseline": {
+      "pooled": {
+        "n": 3328,
+        "mae": 2.3503244290865384,
+        "rmse": 3.1695759441256377,
+        "directional_accuracy": null,
+        "n_directional": 3324
+      }
+    },
+    "train_mean_baseline": {
+      "pooled": {
+        "n": 3328,
+        "mae": 2.3393688954600087,
+        "rmse": 3.1702726814465314,
+        "directional_accuracy": 0.5523465703971119,
+        "n_directional": 3324
+      },
+      "vs_zero_bootstrap": {
+        "mae_diff_vs_zero": -0.010955533626529679,
+        "ci95": [
+          -0.03661808146261012,
+          0.015003561114838615
+        ],
+        "share_of_bootstrap_draws_better_than_zero": 0.802,
+        "n_weeks": 185
+      }
+    },
+    "ridge": {
+      "pooled": {
+        "n": 3328,
+        "mae": 2.2376796220033035,
+        "rmse": 3.036170895599554,
+        "directional_accuracy": 0.6043922984356197,
+        "n_directional": 3324
+      },
+      "vs_zero_bootstrap": {
+        "mae_diff_vs_zero": -0.11264480708323488,
+        "ci95": [
+          -0.17042089942372857,
+          -0.057491978104766826
+        ],
+        "share_of_bootstrap_draws_better_than_zero": 1.0,
+        "n_weeks": 185
+      }
+    },
+    "random_forest": {
+      "pooled": {
+        "n": 3328,
+        "mae": 2.2570341513565952,
+        "rmse": 3.057454631067219,
+        "directional_accuracy": 0.598676293622142,
+        "n_directional": 3324
+      },
+      "vs_zero_bootstrap": {
+        "mae_diff_vs_zero": -0.09329027772994314,
+        "ci95": [
+          -0.14144903897932593,
+          -0.04441419318115094
+        ],
+        "share_of_bootstrap_draws_better_than_zero": 1.0,
+        "n_weeks": 185
+      }
+    },
+    "knn_analogue": {
+      "pooled": {
+        "n": 3328,
+        "mae": 2.3137467630709136,
+        "rmse": 3.128127300189965,
+        "directional_accuracy": 0.5697954271961492,
+        "n_directional": 3324
+      },
+      "vs_zero_bootstrap": {
+        "mae_diff_vs_zero": -0.03657766601562473,
+        "ci95": [
+          -0.0861555213213218,
+          0.012661434318978019
+        ],
+        "share_of_bootstrap_draws_better_than_zero": 0.926,
+        "n_weeks": 185
+      }
+    }
+  },
+  "episode_holdout": {
+    "knn_analogue": {
+      "all_event_groups": {
+        "n_groups": 26,
+        "n": 1584,
+        "mae": 3.12185782354798
+      },
+      "black_swan_groups": {
+        "groups": [
+          "VG01",
+          "VG07"
+        ],
+        "n_weeks": 10,
+        "n": 180,
+        "mae": 6.028310430555556
+      },
+      "groups_beating_zero": "22/26"
+    },
+    "random_forest": {
+      "all_event_groups": {
+        "n_groups": 26,
+        "n": 1584,
+        "mae": 3.111278262399966
+      },
+      "black_swan_groups": {
+        "groups": [
+          "VG01",
+          "VG07"
+        ],
+        "n_weeks": 10,
+        "n": 180,
+        "mae": 5.855081949238344
+      },
+      "groups_beating_zero": "21/26"
+    },
+    "ridge": {
+      "all_event_groups": {
+        "n_groups": 26,
+        "n": 1584,
+        "mae": 2.9808490942932373
+      },
+      "black_swan_groups": {
+        "groups": [
+          "VG01",
+          "VG07"
+        ],
+        "n_weeks": 10,
+        "n": 180,
+        "mae": 5.5565849923208175
+      },
+      "groups_beating_zero": "22/26"
+    },
+    "zero_baseline": {
+      "all_event_groups": {
+        "n_groups": 26,
+        "n": 1584,
+        "mae": 3.309195896464646
+      },
+      "black_swan_groups": {
+        "groups": [
+          "VG01",
+          "VG07"
+        ],
+        "n_weeks": 10,
+        "n": 180,
+        "mae": 6.33774
+      }
+    }
+  },
+  "environment": {
+    "python": "3.14.3",
+    "sklearn": "1.9.1",
+    "xgboost": "3.4.1",
+    "numpy": "2.5.4",
+    "pandas": "3.0.6",
+    "seed": 20261011
+  }
+}

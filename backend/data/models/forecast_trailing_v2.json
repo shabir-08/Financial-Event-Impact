@@ -1,0 +1,1209 @@
+{
+ "model_id": "forecast_trailing_v2",
+ "kind": "forecast_trailing",
+ "supports_hypothetical_shocks": false,
+ "status": "no_demonstrated_skill",
+ "interpretation": "Forecast of the next 5 NSE sessions from information known at the prediction time. With the selected penalty (alpha=10000) the coefficients are ~0, so it effectively predicts each asset's 2016-2022 average weekly return.",
+ "unsupported_reason": "Inputs are trailing 5-session moves; a hypothetical shock can only be read as 'the shock already happened last week', which excludes the immediate reaction. The model also shows no skill: its test MAE is not distinguishable from the zero-return baseline.",
+ "horizon_trading_days": 5,
+ "features": [
+  {
+   "column": "x_brent_5d_ret_pct"
+  },
+  {
+   "column": "x_sp500_5d_ret_pct"
+  },
+  {
+   "column": "x_usdinr_5d_ret_pct"
+  },
+  {
+   "column": "x_gold_5d_ret_pct"
+  },
+  {
+   "column": "x_ust10y_5d_chg_bp"
+  },
+  {
+   "column": "x_vix_level_at_start"
+  },
+  {
+   "column": "x_nifty_prev_20d_ret_pct"
+  },
+  {
+   "column": "x_nifty_prev_20d_vol_ann_pct"
+  },
+  {
+   "column": "x_is_event"
+  },
+  {
+   "column": "x_event_geopolitical"
+  },
+  {
+   "column": "x_event_macro_policy"
+  },
+  {
+   "column": "x_event_financial_crisis"
+  },
+  {
+   "column": "x_event_commodity_supply"
+  },
+  {
+   "column": "x_event_other_shock"
+  }
+ ],
+ "feature_order": [
+  "x_brent_5d_ret_pct",
+  "x_sp500_5d_ret_pct",
+  "x_usdinr_5d_ret_pct",
+  "x_gold_5d_ret_pct",
+  "x_ust10y_5d_chg_bp",
+  "x_vix_level_at_start",
+  "x_nifty_prev_20d_ret_pct",
+  "x_nifty_prev_20d_vol_ann_pct",
+  "x_is_event",
+  "x_event_geopolitical",
+  "x_event_macro_policy",
+  "x_event_financial_crisis",
+  "x_event_commodity_supply",
+  "x_event_other_shock"
+ ],
+ "targets": [
+  {
+   "column": "y_nifty50_5d_ret_pct",
+   "symbol": "NIFTY50",
+   "name": "NIFTY 50",
+   "asset_class": "EQUITY_INDEX",
+   "currency": "INR",
+   "kb_asset_id": "asset:nifty50",
+   "unit": "% simple return over 5 NSE trading sessions"
+  },
+  {
+   "column": "y_niftybank_5d_ret_pct",
+   "symbol": "NIFTYBANK",
+   "name": "NIFTY Bank",
+   "asset_class": "EQUITY_INDEX",
+   "currency": "INR",
+   "kb_asset_id": null,
+   "unit": "% simple return over 5 NSE trading sessions"
+  },
+  {
+   "column": "y_niftyit_5d_ret_pct",
+   "symbol": "NIFTYIT",
+   "name": "NIFTY IT",
+   "asset_class": "EQUITY_INDEX",
+   "currency": "INR",
+   "kb_asset_id": null,
+   "unit": "% simple return over 5 NSE trading sessions"
+  },
+  {
+   "column": "y_niftypharma_5d_ret_pct",
+   "symbol": "NIFTYPHARMA",
+   "name": "NIFTY Pharma",
+   "asset_class": "EQUITY_INDEX",
+   "currency": "INR",
+   "kb_asset_id": null,
+   "unit": "% simple return over 5 NSE trading sessions"
+  },
+  {
+   "column": "y_ongc_5d_ret_pct",
+   "symbol": "ONGC",
+   "name": "Oil and Natural Gas Corporation",
+   "asset_class": "EQUITY",
+   "currency": "INR",
+   "kb_asset_id": "asset:ongc_ns",
+   "unit": "% simple return over 5 NSE trading sessions"
+  },
+  {
+   "column": "y_ioc_5d_ret_pct",
+   "symbol": "IOC",
+   "name": "Indian Oil Corporation",
+   "asset_class": "EQUITY",
+   "currency": "INR",
+   "kb_asset_id": "asset:ioc_ns",
+   "unit": "% simple return over 5 NSE trading sessions"
+  },
+  {
+   "column": "y_bpcl_5d_ret_pct",
+   "symbol": "BPCL",
+   "name": "Bharat Petroleum",
+   "asset_class": "EQUITY",
+   "currency": "INR",
+   "kb_asset_id": "asset:bpcl_ns",
+   "unit": "% simple return over 5 NSE trading sessions"
+  },
+  {
+   "column": "y_reliance_5d_ret_pct",
+   "symbol": "RELIANCE",
+   "name": "Reliance Industries",
+   "asset_class": "EQUITY",
+   "currency": "INR",
+   "kb_asset_id": "asset:reliance_ns",
+   "unit": "% simple return over 5 NSE trading sessions"
+  },
+  {
+   "column": "y_indigo_5d_ret_pct",
+   "symbol": "INDIGO",
+   "name": "InterGlobe Aviation (IndiGo)",
+   "asset_class": "EQUITY",
+   "currency": "INR",
+   "kb_asset_id": "asset:indigo_ns",
+   "unit": "% simple return over 5 NSE trading sessions"
+  },
+  {
+   "column": "y_asianpaint_5d_ret_pct",
+   "symbol": "ASIANPAINT",
+   "name": "Asian Paints",
+   "asset_class": "EQUITY",
+   "currency": "INR",
+   "kb_asset_id": "asset:asianpaint_ns",
+   "unit": "% simple return over 5 NSE trading sessions"
+  },
+  {
+   "column": "y_sbin_5d_ret_pct",
+   "symbol": "SBIN",
+   "name": "State Bank of India",
+   "asset_class": "EQUITY",
+   "currency": "INR",
+   "kb_asset_id": null,
+   "unit": "% simple return over 5 NSE trading sessions"
+  },
+  {
+   "column": "y_icicibank_5d_ret_pct",
+   "symbol": "ICICIBANK",
+   "name": "ICICI Bank",
+   "asset_class": "EQUITY",
+   "currency": "INR",
+   "kb_asset_id": null,
+   "unit": "% simple return over 5 NSE trading sessions"
+  },
+  {
+   "column": "y_hdfcbank_5d_ret_pct",
+   "symbol": "HDFCBANK",
+   "name": "HDFC Bank",
+   "asset_class": "EQUITY",
+   "currency": "INR",
+   "kb_asset_id": "asset:hdfcbank_ns",
+   "unit": "% simple return over 5 NSE trading sessions"
+  },
+  {
+   "column": "y_tcs_5d_ret_pct",
+   "symbol": "TCS",
+   "name": "Tata Consultancy Services",
+   "asset_class": "EQUITY",
+   "currency": "INR",
+   "kb_asset_id": null,
+   "unit": "% simple return over 5 NSE trading sessions"
+  },
+  {
+   "column": "y_infy_5d_ret_pct",
+   "symbol": "INFY",
+   "name": "Infosys",
+   "asset_class": "EQUITY",
+   "currency": "INR",
+   "kb_asset_id": null,
+   "unit": "% simple return over 5 NSE trading sessions"
+  },
+  {
+   "column": "y_lt_5d_ret_pct",
+   "symbol": "LT",
+   "name": "Larsen & Toubro",
+   "asset_class": "EQUITY",
+   "currency": "INR",
+   "kb_asset_id": null,
+   "unit": "% simple return over 5 NSE trading sessions"
+  },
+  {
+   "column": "y_hindalco_5d_ret_pct",
+   "symbol": "HINDALCO",
+   "name": "Hindalco Industries",
+   "asset_class": "EQUITY",
+   "currency": "INR",
+   "kb_asset_id": null,
+   "unit": "% simple return over 5 NSE trading sessions"
+  },
+  {
+   "column": "y_sunpharma_5d_ret_pct",
+   "symbol": "SUNPHARMA",
+   "name": "Sun Pharmaceutical",
+   "asset_class": "EQUITY",
+   "currency": "INR",
+   "kb_asset_id": null,
+   "unit": "% simple return over 5 NSE trading sessions"
+  }
+ ],
+ "estimator": {
+  "library": "scikit-learn",
+  "class": "Ridge (one per target, shared alpha)",
+  "alpha": 10000,
+  "preprocessing": "StandardScaler fitted on train rows (population SD)"
+ },
+ "standardization": {
+  "mean": [
+   0.39138896103896104,
+   0.22083571428571427,
+   0.07400974025974025,
+   0.11598961038961039,
+   0.6655844155844156,
+   19.210292207792207,
+   1.0885454545454545,
+   15.07350649350649,
+   0.07467532467532467,
+   0.016233766233766232,
+   0.02922077922077922,
+   0.00974025974025974,
+   0.006493506493506494,
+   0.00974025974025974
+  ],
+  "sd": [
+   6.4815468685113515,
+   2.635417062934747,
+   0.7857215926388262,
+   2.0192951462699056,
+   10.712378322939454,
+   8.55431695408688,
+   4.983342383258253,
+   9.892261633745708,
+   0.2628667353621594,
+   0.12637337958460104,
+   0.16842483570575242,
+   0.09821093157307903,
+   0.0803202394600843,
+   0.09821093157307904
+  ],
+  "fitted_on": "train partition only (308 rows)"
+ },
+ "coefficients": {
+  "intercept": [
+   0.26506753246753245,
+   0.3123168831168831,
+   0.3787425324675325,
+   0.0749892857142857,
+   0.18630422077922076,
+   0.14696883116883114,
+   0.18533961038961042,
+   0.6098918831168831,
+   0.41200551948051956,
+   0.38673831168831174,
+   0.42249512987013,
+   0.5419642857142858,
+   0.3736525974025975,
+   0.421223051948052,
+   0.4728399350649351,
+   0.35455779220779227,
+   0.5396084415584416,
+   0.1907094155844156
+  ],
+  "weights_per_standardized_feature": [
+   [
+    0.0037070526764925366,
+    0.004896596850613093,
+    0.00043842470476308635,
+    0.003526269070281211,
+    -0.011707126424075051,
+    0.010454390921248174,
+    0.005279573352119162,
+    -0.004804909311213285,
+    -0.01085165296100375,
+    0.008227968097844193,
+    0.0073040662038455564,
+    -0.004379787200077174,
+    0.007689666860847146,
+    -0.0030179996601937048,
+    -0.0015847405484189572,
+    0.014678667819375607,
+    0.004745275335669919,
+    0.005008521286605927
+   ],
+   [
+    0.007456550400480213,
+    0.012516353053699324,
+    0.0064836128257440674,
+    0.01091479512086027,
+    -0.012018867003072151,
+    -0.0029877909727554683,
+    0.012539948039551212,
+    0.009892637848078058,
+    0.005992680185562403,
+    0.0023607811406747194,
+    0.0114602015120396,
+    0.015555997118163457,
+    0.012700454223323013,
+    -0.004959582058697263,
+    0.004165216935564961,
+    0.010230528800636898,
+    0.01969940097753254,
+    0.01357333038626714
+   ],
+   [
+    -0.002287530460259306,
+    -0.002914313834501748,
+    -0.006477199981685936,
+    0.00426997420898808,
+    -0.0010870402058518027,
+    -0.0040918217552253335,
+    -0.0012893048350583463,
+    0.00020366123395231306,
+    -0.012373971009492522,
+    -0.0008036762878910612,
+    -0.014037235492689665,
+    -0.00523357681166421,
+    0.002247132877052165,
+    -0.007135531494269469,
+    -0.0050494459001333486,
+    -0.0030129421677739356,
+    -0.012161433452825356,
+    0.010861505580505191
+   ],
+   [
+    0.00399977125008698,
+    0.003969767590084377,
+    3.7286028659203674e-05,
+    0.010377888786380999,
+    0.008626745101659368,
+    0.01105073852741685,
+    0.01957290920994836,
+    0.0056658399316325755,
+    0.0013147615106397588,
+    0.005159766738619298,
+    0.0013591456435405739,
+    0.0008502154004214943,
+    0.006921993340006224,
+    -0.0018799488623010576,
+    -0.005915982814386053,
+    0.0034854142759628017,
+    0.016571949971344778,
+    0.010127295409100647
+   ],
+   [
+    0.0013581017410744633,
+    0.006406138024695406,
+    -0.0013359298320818275,
+    -0.0020395925923629493,
+    -0.001605098486263137,
+    -0.0026292225222030994,
+    -0.004879713050971379,
+    -0.00065796936816642,
+    -0.003233425652155583,
+    -0.006258396846322583,
+    0.01481752073671203,
+    0.0035541296316087536,
+    0.007680805240153637,
+    0.005791087400384136,
+    -0.0017112511882218732,
+    -0.0002815537063518723,
+    -0.012855680622705135,
+    -0.0019173440711399915
+   ],
+   [
+    0.0003226703565184668,
+    -0.006591775026220734,
+    0.0026649312970150464,
+    0.013887723746817984,
+    0.0156808797199541,
+    0.0003765084648042807,
+    0.002726089481009794,
+    0.009550500127573937,
+    0.007272400384977271,
+    -0.0032503231895233673,
+    -0.0066929474034163015,
+    -0.010620766139636901,
+    -0.0023046807678051098,
+    0.004002459625829209,
+    0.009694478665078549,
+    -0.005394755718818139,
+    0.003433581305456351,
+    0.01428017346548112
+   ],
+   [
+    0.004281765869751857,
+    0.010030099710449703,
+    0.006237876173404755,
+    -0.014574080669833834,
+    0.005443753841804435,
+    0.008212981305075485,
+    0.0002823946240197677,
+    -0.0002924474514114341,
+    -0.00832768163971783,
+    -0.0007278645086591899,
+    0.014139943943447975,
+    0.008161997382963769,
+    0.0034296296040377964,
+    0.007261340442127127,
+    -0.0012571159964465716,
+    0.006742920117596119,
+    0.002419546154479382,
+    -0.01679350097598142
+   ],
+   [
+    0.0038109764986005803,
+    -0.003972177385303411,
+    0.002481779730885294,
+    0.023390399549408233,
+    0.01692599564956671,
+    0.00252810240168454,
+    0.014651075928682243,
+    0.02300690871001381,
+    -0.0007480695835596545,
+    -0.0003334230564145538,
+    -0.010479081332112837,
+    -0.0035239343005167103,
+    0.00021567373333556745,
+    0.0029467638094188013,
+    0.003956618785497291,
+    -0.00113097217957903,
+    0.01586973602751609,
+    0.02014429639422605
+   ],
+   [
+    -0.007006528116307287,
+    -0.014006610060968821,
+    -0.005334768281252607,
+    -0.0012397681031154988,
+    0.006046646854377287,
+    0.0001365285130252333,
+    0.0065482845366065315,
+    0.0018404162881801374,
+    -0.0010877272237570436,
+    -0.012013057499920784,
+    -0.016253545154920203,
+    -0.017516852248568474,
+    -0.004120767844160495,
+    -0.0006423456148853991,
+    -0.0035157551206411912,
+    -0.015897291234340607,
+    -0.007779799290030298,
+    -0.00029031743401249083
+   ],
+   [
+    0.0034972776838479783,
+    -0.0008868128788276011,
+    0.0038264493856214363,
+    0.0071720687832555795,
+    0.01575000365488139,
+    0.018018413635532016,
+    0.020888461445895144,
+    0.005503314422638258,
+    0.005502798036686048,
+    -0.0006160909387444079,
+    0.0012170899831917585,
+    -0.003240012308550355,
+    0.002297830421684086,
+    0.002400196587845872,
+    0.003826536665849433,
+    0.004569200769570933,
+    0.012229268713098087,
+    0.00861820543651561
+   ],
+   [
+    -0.003096343970875125,
+    -0.0029985596193749784,
+    -0.003284853251575234,
+    -0.00914280161012142,
+    -0.02039658939198036,
+    -0.009062329523444495,
+    -0.007844844084618005,
+    0.0008587833690072889,
+    0.015009977748834431,
+    -0.004986388308176982,
+    -0.008383258457276723,
+    -0.004905942453316861,
+    0.004336463811735448,
+    -5.5216962452589734e-05,
+    0.003170754588834793,
+    -0.00816188644326071,
+    -0.027231001329474903,
+    -0.012589746317098416
+   ],
+   [
+    -0.018293195683667114,
+    -0.02306040362488729,
+    -0.018712621765032928,
+    -0.008764813791884644,
+    0.011569695539485187,
+    -0.0025679088123600376,
+    -0.021208120029677476,
+    -0.018104021784332004,
+    -0.025365782887107884,
+    -0.016085572908829025,
+    -0.00844076333507138,
+    -0.02644085430595126,
+    -0.01958666830075037,
+    -0.008282254841952842,
+    -0.017048260370055784,
+    -0.02750425123203485,
+    -0.015423812450666562,
+    -0.0044789884711651
+   ],
+   [
+    -0.013660638222292592,
+    -0.023328458491129335,
+    -0.007607281256922707,
+    -0.0050526561243365254,
+    0.010820027430733396,
+    -0.004119892864744853,
+    -0.022326969220289223,
+    -0.009967483658820886,
+    -0.016825141610865544,
+    -0.0024997312411919473,
+    -0.021459112638092356,
+    -0.025666347064078533,
+    -0.02064528759017032,
+    0.005128455957262943,
+    -0.011543593347758977,
+    -0.020900367296327157,
+    -0.017251868904465728,
+    -0.008653156416941164
+   ],
+   [
+    -0.0013173560463801159,
+    -0.003507901354423779,
+    0.003288778581689124,
+    -0.003996228648779352,
+    0.01634093113771438,
+    -0.007800642592455615,
+    -0.0023342131023248902,
+    0.00445240883741054,
+    -0.003147727575613254,
+    -0.012680998772002556,
+    -0.010679547539135227,
+    -0.0070368474153884655,
+    -0.001490312404811474,
+    0.0030935906608724724,
+    0.0012519194524998024,
+    0.001605166720478291,
+    0.01046221901260976,
+    -0.001486025169563181
+   ]
+  ]
+ },
+ "feature_domain": {
+  "x_brent_5d_ret_pct": {
+   "min": -40.1851,
+   "p01": -14.955675999999999,
+   "p99": 19.805151000000023,
+   "max": 35.6663
+  },
+  "x_sp500_5d_ret_pct": {
+   "min": -20.7494,
+   "p01": -7.644634999999999,
+   "p99": 5.485562000000002,
+   "max": 9.1592
+  },
+  "x_usdinr_5d_ret_pct": {
+   "min": -2.4178,
+   "p01": -1.66735,
+   "p99": 2.362154000000001,
+   "max": 3.0224
+  },
+  "x_gold_5d_ret_pct": {
+   "min": -6.9653,
+   "p01": -4.536215,
+   "p99": 4.789885000000004,
+   "max": 11.5988
+  },
+  "x_ust10y_5d_chg_bp": {
+   "min": -33.0,
+   "p01": -27.86,
+   "p99": 29.930000000000007,
+   "max": 39.0
+  },
+  "x_vix_level_at_start": {
+   "min": 9.14,
+   "p01": 9.4405,
+   "p99": 45.01180000000002,
+   "max": 75.47
+  },
+  "x_nifty_prev_20d_ret_pct": {
+   "min": -27.8779,
+   "p01": -17.858829,
+   "p99": 11.123365,
+   "max": 14.0714
+  },
+  "x_nifty_prev_20d_vol_ann_pct": {
+   "min": 5.574,
+   "p01": 6.87108,
+   "p99": 72.13230000000013,
+   "max": 88.441
+  },
+  "x_is_event": {
+   "min": 0.0,
+   "p01": 0.0,
+   "p99": 1.0,
+   "max": 1.0
+  },
+  "x_event_geopolitical": {
+   "min": 0.0,
+   "p01": 0.0,
+   "p99": 1.0,
+   "max": 1.0
+  },
+  "x_event_macro_policy": {
+   "min": 0.0,
+   "p01": 0.0,
+   "p99": 1.0,
+   "max": 1.0
+  },
+  "x_event_financial_crisis": {
+   "min": 0.0,
+   "p01": 0.0,
+   "p99": 0.0,
+   "max": 1.0
+  },
+  "x_event_commodity_supply": {
+   "min": 0.0,
+   "p01": 0.0,
+   "p99": 0.0,
+   "max": 1.0
+  },
+  "x_event_other_shock": {
+   "min": 0.0,
+   "p01": 0.0,
+   "p99": 0.0,
+   "max": 1.0
+  }
+ },
+ "n_rows_used_per_target": [
+  308,
+  308,
+  308,
+  308,
+  308,
+  308,
+  308,
+  308,
+  308,
+  308,
+  308,
+  308,
+  308,
+  308,
+  308,
+  308,
+  308,
+  308
+ ],
+ "training": {
+  "rows": 308,
+  "period": "2016-10-03..2022-12-30",
+  "selection": "expanding-window validation on 2019-2022 (train partition only)",
+  "validation": {
+   "zero_baseline": {
+    "n": 3564,
+    "mae": 3.1866468855218857,
+    "rmse": 4.465753040523199,
+    "directional_accuracy": null,
+    "n_directional": 3560
+   },
+   "train_mean_baseline": {
+    "n": 3564,
+    "mae": 3.1742649957385143,
+    "rmse": 4.455117127702131,
+    "directional_accuracy": 0.5342696629213484,
+    "n_directional": 3560
+   },
+   "ridge": {
+    "best_params": {
+     "alpha": 10000
+    },
+    "n": 3564,
+    "mae": 3.174723033478013,
+    "rmse": 4.455554481581224,
+    "directional_accuracy": 0.5331460674157303,
+    "n_directional": 3560,
+    "beats_zero": true
+   },
+   "random_forest": {
+    "best_params": {
+     "max_depth": 2,
+     "min_samples_leaf": 20,
+     "max_features": "sqrt"
+    },
+    "n": 3564,
+    "mae": 3.18492163726153,
+    "rmse": 4.47002022528035,
+    "directional_accuracy": 0.5317415730337078,
+    "n_directional": 3560,
+    "beats_zero": true
+   },
+   "xgboost": {
+    "best_params": {
+     "max_depth": 1,
+     "learning_rate": 0.03,
+     "n_estimators": 100,
+     "min_child_weight": 20
+    },
+    "n": 3564,
+    "mae": 3.2261699181580052,
+    "rmse": 4.5177809081946725,
+    "directional_accuracy": 0.522191011235955,
+    "n_directional": 3560,
+    "beats_zero": false
+   },
+   "random_forest_per_target_at_shared_best": {
+    "n": 3564,
+    "mae": 3.1912824827830684,
+    "rmse": 4.477636626110411,
+    "directional_accuracy": 0.525,
+    "n_directional": 3560
+   }
+  }
+ },
+ "evaluation": {
+  "test_partition": {
+   "rows": 185,
+   "period": "2022-12-30..2026-10-05",
+   "evaluated_once": true,
+   "contains_black_swan_rows": false
+  },
+  "test": {
+   "zero_baseline": {
+    "pooled": {
+     "n": 3328,
+     "mae": 2.3503244290865384,
+     "rmse": 3.1695759441256377,
+     "directional_accuracy": null,
+     "n_directional": 3324
+    }
+   },
+   "train_mean_baseline": {
+    "pooled": {
+     "n": 3328,
+     "mae": 2.3393688954600087,
+     "rmse": 3.1702726814465314,
+     "directional_accuracy": 0.5523465703971119,
+     "n_directional": 3324
+    },
+    "vs_zero_bootstrap": {
+     "mae_diff_vs_zero": -0.010955533626529679,
+     "ci95": [
+      -0.03661808146261012,
+      0.015003561114838615
+     ],
+     "share_of_bootstrap_draws_better_than_zero": 0.802,
+     "n_weeks": 185
+    }
+   },
+   "ridge": {
+    "pooled": {
+     "n": 3328,
+     "mae": 2.3398941125387727,
+     "rmse": 3.170665531327358,
+     "directional_accuracy": 0.5505415162454874,
+     "n_directional": 3324
+    },
+    "vs_zero_bootstrap": {
+     "mae_diff_vs_zero": -0.010430316547765717,
+     "ci95": [
+      -0.03639017399238972,
+      0.01571886965093233
+     ],
+     "share_of_bootstrap_draws_better_than_zero": 0.766,
+     "n_weeks": 185
+    }
+   },
+   "random_forest": {
+    "pooled": {
+     "n": 3328,
+     "mae": 2.341206875949597,
+     "rmse": 3.1730749671522602,
+     "directional_accuracy": 0.542719614921781,
+     "n_directional": 3324
+    },
+    "vs_zero_bootstrap": {
+     "mae_diff_vs_zero": -0.009117553136941403,
+     "ci95": [
+      -0.034765743479805114,
+      0.01788448971957263
+     ],
+     "share_of_bootstrap_draws_better_than_zero": 0.7445,
+     "n_weeks": 185
+    }
+   },
+   "xgboost": {
+    "pooled": {
+     "n": 3328,
+     "mae": 2.3789886456830818,
+     "rmse": 3.2119828969854396,
+     "directional_accuracy": 0.5216606498194946,
+     "n_directional": 3324
+    },
+    "vs_zero_bootstrap": {
+     "mae_diff_vs_zero": 0.02866421659654339,
+     "ci95": [
+      -0.003466829075154198,
+      0.060694878381777916
+     ],
+     "share_of_bootstrap_draws_better_than_zero": 0.0405,
+     "n_weeks": 185
+    }
+   }
+  },
+  "per_target": {
+   "y_nifty50_5d_ret_pct": {
+    "n_oos": 185,
+    "mae_model": 1.3318,
+    "mae_zero_baseline": 1.3409,
+    "directional_accuracy": 0.573,
+    "beats_zero_baseline": true,
+    "oos_r2": null
+   },
+   "y_niftybank_5d_ret_pct": {
+    "n_oos": 185,
+    "mae_model": 1.6124,
+    "mae_zero_baseline": 1.6112,
+    "directional_accuracy": 0.5297,
+    "beats_zero_baseline": false,
+    "oos_r2": null
+   },
+   "y_niftyit_5d_ret_pct": {
+    "n_oos": 185,
+    "mae_model": 2.3113,
+    "mae_zero_baseline": 2.3182,
+    "directional_accuracy": 0.5351,
+    "beats_zero_baseline": true,
+    "oos_r2": null
+   },
+   "y_niftypharma_5d_ret_pct": {
+    "n_oos": 183,
+    "mae_model": 1.6734,
+    "mae_zero_baseline": 1.6927,
+    "directional_accuracy": 0.6339,
+    "beats_zero_baseline": true,
+    "oos_r2": null
+   },
+   "y_ongc_5d_ret_pct": {
+    "n_oos": 185,
+    "mae_model": 2.7322,
+    "mae_zero_baseline": 2.7473,
+    "directional_accuracy": 0.5514,
+    "beats_zero_baseline": true,
+    "oos_r2": null
+   },
+   "y_ioc_5d_ret_pct": {
+    "n_oos": 185,
+    "mae_model": 3.0522,
+    "mae_zero_baseline": 3.0662,
+    "directional_accuracy": 0.5464,
+    "beats_zero_baseline": true,
+    "oos_r2": null
+   },
+   "y_bpcl_5d_ret_pct": {
+    "n_oos": 185,
+    "mae_model": 3.2176,
+    "mae_zero_baseline": 3.2293,
+    "directional_accuracy": 0.5081,
+    "beats_zero_baseline": true,
+    "oos_r2": null
+   },
+   "y_reliance_5d_ret_pct": {
+    "n_oos": 185,
+    "mae_model": 2.2015,
+    "mae_zero_baseline": 2.1977,
+    "directional_accuracy": 0.538,
+    "beats_zero_baseline": false,
+    "oos_r2": null
+   },
+   "y_indigo_5d_ret_pct": {
+    "n_oos": 185,
+    "mae_model": 2.9431,
+    "mae_zero_baseline": 3.01,
+    "directional_accuracy": 0.6054,
+    "beats_zero_baseline": true,
+    "oos_r2": null
+   },
+   "y_asianpaint_5d_ret_pct": {
+    "n_oos": 185,
+    "mae_model": 2.1659,
+    "mae_zero_baseline": 2.1317,
+    "directional_accuracy": 0.4919,
+    "beats_zero_baseline": false,
+    "oos_r2": null
+   },
+   "y_sbin_5d_ret_pct": {
+    "n_oos": 185,
+    "mae_model": 2.3752,
+    "mae_zero_baseline": 2.3767,
+    "directional_accuracy": 0.5351,
+    "beats_zero_baseline": true,
+    "oos_r2": null
+   },
+   "y_icicibank_5d_ret_pct": {
+    "n_oos": 185,
+    "mae_model": 1.8778,
+    "mae_zero_baseline": 1.8623,
+    "directional_accuracy": 0.5435,
+    "beats_zero_baseline": false,
+    "oos_r2": null
+   },
+   "y_hdfcbank_5d_ret_pct": {
+    "n_oos": 185,
+    "mae_model": 2.0701,
+    "mae_zero_baseline": 2.0663,
+    "directional_accuracy": 0.5351,
+    "beats_zero_baseline": false,
+    "oos_r2": null
+   },
+   "y_tcs_5d_ret_pct": {
+    "n_oos": 185,
+    "mae_model": 2.3807,
+    "mae_zero_baseline": 2.3592,
+    "directional_accuracy": 0.5135,
+    "beats_zero_baseline": false,
+    "oos_r2": null
+   },
+   "y_infy_5d_ret_pct": {
+    "n_oos": 185,
+    "mae_model": 2.732,
+    "mae_zero_baseline": 2.7414,
+    "directional_accuracy": 0.5297,
+    "beats_zero_baseline": true,
+    "oos_r2": null
+   },
+   "y_lt_5d_ret_pct": {
+    "n_oos": 185,
+    "mae_model": 2.4578,
+    "mae_zero_baseline": 2.4843,
+    "directional_accuracy": 0.5838,
+    "beats_zero_baseline": true,
+    "oos_r2": null
+   },
+   "y_hindalco_5d_ret_pct": {
+    "n_oos": 185,
+    "mae_model": 2.9702,
+    "mae_zero_baseline": 3.0386,
+    "directional_accuracy": 0.5838,
+    "beats_zero_baseline": true,
+    "oos_r2": null
+   },
+   "y_sunpharma_5d_ret_pct": {
+    "n_oos": 185,
+    "mae_model": 2.0059,
+    "mae_zero_baseline": 2.0246,
+    "directional_accuracy": 0.573,
+    "beats_zero_baseline": true,
+    "oos_r2": null
+   }
+  },
+  "episode_holdout": {
+   "random_forest": {
+    "all_event_groups": {
+     "n_groups": 26,
+     "n": 1584,
+     "mae": 3.329554785360745
+    },
+    "black_swan_groups": {
+     "groups": [
+      "VG01",
+      "VG07"
+     ],
+     "n_weeks": 10,
+     "n": 180,
+     "mae": 6.4760960801922325
+    },
+    "groups_beating_zero": "12/26"
+   },
+   "ridge": {
+    "all_event_groups": {
+     "n_groups": 26,
+     "n": 1584,
+     "mae": 3.3226470081191293
+    },
+    "black_swan_groups": {
+     "groups": [
+      "VG01",
+      "VG07"
+     ],
+     "n_weeks": 10,
+     "n": 180,
+     "mae": 6.439990935874222
+    },
+    "groups_beating_zero": "15/26"
+   },
+   "xgboost": {
+    "all_event_groups": {
+     "n_groups": 26,
+     "n": 1584,
+     "mae": 3.3532713976112984
+    },
+    "black_swan_groups": {
+     "groups": [
+      "VG01",
+      "VG07"
+     ],
+     "n_weeks": 10,
+     "n": 180,
+     "mae": 6.473705735036121
+    },
+    "groups_beating_zero": "8/26"
+   },
+   "zero_baseline": {
+    "all_event_groups": {
+     "n_groups": 26,
+     "n": 1584,
+     "mae": 3.309195896464646
+    },
+    "black_swan_groups": {
+     "groups": [
+      "VG01",
+      "VG07"
+     ],
+     "n_weeks": 10,
+     "n": 180,
+     "mae": 6.33774
+    }
+   }
+  }
+ },
+ "prediction_intervals": {
+  "method": "empirical residual quantiles from train-only validation folds",
+  "residual_quantiles": {
+   "y_nifty50_5d_ret_pct": {
+    "q05": -3.8415805787855084,
+    "q10": -2.4483384059762905,
+    "q50": 0.17123816053370083,
+    "q90": 2.7117404312154454,
+    "q95": 3.8336488916872944
+   },
+   "y_niftybank_5d_ret_pct": {
+    "q05": -5.2181566877892696,
+    "q10": -3.8837722682009113,
+    "q50": -0.0008057048770575004,
+    "q90": 4.010595282010225,
+    "q95": 5.545085205708986
+   },
+   "y_niftyit_5d_ret_pct": {
+    "q05": -6.494031411098948,
+    "q10": -4.080252552279586,
+    "q50": 0.23213809073017277,
+    "q90": 3.933830006419351,
+    "q95": 4.6841849486343
+   },
+   "y_niftypharma_5d_ret_pct": {
+    "q05": -4.535891741635312,
+    "q10": -3.181536030682534,
+    "q50": 0.16103380884427723,
+    "q90": 3.9818707512021367,
+    "q95": 5.0100030521523085
+   },
+   "y_ongc_5d_ret_pct": {
+    "q05": -8.034444540184293,
+    "q10": -6.080352225601103,
+    "q50": 0.3890256960338264,
+    "q90": 7.407089653682479,
+    "q95": 9.935677647957672
+   },
+   "y_ioc_5d_ret_pct": {
+    "q05": -7.571166169270197,
+    "q10": -5.150150424038361,
+    "q50": -0.22172061487072875,
+    "q90": 5.780418368794043,
+    "q95": 7.78427431627323
+   },
+   "y_bpcl_5d_ret_pct": {
+    "q05": -7.385403068195068,
+    "q10": -5.615579076440106,
+    "q50": -0.4430954587958415,
+    "q90": 5.809627284266384,
+    "q95": 7.598915233798771
+   },
+   "y_reliance_5d_ret_pct": {
+    "q05": -7.9782680631511536,
+    "q10": -5.465628101068866,
+    "q50": -0.48134120602998465,
+    "q90": 4.991480673742854,
+    "q95": 6.295077640757314
+   },
+   "y_indigo_5d_ret_pct": {
+    "q05": -9.22955885368405,
+    "q10": -6.9396959075923155,
+    "q50": -0.23643308618970804,
+    "q90": 6.673632054579961,
+    "q95": 10.360957290522958
+   },
+   "y_asianpaint_5d_ret_pct": {
+    "q05": -6.240851606432848,
+    "q10": -4.446613778259876,
+    "q50": 0.2155515642499922,
+    "q90": 4.3120433293080636,
+    "q95": 6.290433328841328
+   },
+   "y_sbin_5d_ret_pct": {
+    "q05": -7.466199275504155,
+    "q10": -5.909231690399201,
+    "q50": 0.36862336751123603,
+    "q90": 5.870115557250423,
+    "q95": 7.813466197613844
+   },
+   "y_icicibank_5d_ret_pct": {
+    "q05": -6.423021982655171,
+    "q10": -4.904926979082798,
+    "q50": -0.14209750440452126,
+    "q90": 5.032949265169434,
+    "q95": 6.544554451006352
+   },
+   "y_hdfcbank_5d_ret_pct": {
+    "q05": -6.067968026113624,
+    "q10": -4.348738489458894,
+    "q50": -0.1322976095644338,
+    "q90": 3.948685385611776,
+    "q95": 6.6063692178962174
+   },
+   "y_tcs_5d_ret_pct": {
+    "q05": -6.282881199372287,
+    "q10": -4.36273642333779,
+    "q50": 0.11306457980722956,
+    "q90": 4.01357586713719,
+    "q95": 5.575674756660439
+   },
+   "y_infy_5d_ret_pct": {
+    "q05": -6.525456590874454,
+    "q10": -4.843808810802248,
+    "q50": 0.0904643562217598,
+    "q90": 4.310885645665654,
+    "q95": 6.3032718221190684
+   },
+   "y_lt_5d_ret_pct": {
+    "q05": -5.822284103324399,
+    "q10": -4.489623333613727,
+    "q50": -0.1398676024842355,
+    "q90": 4.956098264327109,
+    "q95": 6.923740383403942
+   },
+   "y_hindalco_5d_ret_pct": {
+    "q05": -10.267734724521931,
+    "q10": -6.331202127068179,
+    "q50": -0.024938515084309026,
+    "q90": 7.634661601561729,
+    "q95": 11.19488152081659
+   },
+   "y_sunpharma_5d_ret_pct": {
+    "q05": -4.700070555397048,
+    "q10": -3.501839273614283,
+    "q50": 0.4696446868508577,
+    "q90": 5.029794994208396,
+    "q95": 6.990461770009023
+   }
+  }
+ },
+ "limitations": [
+  "No skill demonstrated: test MAE difference vs zero baseline has a 95% block-bootstrap CI that includes 0.",
+  "Test partition (2023-2026) contains no BLACK_SWAN weeks; crisis generalisation is not demonstrated.",
+  "Leave-one-event-group-out: worse than the zero baseline on both Black Swan groups (only 2 independent groups).",
+  "Features must all be present (no imputation in the artifact)."
+ ],
+ "provenance": {
+  "exported_at_utc": "2026-10-11T14:47:25+00:00",
+  "source_dataset": "research/black_swan/output/model_training_final.csv",
+  "source_dataset_sha256": "4cc595053b894f8d655ad224978310c06069d53cb527bb32a58bc06642208b7e",
+  "selection_summary": "research/black_swan/output/model_selection/model_selection_summary.json",
+  "exporter": "research/black_swan/pipeline/export_forecast_v2.py",
+  "environment": {
+   "python": "3.14.3",
+   "sklearn": "1.9.1",
+   "xgboost": "3.4.1",
+   "numpy": "2.5.4",
+   "pandas": "3.0.6",
+   "seed": 20261011
+  }
+ },
+ "model_version": "forecast_trailing_v2+4cc595053b89"
+}

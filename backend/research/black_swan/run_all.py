@@ -9,7 +9,8 @@ import sys
 from pathlib import Path
 
 HERE = Path(__file__).parent
-STEPS = ["fetch.py", "compute.py", "features_model.py", "build_outputs.py", "build_training_table.py", "train_model.py", "export_models.py", "summarize.py"]
+STEPS = ["fetch.py", "compute.py", "features_model.py", "build_outputs.py", "build_training_table.py", "train_model.py", "export_models.py",
+         "market_features.py", "event_responses.py", "build_training_v2.py", "pattern_library.py", "summarize.py"]
 
 if __name__ == "__main__":
     for step in STEPS:

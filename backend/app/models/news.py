@@ -40,6 +40,12 @@ class Article(TimestampMixin, Base):
     # USER_SUPPLIED articles come from POST /api/events/analyze rather than a news provider.
     input_origin: Mapped[str] = mapped_column(String(20), default="NEWS_PROVIDER", nullable=False)
     extra: Mapped[dict[str, Any]] = mapped_column("metadata", JSON, default=dict, nullable=False)
+
+    @property
+    def image_url(self) -> str | None:
+        """Publisher-supplied image (RSS media), if any. Never generated."""
+        url = (self.extra or {}).get("image_url")
+        return url if isinstance(url, str) and url.startswith("https://") else None
     error: Mapped[dict[str, Any] | None] = mapped_column(JSON)
 
     event_links: Mapped[list["EventArticle"]] = relationship(back_populates="article")  # noqa: F821

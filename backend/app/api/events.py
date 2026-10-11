@@ -15,6 +15,7 @@ from app.schemas.api import (
     AnalyzeRequest,
     ArticleOut,
     EventArticleOut,
+    LeadArticle,
     EventDetail,
     EventSummary,
     ManualEventRequest,
@@ -44,8 +45,26 @@ def list_events(
     items, total = paginate(db, stmt, page, page_size)
     if country:  # JSON list filter applied in Python for portability across databases
         items = [e for e in items if country.lower() in {c.lower() for c in e.countries}]
-    return Page[EventSummary](items=[EventSummary.model_validate(e) for e in items], page=page,
-                              page_size=page_size, total=total)
+    leads = _lead_articles(db, [e.id for e in items])
+    return Page[EventSummary](items=[EventSummary.model_validate(e).model_copy(update={"lead_article": leads.get(e.id)})
+                                     for e in items], page=page, page_size=page_size, total=total)
+
+
+def _lead_articles(db: Session, event_ids: list[str]) -> dict[str, LeadArticle]:
+    """The article that represents each event: the PRIMARY one, else the earliest published."""
+    if not event_ids:
+        return {}
+    rows = db.execute(select(EventArticle.event_id, EventArticle.role, Article)
+                      .join(Article, Article.id == EventArticle.article_id)
+                      .where(EventArticle.event_id.in_(event_ids))).all()
+    best: dict[str, tuple] = {}
+    for ev_id, role, art in rows:
+        key = (role != "PRIMARY", art.published_at is None, art.published_at or art.retrieved_at)
+        if ev_id not in best or key < best[ev_id][0]:
+            best[ev_id] = (key, art)
+    return {ev_id: LeadArticle(article_id=a.id, headline=a.headline, source_name=a.source_name, url=a.url,
+                               published_at=a.published_at, image_url=a.image_url, provider=a.provider,
+                               is_simulated=a.is_simulated) for ev_id, (_, a) in best.items()}
 
 
 @router.get("/{event_id}", response_model=EventDetail)
@@ -53,6 +72,7 @@ def get_event(event_id: str, db: Session = Depends(get_db)) -> EventDetail:
     ev = get_event_or_404(db, event_id)
     links = db.scalars(select(EventArticle).where(EventArticle.event_id == ev.id)).all()
     detail = EventDetail.model_validate(ev)
+    detail.lead_article = _lead_articles(db, [ev.id]).get(ev.id)
     detail.articles = [EventArticleOut(article=ArticleOut.model_validate(db.get(Article, l.article_id)), role=l.role,
                                        supporting_passages=l.supporting_passages,
                                        association_reason=l.association_reason) for l in links]

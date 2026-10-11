@@ -1,0 +1,403 @@
+{
+  "file": "output\\model_training_final.csv",
+  "sha256": "4cc595053b894f8d655ad224978310c06069d53cb527bb32a58bc06642208b7e",
+  "shape": [
+    493,
+    39
+  ],
+  "features": [
+    "x_brent_5d_ret_pct",
+    "x_sp500_5d_ret_pct",
+    "x_usdinr_5d_ret_pct",
+    "x_gold_5d_ret_pct",
+    "x_ust10y_5d_chg_bp",
+    "x_vix_level_at_start",
+    "x_nifty_prev_20d_ret_pct",
+    "x_nifty_prev_20d_vol_ann_pct",
+    "x_is_event",
+    "x_event_geopolitical",
+    "x_event_macro_policy",
+    "x_event_financial_crisis",
+    "x_event_commodity_supply",
+    "x_event_other_shock"
+  ],
+  "targets": [
+    "y_nifty50_5d_ret_pct",
+    "y_niftybank_5d_ret_pct",
+    "y_niftyit_5d_ret_pct",
+    "y_niftypharma_5d_ret_pct",
+    "y_ongc_5d_ret_pct",
+    "y_ioc_5d_ret_pct",
+    "y_bpcl_5d_ret_pct",
+    "y_reliance_5d_ret_pct",
+    "y_indigo_5d_ret_pct",
+    "y_asianpaint_5d_ret_pct",
+    "y_sbin_5d_ret_pct",
+    "y_icicibank_5d_ret_pct",
+    "y_hdfcbank_5d_ret_pct",
+    "y_tcs_5d_ret_pct",
+    "y_infy_5d_ret_pct",
+    "y_lt_5d_ret_pct",
+    "y_hindalco_5d_ret_pct",
+    "y_sunpharma_5d_ret_pct"
+  ],
+  "dtypes": {
+    "week_start": "str",
+    "week_end": "str",
+    "split": "str",
+    "cv_group": "str",
+    "x_brent_5d_ret_pct": "float64",
+    "x_sp500_5d_ret_pct": "float64",
+    "x_usdinr_5d_ret_pct": "float64",
+    "x_gold_5d_ret_pct": "float64",
+    "x_ust10y_5d_chg_bp": "float64",
+    "x_vix_level_at_start": "float64",
+    "x_nifty_prev_20d_ret_pct": "float64",
+    "x_nifty_prev_20d_vol_ann_pct": "float64",
+    "x_is_event": "int64",
+    "x_event_geopolitical": "int64",
+    "x_event_macro_policy": "int64",
+    "x_event_financial_crisis": "int64",
+    "x_event_commodity_supply": "int64",
+    "x_event_other_shock": "int64",
+    "y_nifty50_5d_ret_pct": "float64",
+    "y_niftybank_5d_ret_pct": "float64",
+    "y_niftyit_5d_ret_pct": "float64",
+    "y_niftypharma_5d_ret_pct": "float64",
+    "y_ongc_5d_ret_pct": "float64",
+    "y_ioc_5d_ret_pct": "float64",
+    "y_bpcl_5d_ret_pct": "float64",
+    "y_reliance_5d_ret_pct": "float64",
+    "y_indigo_5d_ret_pct": "float64",
+    "y_asianpaint_5d_ret_pct": "float64",
+    "y_sbin_5d_ret_pct": "float64",
+    "y_icicibank_5d_ret_pct": "float64",
+    "y_hdfcbank_5d_ret_pct": "float64",
+    "y_tcs_5d_ret_pct": "float64",
+    "y_infy_5d_ret_pct": "float64",
+    "y_lt_5d_ret_pct": "float64",
+    "y_hindalco_5d_ret_pct": "float64",
+    "y_sunpharma_5d_ret_pct": "float64",
+    "regime": "str",
+    "event_ids": "str",
+    "known_event_ids": "str"
+  },
+  "split_counts": {
+    "train": 308,
+    "test": 185
+  },
+  "date_ranges": {
+    "test": {
+      "week_start_min": "2022-12-30",
+      "week_end_max": "2026-10-05"
+    },
+    "train": {
+      "week_start_min": "2016-10-03",
+      "week_end_max": "2022-12-30"
+    }
+  },
+  "regime_by_split": {
+    "test": {
+      "BLACK_SWAN": 0,
+      "EVENT": 42,
+      "NORMAL": 143
+    },
+    "train": {
+      "BLACK_SWAN": 7,
+      "EVENT": 33,
+      "NORMAL": 268
+    }
+  },
+  "duplicates": {
+    "full_rows": 0,
+    "week_start": 0,
+    "feature_vectors": 0
+  },
+  "missing_values": {
+    "y_niftypharma_5d_ret_pct": 2
+  },
+  "missing_rows": [
+    {
+      "week_start": "2025-12-24",
+      "week_end": "2026-01-01",
+      "split": "test"
+    },
+    {
+      "week_start": "2026-01-01",
+      "week_end": "2026-01-08",
+      "split": "test"
+    }
+  ],
+  "windows": {
+    "target_window_sessions": [
+      5
+    ],
+    "consecutive_rows_contiguous_non_overlapping": true,
+    "non_contiguous_pairs": []
+  },
+  "split_boundary": {
+    "last_train_week_end": "2022-12-30",
+    "first_test_week_start": "2022-12-30",
+    "target_windows_overlap": false,
+    "train_rule_holds": true,
+    "cv_groups_in_both_splits": []
+  },
+  "feature_recompute": {
+    "x_brent_5d_ret_pct": {
+      "max_abs_diff": 4.9965682900499075e-05,
+      "n_compared": 493,
+      "corr_with_same_week_move": 0.1645,
+      "corr_with_previous_row_target_window_move": 0.8432
+    },
+    "x_sp500_5d_ret_pct": {
+      "max_abs_diff": 4.996586553707161e-05,
+      "n_compared": 493,
+      "corr_with_same_week_move": 0.091,
+      "corr_with_previous_row_target_window_move": 0.7843
+    },
+    "x_usdinr_5d_ret_pct": {
+      "max_abs_diff": 4.98264096725487e-05,
+      "n_compared": 493,
+      "corr_with_same_week_move": 0.0255,
+      "corr_with_previous_row_target_window_move": 0.826
+    },
+    "x_gold_5d_ret_pct": {
+      "max_abs_diff": 4.9952113497564454e-05,
+      "n_compared": 493,
+      "corr_with_same_week_move": -0.0855,
+      "corr_with_previous_row_target_window_move": 0.8374
+    },
+    "x_ust10y_5d_chg_bp": {
+      "max_abs_diff": 8.171241461241152e-14,
+      "n_compared": 493,
+      "corr_with_same_week_move": -0.0256,
+      "corr_with_previous_row_target_window_move": 0.8075
+    },
+    "x_vix_level_at_start": {
+      "max_abs_diff": 0.0
+    },
+    "x_nifty_prev_20d_ret_pct": {
+      "max_abs_diff": 4.99754581220202e-05
+    },
+    "x_nifty_prev_20d_vol_ann_pct": {
+      "max_abs_diff": 0.0004993869206426638
+    }
+  },
+  "feature_observations_dated_on_or_after_week_start": 0,
+  "target_recompute": {
+    "y_nifty50_5d_ret_pct": {
+      "max_abs_diff": 4.969125398945895e-05,
+      "recomputed_nan": 0,
+      "csv_nan": 0
+    },
+    "y_niftybank_5d_ret_pct": {
+      "max_abs_diff": 4.994060708973791e-05,
+      "recomputed_nan": 0,
+      "csv_nan": 0
+    },
+    "y_niftyit_5d_ret_pct": {
+      "max_abs_diff": 4.9978999401734114e-05,
+      "recomputed_nan": 0,
+      "csv_nan": 0
+    },
+    "y_niftypharma_5d_ret_pct": {
+      "max_abs_diff": 4.9949811065319594e-05,
+      "recomputed_nan": 2,
+      "csv_nan": 2
+    },
+    "y_ongc_5d_ret_pct": {
+      "max_abs_diff": 4.9972326839231584e-05,
+      "recomputed_nan": 0,
+      "csv_nan": 0
+    },
+    "y_ioc_5d_ret_pct": {
+      "max_abs_diff": 4.9902762073394946e-05,
+      "recomputed_nan": 0,
+      "csv_nan": 0
+    },
+    "y_bpcl_5d_ret_pct": {
+      "max_abs_diff": 4.9944555043257566e-05,
+      "recomputed_nan": 0,
+      "csv_nan": 0
+    },
+    "y_reliance_5d_ret_pct": {
+      "max_abs_diff": 4.979283793038469e-05,
+      "recomputed_nan": 0,
+      "csv_nan": 0
+    },
+    "y_indigo_5d_ret_pct": {
+      "max_abs_diff": 4.992806214687562e-05,
+      "recomputed_nan": 0,
+      "csv_nan": 0
+    },
+    "y_asianpaint_5d_ret_pct": {
+      "max_abs_diff": 4.9993975035800275e-05,
+      "recomputed_nan": 0,
+      "csv_nan": 0
+    },
+    "y_sbin_5d_ret_pct": {
+      "max_abs_diff": 4.996742348239991e-05,
+      "recomputed_nan": 0,
+      "csv_nan": 0
+    },
+    "y_icicibank_5d_ret_pct": {
+      "max_abs_diff": 4.992910764728409e-05,
+      "recomputed_nan": 0,
+      "csv_nan": 0
+    },
+    "y_hdfcbank_5d_ret_pct": {
+      "max_abs_diff": 4.9869106258482176e-05,
+      "recomputed_nan": 0,
+      "csv_nan": 0
+    },
+    "y_tcs_5d_ret_pct": {
+      "max_abs_diff": 4.9856454295171826e-05,
+      "recomputed_nan": 0,
+      "csv_nan": 0
+    },
+    "y_infy_5d_ret_pct": {
+      "max_abs_diff": 4.9921132344366015e-05,
+      "recomputed_nan": 0,
+      "csv_nan": 0
+    },
+    "y_lt_5d_ret_pct": {
+      "max_abs_diff": 4.9835526724439916e-05,
+      "recomputed_nan": 0,
+      "csv_nan": 0
+    },
+    "y_hindalco_5d_ret_pct": {
+      "max_abs_diff": 4.995327954171458e-05,
+      "recomputed_nan": 0,
+      "csv_nan": 0
+    },
+    "y_sunpharma_5d_ret_pct": {
+      "max_abs_diff": 4.9947298648378435e-05,
+      "recomputed_nan": 0,
+      "csv_nan": 0
+    }
+  },
+  "niftypharma_missing_detail": [
+    {
+      "week_start": "2025-12-24",
+      "week_end": "2026-01-01",
+      "start_in_raw": true,
+      "end_in_raw": false,
+      "raw_dates_between": [
+        "2025-12-24",
+        "2025-12-26",
+        "2025-12-29",
+        "2025-12-30",
+        "2025-12-31"
+      ]
+    },
+    {
+      "week_start": "2026-01-01",
+      "week_end": "2026-01-08",
+      "start_in_raw": false,
+      "end_in_raw": true,
+      "raw_dates_between": [
+        "2026-01-02",
+        "2026-01-05",
+        "2026-01-06",
+        "2026-01-07",
+        "2026-01-08"
+      ]
+    }
+  ],
+  "event_flag_recompute": {
+    "rows_mismatched": 0,
+    "examples": [],
+    "rows_flagged": 47
+  },
+  "black_swan_rows": [
+    {
+      "week_start": "2016-11-03",
+      "split": "train",
+      "cv_group": "VG01",
+      "event_ids": "EV001;EV002",
+      "episodes": [
+        "EP01",
+        "EP02"
+      ]
+    },
+    {
+      "week_start": "2016-11-10",
+      "split": "train",
+      "cv_group": "VG01",
+      "event_ids": "EV001;EV002",
+      "episodes": [
+        "EP01",
+        "EP02"
+      ]
+    },
+    {
+      "week_start": "2020-01-22",
+      "split": "train",
+      "cv_group": "VG07",
+      "event_ids": "EV012",
+      "episodes": [
+        "EP09"
+      ]
+    },
+    {
+      "week_start": "2020-03-05",
+      "split": "train",
+      "cv_group": "VG07",
+      "event_ids": "EV014;EV013;EV015",
+      "episodes": [
+        "EP09",
+        "EP10",
+        "EP11"
+      ]
+    },
+    {
+      "week_start": "2020-03-13",
+      "split": "train",
+      "cv_group": "VG07",
+      "event_ids": "EV013;EV015;EV016",
+      "episodes": [
+        "EP09",
+        "EP10"
+      ]
+    },
+    {
+      "week_start": "2020-03-20",
+      "split": "train",
+      "cv_group": "VG07",
+      "event_ids": "EV017",
+      "episodes": [
+        "EP09"
+      ]
+    },
+    {
+      "week_start": "2020-03-27",
+      "split": "train",
+      "cv_group": "VG07",
+      "event_ids": "EV017",
+      "episodes": [
+        "EP09"
+      ]
+    }
+  ],
+  "event_groups": {
+    "n_cv_groups_with_events": 26,
+    "black_swan_cv_groups": [
+      "VG01",
+      "VG07"
+    ],
+    "event_rows_by_split": {
+      "test": 42,
+      "train": 40
+    },
+    "rows_per_event_group": {
+      "count": 26.0,
+      "mean": 3.15,
+      "std": 2.13,
+      "min": 1.0,
+      "25%": 2.0,
+      "50%": 2.0,
+      "75%": 4.0,
+      "max": 8.0
+    }
+  }
+}

@@ -71,7 +71,7 @@ only whether a credential is *present*), and are redacted from logs.
 | LLM (mock) | `LLM_PROVIDER=mock` | none | Deterministic keyword/catalog rules over the actual article text. Every output is labelled **SIMULATED** and runs are recorded with `mode=SIMULATED`. |
 | LLM (Claude) | `LLM_PROVIDER=anthropic`, `LLM_MODEL` (default `claude-opus-5-5`), `LLM_EFFORT` | `ANTHROPIC_API_KEY` | Official `anthropic` SDK, structured outputs (`output_config.format`), server-side refusal fallback (`LLM_USE_SERVER_FALLBACKS`). **Billed API usage; a Claude.ai / Claude Max subscription does not provide API credits.** |
 | LLM (Gemini) | `LLM_PROVIDER=gemini`, `GEMINI_MODEL` (default `gemini-2.5-flash`) | `GEMINI_API_KEY` | Free tier key from Google AI Studio (low per-minute/day limits; Google may use free-tier data to improve its products). Uses Gemini's OpenAI-compatible endpoint. |
-| LLM (Groq) | `LLM_PROVIDER=groq`, `GROQ_MODEL` (default `llama-3.3-70b-versatile`) | `GROQ_API_KEY` | Free tier, no card, open models; small tokens-per-minute limits on free tier. |
+| LLM (Groq) | `LLM_PROVIDER=groq`, `GROQ_MODEL` (default `openai/gpt-oss-120b`; Groq retired Llama 3.3 by 2026-10) | `GROQ_API_KEY` | Free tier, no card, open models; small tokens-per-minute limits on free tier. |
 | LLM (xAI Grok) | `LLM_PROVIDER=xai`, `XAI_MODEL` (no default) | `XAI_API_KEY` | Set the Grok model your account can use. |
 | LLM (Ollama) | `LLM_PROVIDER=ollama`, `OLLAMA_MODEL`, `OLLAMA_BASE_URL` | none | Runs locally; free; quality depends on the model and your hardware. |
 | **LLM fallback chain** | `LLM_PROVIDER=fallback`, `LLM_FALLBACK_CHAIN=gemini,groq`, `LLM_FALLBACK_COOLDOWN_SECONDS` | keys of the members | Tries providers in order per call (see §5.9). Members without a key are skipped; mock is never allowed. |
@@ -337,6 +337,26 @@ Hypothetical "what if" scenarios, kept separate from reported events (origin `SC
 * **Persistence** — `simulation_runs` table. Identical requests under the same model, KB and catalog
   versions return the stored result (`cached: true`, same `simulation_id`).
 
+### 5.12 Historical market patterns (`app/services/patterns/`)
+Data: `data/patterns/pattern_library_v1.json`, exported by `research/black_swan/pipeline/pattern_library.py` from the
+verified research datasets (493 weekly rows 2016–2026, 51 sourced events, latest observed conditions).
+
+* **Analogue search** — standardised root-mean-square distance on the matched features; mean and SD come from the
+  candidate pool (weeks whose outcome window has already ended), so large-scale features cannot dominate and no
+  future data is used.
+  * *scenario* mode matches your shock assumptions against historical same-week moves (Brent, USD/INR, S&P 500, gold,
+    US 10Y), optionally with the latest observed conditions; outcomes are the same 5 sessions.
+  * *conditions* mode matches start-of-week conditions; outcomes are the next 5 sessions.
+  * Adjacent weeks and weeks of the same event group count as one cluster. Sample statistics (median, IQR, share of
+    up/down weeks) are withheld below 8 weeks or 5 clusters.
+  * Values outside every historical observation and weak matches are flagged.
+* **Regimes** — rule-based, start-of-week information only: volatility from NIFTY 20-session realised volatility
+  (<12% low, 12–20% elevated, ≥20% high); trend from the 60-session return (±8%), with "recovery after drawdown" for a
+  ≥10% drawdown followed by a ≥5% rebound. `n_spells` counts runs of consecutive weeks.
+* **Event responses** — observed NIFTY / sector / Brent / USD/INR / US 10Y moves after each research event, with
+  pre-event conditions and recovery. Group statistics use one event per independent episode and need ≥3 episodes.
+* The simulator response now includes a `historical_patterns` block for the scenario's shocks.
+
 ---
 
 ## 6. API reference
@@ -371,6 +391,14 @@ Interactive documentation: `/docs` (Swagger) and `/redoc`. Errors always have th
 | GET | `/api/simulations/{id}` | A stored simulation result |
 | GET | `/api/entities/{id}` | Node details: KB identity, relationships, listed instruments, model-target flag |
 | GET | `/api/entities/{id}/historical` | Observed daily bars for an asset / company's listed equity / variable's tracking instrument (UNAVAILABLE + reason otherwise) |
+| GET | `/api/market-patterns/conditions/latest` | Latest observed market conditions (trailing features) and regime labels |
+| POST | `/api/market-patterns/search` | Historical analogue weeks for a scenario (`mode: scenario`) or market conditions (`mode: conditions`), with outcomes and sample statistics |
+| GET | `/api/market-patterns/regimes` | Regime rules, latest regime, and historical outcomes per regime (`asset` query) |
+| GET | `/api/market-patterns/event-responses` | Observed responses after past events, grouped by `event_class` or `event_category_normalized` |
+| GET | `/api/market-patterns/event-responses/{event_id}` | One research event's responses, pre-event conditions, overlaps and sources |
+| POST | `/api/reports` | Assemble and store a 12-section report: `{"kind": "event", "source_id": <analysis_run_id>}` or `{"kind": "simulation", "source_id": <simulation_id>}`; identical source + versions return the stored report (`cached: true`) |
+| GET | `/api/reports` | Stored reports (optional `source_id` filter) |
+| GET | `/api/reports/{id}` | One stored report (sections with `status` available / partial / unavailable, `unavailable_reason`, narrative, data, citations, limitations) |
 
 Graph, path and evidence endpoints accept `analysis_id` to read a specific run; by default they use the
 event's latest run.
@@ -442,7 +470,7 @@ tests/                    unit / integration / api
   Groq or xAI key was available. The adapters are tested against a fake SDK client (Claude) and mocked
   HTTP (OpenAI-compatible providers): request shape, retries, json_schema fallback, refusal,
   truncation and error mapping. Run `RUN_REAL_PROVIDER_TESTS=1` with keys to smoke-test them. The
-  default model names (`gemini-2.5-flash`, `llama-3.3-70b-versatile`) should be checked against each
+  default model names (`gemini-2.5-flash`, `openai/gpt-oss-120b`) should be checked against each
   provider's current model list.
 * The **mock LLM** is keyword-based. It cannot tell a forecast ("hikes expected") from a decision,
   misses implicit effects, and works on headlines only for GDELT/Finnhub items. Its output is always

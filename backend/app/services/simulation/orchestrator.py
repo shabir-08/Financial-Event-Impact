@@ -18,11 +18,13 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.core.config import Settings
-from app.core.errors import NotFoundError
+from app.core.errors import InvalidRequestError, NotFoundError
 from app.database.base import utcnow
 from app.models import HistoricalEvent, SimulationRun
 from app.services.graph.builder import GraphBuilder, ScenarioInput, ScenarioSeed
 from app.services.graph.paths import PathAnalyzer
+from app.services.patterns import service as patterns
+from app.services.patterns.library import PatternLibrary
 from app.services.relationships.knowledge_base import KnowledgeBase
 from app.services.simulation import inference
 from app.services.simulation.graph3d import serialize_scenario_graph
@@ -43,9 +45,9 @@ def _fmt(v: float, unit: str) -> str:
 
 class SimulationOrchestrator:
     def __init__(self, session: Session, settings: Settings, kb: KnowledgeBase, catalog: ScenarioCatalog,
-                 models: dict[str, inference.ModelArtifact], layers: dict) -> None:
+                 models: dict[str, inference.ModelArtifact], layers: dict, pattern_library: PatternLibrary | None = None) -> None:
         self.session, self.settings, self.kb, self.catalog = session, settings, kb, catalog
-        self.models, self.layers = models, layers
+        self.models, self.layers, self.patterns = models, layers, pattern_library
 
     # ------------------------------------------------------------------ public
     def run(self, scenario_id: str, shocks: dict[str, float], horizon_days: int, max_depth: int | None) -> tuple[dict, bool]:
@@ -53,7 +55,8 @@ class SimulationOrchestrator:
         model = self.models.get(self.settings.simulation_scenario_model_id)
         versions = {"knowledge_base_version": self.kb.version,
                     "scenario_catalog_version": f"{self.catalog.version}+{self.catalog.content_hash}",
-                    "model_version": model.model_version if model else None}
+                    "model_version": model.model_version if model else None,
+                    "pattern_library_version": self.patterns.version if self.patterns else None}
         req = {"scenario_id": scenario_id, "shocks": dict(sorted(v.shocks.items())), "horizon_days": horizon_days,
                "max_depth": max_depth}
         rhash = hashlib.sha256(json.dumps({**req, **versions}, sort_keys=True).encode()).hexdigest()
@@ -135,10 +138,21 @@ class SimulationOrchestrator:
                                            "Intervals are empirical out-of-sample residual ranges, not guarantees.")},
             "evidence": {"historical_analogs": self._analogs(sc.historical_analog_event_ids),
                          "note": "Analogs are curated reference events for context; they are not used to compute the estimates."},
+            "historical_patterns": self._historical_patterns(v),
             "timeline": self._timeline(graph),
             "warnings": warnings,
             "versions": versions,
         }
+
+    def _historical_patterns(self, v: ValidatedScenario) -> dict:
+        """Historical analogue weeks for the scenario's shocks (+ latest observed conditions). Observations only."""
+        if self.patterns is None:
+            return {"status": "unavailable", "reason": "pattern library not built"}
+        try:
+            res = patterns.search(self.patterns, self.catalog, "scenario", v.shocks, "latest", None, None, 15, v.horizon_days)
+        except InvalidRequestError as exc:
+            return {"status": "unavailable", "reason": exc.message, "details": exc.details}
+        return {"status": "available", "kind": "historical_observations", **res}
 
     def _analogs(self, ids: list[str]) -> list[dict]:
         rows = {h.id: h for h in self.session.scalars(select(HistoricalEvent).where(HistoricalEvent.id.in_(ids)))}

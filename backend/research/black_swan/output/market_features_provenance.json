@@ -1,0 +1,18 @@
+{
+ "raw_hashes": {
+  "BRENT.csv": "91945e6dbfc8d630497eff0faf14408a400eae264b65634285c04f2f4c230e14",
+  "GOLD.csv": "e35b4c084773724812b2f0f330a5ceaa602263d969a93fce1602e7108b0ee470",
+  "NIFTY50.csv": "efe03f6e55a50777c62ce6ebd88536210690951350e306beab4d59e555c7fefd",
+  "NIFTYBANK.csv": "a5ca1d13750d9f4ad1bcb1cd29cacb74f7eb80898002e3f1bd49ef8368bcffea",
+  "NIFTYIT.csv": "cec1ee61b2a30f20b22c2775a39a7789b51354a55c7dd24f49341bcead96f0e8",
+  "NIFTYPHARMA.csv": "b12c8ef782c87c7cb0d88788dadfb2b38c878d6ea7ec609ebd60d69d94020634",
+  "SP500.csv": "c0e6227ea69f984b52a92d7efbfaae27e43c2cd2f0b1892f8c7dd227a7fbb727",
+  "USDINR.csv": "59b5a569ec64c264f498c410ff44642244618301dbea05ae1a4ca459ab8bcd4a",
+  "UST10Y.csv": "5cea3e96c5e699ad66d33b79762e4534501d255bb3e9e7931ce75b712409c85b",
+  "VIX.csv": "2c6271f0db6a7f3165d756412a36734f2b22f7bb4a36d843b0f0311a0661f345"
+ },
+ "baseline_sha256": "4cc595053b894f8d655ad224978310c06069d53cb527bb32a58bc06642208b7e",
+ "daily_rows": 2653,
+ "weekly_rows": 493,
+ "daily_last_date": "2026-10-09"
+}

@@ -9,6 +9,7 @@ networkx>=3.4
 pandas>=2.2
 numpy>=2.1
 httpx>=0.28
+defusedxml>=0.7  # safe parsing of publisher RSS/Atom feeds (untrusted XML)
 anthropic>=1.0
 
 # testing

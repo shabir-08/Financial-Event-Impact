@@ -1,0 +1,10 @@
+{
+ "events_master_sha256": "b8ca956ac011d6b715e3a72fe1d9befb53a40eac190dd8e5e7b3423475b8135e",
+ "event_market_returns_sha256": "b2d3d4e20c46ed54c545324dedc4e1a4be5b370b4f0ddd623b2728ce16334717",
+ "market_features_daily_sha256": "5ef464cf8feba416e723485cc8da868ba1dc754b3119a0261edb564d13e56f30",
+ "rows": 51,
+ "independent_episodes": 33,
+ "validation_groups": 27,
+ "events_added": 0,
+ "note": "No events were added: every candidate needs a verified source and price coverage; raw data start 2015-09-01, so pre-2016 episodes (e.g. 2008 GFC) cannot be measured."
+}

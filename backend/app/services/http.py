@@ -27,6 +27,7 @@ async def request_with_retries(
     max_retries: int = 3,
     backoff_seconds: float = 1.0,
     max_retry_after: float = 30.0,
+    min_rate_limit_wait: float = 0.0,
 ) -> httpx.Response:
     """Request with bounded exponential backoff. Never logs query params or headers (they may hold keys).
 
@@ -52,7 +53,11 @@ async def request_with_retries(
                     f"{provider} rate limit exceeded", provider=provider, retryable=True, retry_after=retry_after
                 )
                 if attempt < max_retries and retry_after is not None and retry_after <= max_retry_after:
-                    await asyncio.sleep(retry_after)
+                    await asyncio.sleep(max(retry_after, min_rate_limit_wait))
+                    continue
+                if attempt < max_retries and min_rate_limit_wait:
+                    # no Retry-After: honour the provider's documented minimum spacing instead of a short backoff
+                    await asyncio.sleep(max(min_rate_limit_wait, backoff_seconds * (2**attempt)))
                     continue
             elif resp.status_code in RETRYABLE_STATUS:
                 last_exc = ProviderError(

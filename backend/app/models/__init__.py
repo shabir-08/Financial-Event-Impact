@@ -13,10 +13,13 @@ from app.models.analysis import (
 )
 from app.models.entities import Asset, AssetSymbol, Entity, EventEntity
 from app.models.events import Event, EventArticle, HistoricalEvent
+from app.models.lineage import EventImpact, EventLink, EventNode
 from app.models.news import Article, IngestionRun
+from app.models.report import AnalysisReport
 from app.models.simulation import SimulationRun
 
 __all__ = [
+    "AnalysisReport",
     "AnalysisRun",
     "Article",
     "Asset",
@@ -26,6 +29,9 @@ __all__ = [
     "Event",
     "EventArticle",
     "EventEntity",
+    "EventImpact",
+    "EventLink",
+    "EventNode",
     "ExtractedClaim",
     "GraphNode",
     "HistoricalEvent",

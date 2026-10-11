@@ -89,3 +89,19 @@ def get_visual_layers(settings: Settings = Depends(get_settings)) -> dict:
     from app.services.simulation.graph3d import load_layers
 
     return load_layers(settings.simulation_layers_file)
+
+
+def get_optional_pattern_library(settings: Settings = Depends(get_settings)):
+    """For the simulator: a missing library degrades to an explicit 'unavailable' block, not an error."""
+    from app.services.patterns.library import load_library
+
+    return load_library(settings.pattern_library_file) if settings.pattern_library_file.is_file() else None
+
+
+def get_pattern_library(settings: Settings = Depends(get_settings)):
+    from app.core.errors import ConfigurationError
+    from app.services.patterns.library import load_library
+
+    if not settings.pattern_library_file.is_file():
+        raise ConfigurationError("pattern library not built; run research/black_swan/pipeline/pattern_library.py")
+    return load_library(settings.pattern_library_file)

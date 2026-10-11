@@ -1,0 +1,53 @@
+{
+  "_comment": "Event Lineage parameters. All values are initial heuristics (starting points from the PRD), not validated facts. Changing any value changes config_hash, which is stored on every link. Kept outside data/knowledge_base so it does not alter the knowledge-base version hash.",
+  "config_version": "lineage-config-v1",
+  "eligibility": {
+    "_comment": "Run statuses whose graph is usable. PARTIAL = graph persisted but an optional step (e.g. explanation) degraded. exclude_simulated_runs drops runs produced by the mock LLM (mode SIMULATED) even for non-simulated events.",
+    "usable_run_statuses": ["COMPLETED", "PARTIAL"],
+    "exclude_simulated_runs": true
+  },
+  "similarity": {
+    "min_similarity": 0.25,
+    "min_shared_nodes": 2,
+    "min_informative_shared_nodes": 1,
+    "max_parent_links": 3,
+    "role_weights": {"trigger": 1.0, "intermediate": 0.8, "asset": 0.4},
+    "_hub_comment": "Hub nodes appear in many events. They still contribute to cosine similarity (down-weighted by hub_weight and by IDF) but never count as informative shared nodes, so they cannot create a link on their own. Ids are knowledge-base canonical ids.",
+    "hub_nodes": [
+      "asset:usdinr", "variable:inr_value", "currency:inr", "currency:usd", "variable:usd_value",
+      "commodity:crude_oil", "variable:crude_oil_price", "asset:brent_futures",
+      "asset:nifty50", "asset:sensex", "institution:rbi", "institution:fed",
+      "country:india", "country:us", "variable:us_treasury_yields"
+    ],
+    "hub_weight": 0.25,
+    "_cold_start_comment": "When fewer than cold_start_min_events eligible events exist, IDF is unreliable: hub nodes are then dropped from the vectors entirely (hub_weight treated as 0), the static prior being the hub list above.",
+    "cold_start_min_events": 20
+  },
+  "impact": {
+    "_comment": "I_e = clip(mean(top_k path scores) / s_ref, 0, 1). Path scores share one bounded formula across events (geometric mean of edge scores x length decay x direction factor), so they are comparable rankings, NOT probabilities. s_ref placeholder ~ upper range of observed path scores.",
+    "top_k_paths": 3,
+    "s_ref": 0.6,
+    "alpha": 1.0
+  },
+  "category_half_life_days": {
+    "_comment": "Placeholder half-lives mapped onto the existing EventType values. single company: 7, central bank: 14, commodity/energy supply: 21, war/geopolitics: 30. Other categories are explicit placeholders.",
+    "CORPORATE_EARNINGS": 7, "MERGER_ACQUISITION": 7, "CORPORATE_ANNOUNCEMENT": 7,
+    "MONETARY_POLICY": 14, "INTEREST_RATE_CHANGE": 14,
+    "COMMODITY_PRICE_CHANGE": 21, "ENERGY_SUPPLY": 21, "SUPPLY_CHAIN": 21,
+    "WAR_CONFLICT": 30, "GEOPOLITICAL": 30, "SANCTIONS": 30,
+    "INFLATION": 14, "GDP_GROWTH": 14, "EMPLOYMENT": 14, "TARIFF_TRADE": 21,
+    "BANKING_CREDIT": 14, "GOVERNMENT_POLICY": 14, "FINANCIAL_REGULATION": 14,
+    "SOVEREIGN_DEBT": 21, "CURRENCY_MARKET": 14, "MARKET_DISRUPTION": 7, "OTHER": 7
+  },
+  "relevance": {
+    "expiry_epsilon": 0.05,
+    "max_lifetime_half_lives": 4
+  },
+  "paths": {
+    "min_path_strength": 0.10,
+    "max_depth": 6
+  },
+  "duplicate": {"min_similarity": 0.90, "max_gap_days": 2},
+  "analogue": {"min_similarity": 0.50},
+  "render": {"glow_k": 1.0, "max_nodes": 400}
+}

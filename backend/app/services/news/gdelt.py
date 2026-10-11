@@ -6,7 +6,9 @@ NOT article bodies; analysis therefore runs on headlines unless another source s
 
 from __future__ import annotations
 
+import asyncio
 import logging
+import time
 from datetime import datetime, timezone
 
 import httpx
@@ -20,6 +22,21 @@ from app.services.news.base import FetchResult, NormalizedArticle
 log = logging.getLogger(__name__)
 
 GDELT_URL = "https://api.gdeltproject.org/api/v2/doc/doc"
+#: GDELT allows one request every 5 seconds per IP; keep a margin.
+GDELT_MIN_INTERVAL_SECONDS = 6.0
+GDELT_MAX_RETRIES = 1
+_gdelt_lock = asyncio.Lock()
+_gdelt_last_request = 0.0
+
+
+async def _gdelt_spacing() -> None:
+    """Process-wide: wait until GDELT_MIN_INTERVAL_SECONDS have passed since the previous GDELT request."""
+    global _gdelt_last_request
+    async with _gdelt_lock:
+        wait = _gdelt_last_request + GDELT_MIN_INTERVAL_SECONDS - time.monotonic()
+        if wait > 0:
+            await asyncio.sleep(wait)
+        _gdelt_last_request = time.monotonic()
 
 
 class GDELTNewsProvider:
@@ -36,9 +53,11 @@ class GDELTNewsProvider:
                   "timespan": timespan, "sort": "datedesc"}
         client = self._client or httpx.AsyncClient(timeout=self.settings.http_timeout_seconds)
         try:
+            await _gdelt_spacing()
             resp = await get_with_retries(
                 client, GDELT_URL, provider=self.name, params=params,
-                max_retries=self.settings.http_max_retries, backoff_seconds=self.settings.http_backoff_seconds,
+                max_retries=min(self.settings.http_max_retries, GDELT_MAX_RETRIES),
+                backoff_seconds=self.settings.http_backoff_seconds, min_rate_limit_wait=GDELT_MIN_INTERVAL_SECONDS,
             )
         finally:
             if self._client is None:

@@ -43,4 +43,5 @@ def build_fallback_chain(settings: Settings) -> LLMProvider:
     if not providers:
         raise ConfigurationError("LLM_PROVIDER=fallback but no provider in LLM_FALLBACK_CHAIN is configured",
                                  details={"integration": "llm", "skipped": skipped})
-    return FallbackLLMProvider(providers, settings.llm_fallback_cooldown_seconds, skipped)
+    return FallbackLLMProvider(providers, settings.llm_fallback_cooldown_seconds, skipped,
+                               max_wait_seconds=settings.llm_fallback_max_wait_seconds)

@@ -35,6 +35,8 @@ from app.services.graph.builder import (
 )
 from app.services.graph.paths import PathAnalyzer
 from app.services.graph.persistence import persist_graph
+from app.services.lineage.config import LineageConfig, get_lineage_config
+from app.services.lineage.linker import LineageService
 from app.services.llm.base import LLMProvider
 from app.services.market_data.base import MarketDataProvider
 from app.services.market_data.quality import LimitationCode
@@ -48,12 +50,13 @@ ANALYSIS_VERSION = "analysis-v1"
 
 class AnalysisPipeline:
     def __init__(self, session: Session, settings: Settings, kb: KnowledgeBase, llm: LLMProvider,
-                 market_provider: MarketDataProvider | None) -> None:
+                 market_provider: MarketDataProvider | None, lineage_config: LineageConfig | None = None) -> None:
         self.session = session
         self.settings = settings
         self.kb = kb
         self.llm = llm
         self.market_provider = market_provider
+        self.lineage_config = lineage_config
 
     # --------------------------------------------------------------- entry points
     async def process_article(self, article_id: str, *, trigger: str = "INGESTION",
@@ -145,6 +148,12 @@ class AnalysisPipeline:
 
             self._register_historical(event)
             event.latest_analysis_id = run.id
+
+            t = self._step_start()
+            status, detail = self._lineage_step(event, run)
+            if status == "FAILED":
+                warnings.append(f"lineage step failed: {detail.get('error')}")
+            steps.append(self._step_end("lineage", t, status, detail))
             run.status = RunStatus.PARTIAL if degraded else RunStatus.COMPLETED
         except Exception as exc:  # noqa: BLE001 - any failure must be recorded on the run
             log.exception("Analysis run %s failed", run_id)
@@ -158,6 +167,19 @@ class AnalysisPipeline:
         return run
 
     # ------------------------------------------------------------------ helpers
+    def _lineage_step(self, event: Event, run: AnalysisRun) -> tuple[str, dict]:
+        """Link the event to earlier analysed events (after graph + path persistence; independent of the
+        explanation outcome). Runs in a SAVEPOINT: a lineage error is recorded as a warning and never
+        rolls back the persisted graph."""
+        try:
+            with self.session.begin_nested():
+                svc = LineageService(self.session, self.kb, self.lineage_config or get_lineage_config())
+                report = svc.link_event(event.id, current_run=run)
+            return ("SKIPPED" if report.status == "skipped" else "COMPLETED"), report.to_json()
+        except Exception as exc:  # noqa: BLE001 - lineage is additive; the analysis itself succeeded
+            log.exception("Lineage step failed for event %s run %s", event.id, run.id)
+            return "FAILED", {"error": f"{type(exc).__name__}: {str(exc)[:300]}"}
+
     def _event_input(self, event: Event) -> EventInput:
         claims = self.session.scalars(select(ExtractedClaim).where(ExtractedClaim.event_id == event.id)).all()
         arts = {a.id: a for a in self.session.scalars(

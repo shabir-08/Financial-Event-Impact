@@ -1,0 +1,74 @@
+model,params,n,mae,rmse,directional_accuracy,n_directional
+zero_baseline,{},3564,3.1866468855218857,4.465753040523199,,3560
+train_mean_baseline,{},3564,3.1742649957385143,4.455117127702131,0.5342696629213484,3560
+ridge,"{""alpha"": 0.1}",3564,4.354150001948272,6.194527582343977,0.4943820224719101,3560
+ridge,"{""alpha"": 1}",3564,4.215492256870643,5.995002686057143,0.49775280898876406,3560
+ridge,"{""alpha"": 10}",3564,3.837925251632776,5.469660722829158,0.49466292134831463,3560
+ridge,"{""alpha"": 100}",3564,3.4095075493381204,4.826244295674588,0.5019662921348315,3560
+ridge,"{""alpha"": 1000}",3564,3.216388858023418,4.517967176122824,0.5207865168539326,3560
+ridge,"{""alpha"": 10000}",3564,3.177859553007347,4.460253148368828,0.5348314606741573,3560
+random_forest,"{""max_depth"": 2, ""min_samples_leaf"": 5, ""max_features"": ""sqrt""}",3564,3.2015587885940135,4.490898283792903,0.5252808988764045,3560
+random_forest,"{""max_depth"": 2, ""min_samples_leaf"": 5, ""max_features"": 0.5}",3564,3.2145886374620756,4.509133475600129,0.5241573033707865,3560
+random_forest,"{""max_depth"": 2, ""min_samples_leaf"": 5, ""max_features"": 1.0}",3564,3.2320875123094988,4.529787345405455,0.5196629213483146,3560
+random_forest,"{""max_depth"": 2, ""min_samples_leaf"": 10, ""max_features"": ""sqrt""}",3564,3.195980560689517,4.4857292946686975,0.5292134831460674,3560
+random_forest,"{""max_depth"": 2, ""min_samples_leaf"": 10, ""max_features"": 0.5}",3564,3.1962258863477,4.489406543997991,0.5294943820224719,3560
+random_forest,"{""max_depth"": 2, ""min_samples_leaf"": 10, ""max_features"": 1.0}",3564,3.2090596504360525,4.504061336909481,0.5261235955056179,3560
+random_forest,"{""max_depth"": 2, ""min_samples_leaf"": 20, ""max_features"": ""sqrt""}",3564,3.189594140567636,4.477340871521001,0.5351123595505618,3560
+random_forest,"{""max_depth"": 2, ""min_samples_leaf"": 20, ""max_features"": 0.5}",3564,3.193999769722141,4.485901301370967,0.5393258426966292,3560
+random_forest,"{""max_depth"": 2, ""min_samples_leaf"": 20, ""max_features"": 1.0}",3564,3.196738170468898,4.48987721793505,0.5334269662921348,3560
+random_forest,"{""max_depth"": 3, ""min_samples_leaf"": 5, ""max_features"": ""sqrt""}",3564,3.2070011118211608,4.4992885901211235,0.5199438202247191,3560
+random_forest,"{""max_depth"": 3, ""min_samples_leaf"": 5, ""max_features"": 0.5}",3564,3.221627869154254,4.522527724410832,0.5196629213483146,3560
+random_forest,"{""max_depth"": 3, ""min_samples_leaf"": 5, ""max_features"": 1.0}",3564,3.2380139868795466,4.540833628255897,0.5202247191011236,3560
+random_forest,"{""max_depth"": 3, ""min_samples_leaf"": 10, ""max_features"": ""sqrt""}",3564,3.199251991192889,4.492608023921845,0.5278089887640449,3560
+random_forest,"{""max_depth"": 3, ""min_samples_leaf"": 10, ""max_features"": 0.5}",3564,3.2037685335419765,4.497718211887281,0.5219101123595505,3560
+random_forest,"{""max_depth"": 3, ""min_samples_leaf"": 10, ""max_features"": 1.0}",3564,3.2177225965370115,4.515224598067548,0.5146067415730337,3560
+random_forest,"{""max_depth"": 3, ""min_samples_leaf"": 20, ""max_features"": ""sqrt""}",3564,3.1942790297794206,4.4830104122117,0.5334269662921348,3560
+random_forest,"{""max_depth"": 3, ""min_samples_leaf"": 20, ""max_features"": 0.5}",3564,3.201892137308414,4.494447549134654,0.5351123595505618,3560
+random_forest,"{""max_depth"": 3, ""min_samples_leaf"": 20, ""max_features"": 1.0}",3564,3.2046932274234052,4.498352669921509,0.5280898876404494,3560
+random_forest,"{""max_depth"": 5, ""min_samples_leaf"": 5, ""max_features"": ""sqrt""}",3564,3.216519431599046,4.5104533850640225,0.5151685393258427,3560
+random_forest,"{""max_depth"": 5, ""min_samples_leaf"": 5, ""max_features"": 0.5}",3564,3.2290600366199174,4.53079597940863,0.5191011235955056,3560
+random_forest,"{""max_depth"": 5, ""min_samples_leaf"": 5, ""max_features"": 1.0}",3564,3.2451521845178295,4.551689631621413,0.5129213483146068,3560
+random_forest,"{""max_depth"": 5, ""min_samples_leaf"": 10, ""max_features"": ""sqrt""}",3564,3.2062581339540324,4.500896479579574,0.5247191011235955,3560
+random_forest,"{""max_depth"": 5, ""min_samples_leaf"": 10, ""max_features"": 0.5}",3564,3.2129740981281785,4.508743357855802,0.5168539325842697,3560
+random_forest,"{""max_depth"": 5, ""min_samples_leaf"": 10, ""max_features"": 1.0}",3564,3.2265646108211286,4.527284406089012,0.5165730337078651,3560
+random_forest,"{""max_depth"": 5, ""min_samples_leaf"": 20, ""max_features"": ""sqrt""}",3564,3.1964962196673756,4.484848324633785,0.5323033707865169,3560
+random_forest,"{""max_depth"": 5, ""min_samples_leaf"": 20, ""max_features"": 0.5}",3564,3.204411414604567,4.4966129995658735,0.5325842696629214,3560
+random_forest,"{""max_depth"": 5, ""min_samples_leaf"": 20, ""max_features"": 1.0}",3564,3.2072112321410553,4.5006235428070624,0.5252808988764045,3560
+random_forest,"{""max_depth"": null, ""min_samples_leaf"": 5, ""max_features"": ""sqrt""}",3564,3.225794084154371,4.5198333743094565,0.5151685393258427,3560
+random_forest,"{""max_depth"": null, ""min_samples_leaf"": 5, ""max_features"": 0.5}",3564,3.2403823275486845,4.542149446667517,0.5112359550561798,3560
+random_forest,"{""max_depth"": null, ""min_samples_leaf"": 5, ""max_features"": 1.0}",3564,3.260512497966299,4.568815760707487,0.5039325842696629,3560
+random_forest,"{""max_depth"": null, ""min_samples_leaf"": 10, ""max_features"": ""sqrt""}",3564,3.208741188679568,4.503189254903699,0.5216292134831461,3560
+random_forest,"{""max_depth"": null, ""min_samples_leaf"": 10, ""max_features"": 0.5}",3564,3.217286469328984,4.512585807784219,0.5154494382022472,3560
+random_forest,"{""max_depth"": null, ""min_samples_leaf"": 10, ""max_features"": 1.0}",3564,3.2303983252352273,4.530516737741391,0.5120786516853932,3560
+random_forest,"{""max_depth"": null, ""min_samples_leaf"": 20, ""max_features"": ""sqrt""}",3564,3.196514651118333,4.4848081310651065,0.5328651685393259,3560
+random_forest,"{""max_depth"": null, ""min_samples_leaf"": 20, ""max_features"": 0.5}",3564,3.204498132345428,4.496660867770437,0.5325842696629214,3560
+random_forest,"{""max_depth"": null, ""min_samples_leaf"": 20, ""max_features"": 1.0}",3564,3.207301051767393,4.5006388387779435,0.5252808988764045,3560
+xgboost,"{""max_depth"": 1, ""learning_rate"": 0.03, ""n_estimators"": 100, ""min_child_weight"": 5}",3564,3.2873988246671835,4.58527483218162,0.49859550561797755,3560
+xgboost,"{""max_depth"": 1, ""learning_rate"": 0.03, ""n_estimators"": 100, ""min_child_weight"": 20}",3564,3.2371983580134436,4.530993481312392,0.5103932584269663,3560
+xgboost,"{""max_depth"": 1, ""learning_rate"": 0.03, ""n_estimators"": 300, ""min_child_weight"": 5}",3564,3.417108599922613,4.7315830028837995,0.49634831460674156,3560
+xgboost,"{""max_depth"": 1, ""learning_rate"": 0.03, ""n_estimators"": 300, ""min_child_weight"": 20}",3564,3.3527657921775567,4.648993484001508,0.49803370786516854,3560
+xgboost,"{""max_depth"": 1, ""learning_rate"": 0.1, ""n_estimators"": 100, ""min_child_weight"": 5}",3564,3.4512151156922175,4.769804326795073,0.4974719101123595,3560
+xgboost,"{""max_depth"": 1, ""learning_rate"": 0.1, ""n_estimators"": 100, ""min_child_weight"": 20}",3564,3.377599563555085,4.675001391228727,0.500561797752809,3560
+xgboost,"{""max_depth"": 1, ""learning_rate"": 0.1, ""n_estimators"": 300, ""min_child_weight"": 5}",3564,3.6501423509663167,4.9918064458188205,0.4957865168539326,3560
+xgboost,"{""max_depth"": 1, ""learning_rate"": 0.1, ""n_estimators"": 300, ""min_child_weight"": 20}",3564,3.625176042865901,4.933254740212965,0.49325842696629213,3560
+xgboost,"{""max_depth"": 2, ""learning_rate"": 0.03, ""n_estimators"": 100, ""min_child_weight"": 5}",3564,3.3410072553459815,4.64907651893419,0.49803370786516854,3560
+xgboost,"{""max_depth"": 2, ""learning_rate"": 0.03, ""n_estimators"": 100, ""min_child_weight"": 20}",3564,3.299613121810514,4.6067964175985034,0.498314606741573,3560
+xgboost,"{""max_depth"": 2, ""learning_rate"": 0.03, ""n_estimators"": 300, ""min_child_weight"": 5}",3564,3.4957665672309273,4.82771421027567,0.4949438202247191,3560
+xgboost,"{""max_depth"": 2, ""learning_rate"": 0.03, ""n_estimators"": 300, ""min_child_weight"": 20}",3564,3.478931795163261,4.797398207288276,0.49297752808988765,3560
+xgboost,"{""max_depth"": 2, ""learning_rate"": 0.1, ""n_estimators"": 100, ""min_child_weight"": 5}",3564,3.546011481522768,4.885916485150598,0.48792134831460676,3560
+xgboost,"{""max_depth"": 2, ""learning_rate"": 0.1, ""n_estimators"": 100, ""min_child_weight"": 20}",3564,3.516638173342094,4.833751003789508,0.49550561797752807,3560
+xgboost,"{""max_depth"": 2, ""learning_rate"": 0.1, ""n_estimators"": 300, ""min_child_weight"": 5}",3564,3.711045761269558,5.079094557670504,0.4859550561797753,3560
+xgboost,"{""max_depth"": 2, ""learning_rate"": 0.1, ""n_estimators"": 300, ""min_child_weight"": 20}",3564,3.7887826590372207,5.12403430236935,0.4896067415730337,3560
+xgboost,"{""max_depth"": 3, ""learning_rate"": 0.03, ""n_estimators"": 100, ""min_child_weight"": 5}",3564,3.3724636939455195,4.688175162417038,0.4941011235955056,3560
+xgboost,"{""max_depth"": 3, ""learning_rate"": 0.03, ""n_estimators"": 100, ""min_child_weight"": 20}",3564,3.330106984967478,4.639936290254588,0.4952247191011236,3560
+xgboost,"{""max_depth"": 3, ""learning_rate"": 0.03, ""n_estimators"": 300, ""min_child_weight"": 5}",3564,3.526495976981755,4.871593611460208,0.498314606741573,3560
+xgboost,"{""max_depth"": 3, ""learning_rate"": 0.03, ""n_estimators"": 300, ""min_child_weight"": 20}",3564,3.529258724808091,4.854622976248781,0.48820224719101124,3560
+xgboost,"{""max_depth"": 3, ""learning_rate"": 0.1, ""n_estimators"": 100, ""min_child_weight"": 5}",3564,3.598238741337536,4.947302171774273,0.49129213483146067,3560
+xgboost,"{""max_depth"": 3, ""learning_rate"": 0.1, ""n_estimators"": 100, ""min_child_weight"": 20}",3564,3.586528917081575,4.919522443912178,0.4943820224719101,3560
+xgboost,"{""max_depth"": 3, ""learning_rate"": 0.1, ""n_estimators"": 300, ""min_child_weight"": 5}",3564,3.6899266314066113,5.045890846519138,0.4904494382022472,3560
+xgboost,"{""max_depth"": 3, ""learning_rate"": 0.1, ""n_estimators"": 300, ""min_child_weight"": 20}",3564,3.824103456691417,5.1697634796198475,0.49213483146067416,3560
+knn_analogue,"{""n_neighbors"": 10}",3564,3.3377349130190797,4.637686843680103,0.5073033707865169,3560
+knn_analogue,"{""n_neighbors"": 20}",3564,3.244599602974186,4.516481247981826,0.5182584269662921,3560
+knn_analogue,"{""n_neighbors"": 40}",3564,3.2172792669753085,4.489601222532247,0.5140449438202247,3560
+knn_analogue,"{""n_neighbors"": 80}",3564,3.194030172558923,4.477290483596466,0.5210674157303371,3560
+random_forest_per_target,"{""max_depth"": 2, ""min_samples_leaf"": 20, ""max_features"": ""sqrt""}",3564,3.1982176369635305,4.487011364390038,0.5278089887640449,3560

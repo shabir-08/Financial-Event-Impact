@@ -1,14 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import {
   ArrowLeft,
   Bookmark,
   Download,
   CheckCircle2,
+  Loader2,
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import { useAuth } from '../../context/AuthContext';
 import { generateAnalysisPdf } from '../../services/pdfService';
+import { savedApi } from '../../services/savedApi';
+import { errorMessage } from '../../services/http';
+import { SavedAnalysis } from '../../types/live';
 import { UserMenu } from './UserMenu';
 import {
   DEMO_EVENTS,
@@ -36,7 +40,7 @@ export const Header: React.FC<HeaderProps> = ({
   const navigate = useNavigate();
   const location = useLocation();
   const { selectedEventId, showToast, demoMode, events } = useApp();
-  const { isBackendConnected } = useAuth();
+  const { isBackendConnected, user } = useAuth();
   const [isSaved, setIsSaved] = useState(() => {
     return localStorage.getItem(`xyz_saved_${selectedEventId}`) === 'true';
   });
@@ -45,6 +49,46 @@ export const Header: React.FC<HeaderProps> = ({
   const currentEvent = DEMO_EVENTS.find(e => e.id === selectedEventId) || DEMO_EVENTS[0];
   const liveEvent = events.find((e) => e.id === selectedEventId);
   const displayTitle = title || (demoMode ? currentEvent.headline : liveEvent?.title ?? '');
+
+  // Live "Save": stored by the backend (saved_analyses) and listed on the Stored Analyses page.
+  const analysisId = !demoMode ? liveEvent?.latest_analysis_id ?? null : null;
+  const [saved, setSaved] = useState<SavedAnalysis | null>(null);
+  const [saveBusy, setSaveBusy] = useState(false);
+  // The button stays disabled until the saved status is known, so a late status reply can't overwrite a click.
+  const [savedKnown, setSavedKnown] = useState(false);
+  useEffect(() => {
+    setSaved(null);
+    setSavedKnown(false);
+    if (!analysisId || !showActions) return;
+    let alive = true;
+    savedApi.forAnalysis(analysisId)
+      .then((s) => { if (alive) setSaved(s); })
+      .catch(() => { /* unknown: treated as not saved; saving again is idempotent on the backend */ })
+      .finally(() => { if (alive) setSavedKnown(true); });
+    return () => { alive = false; };
+  }, [analysisId, showActions]);
+
+  const handleLiveSave = async () => {
+    if (!analysisId || saveBusy || !savedKnown) return;
+    setSaveBusy(true);
+    try {
+      if (saved) {
+        await savedApi.remove(saved.id);
+        setSaved(null);
+        showToast('Removed from Stored Analyses.');
+      } else {
+        const s = await savedApi.save(analysisId, user?.name || user?.username);
+        setSaved(s);
+        showToast(s.report_status === 'STORED'
+          ? 'Saved to Stored Analyses with its report.'
+          : `Saved to Stored Analyses (report unavailable: ${s.report_unavailable_reason ?? 'unknown reason'}).`);
+      }
+    } catch (e) {
+      showToast(`Could not update saved analysis: ${errorMessage(e)}`);
+    } finally {
+      setSaveBusy(false);
+    }
+  };
 
   // Handle Back Navigation
   const handleBack = () => {
@@ -116,6 +160,20 @@ export const Header: React.FC<HeaderProps> = ({
           <UserMenu />
 
           {/* Actions: Save & Export to PDF */}
+          {showActions && !demoMode && liveEvent?.latest_analysis_id && (
+            <button
+              onClick={handleLiveSave}
+              disabled={saveBusy || !savedKnown}
+              aria-pressed={Boolean(saved)}
+              title={saved ? 'Saved to Stored Analyses (click to remove)' : 'Save this analysis and its report to Stored Analyses'}
+              className={`flex items-center space-x-1.5 px-3.5 py-1.5 border text-xs font-semibold rounded-lg shadow-2xs transition-all cursor-pointer disabled:opacity-60 ${
+                saved ? 'bg-blue-50 border-blue-300 text-blue-700' : 'bg-white border-gray-300 hover:border-gray-400 hover:bg-gray-50 text-gray-800'}`}
+            >
+              {saveBusy ? <Loader2 size={14} className="animate-spin" />
+                : saved ? <CheckCircle2 size={14} className="text-blue-600" /> : <Bookmark size={14} className="text-gray-500" />}
+              <span>{saveBusy ? (saved ? 'Removing…' : 'Saving…') : saved ? 'Saved' : 'Save'}</span>
+            </button>
+          )}
           {showActions && !demoMode && liveEvent?.latest_analysis_id && (
             <button
               onClick={() => navigate(`/reports/new?kind=event&source=${liveEvent.latest_analysis_id}`)}

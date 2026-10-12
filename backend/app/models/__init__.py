@@ -16,6 +16,7 @@ from app.models.events import Event, EventArticle, HistoricalEvent
 from app.models.lineage import EventImpact, EventLink, EventNode
 from app.models.news import Article, IngestionRun
 from app.models.report import AnalysisReport
+from app.models.saved import SavedAnalysis
 from app.models.simulation import SimulationRun
 
 __all__ = [
@@ -41,5 +42,6 @@ __all__ = [
     "MarketObservation",
     "Relationship",
     "RelationshipEvidence",
+    "SavedAnalysis",
     "SimulationRun",
 ]

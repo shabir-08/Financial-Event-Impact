@@ -290,3 +290,24 @@ export interface LineageQuery {
   include_expired: boolean;
   as_of?: string | null;
 }
+
+// ------------------------------------------------------------------ saved analyses (/api/saved-analyses)
+export interface SavedAnalysis {
+  id: string;
+  event_id: string;
+  analysis_id: string;
+  title: string;
+  event_type: string;
+  is_simulated: boolean;
+  mode: string;
+  run_status: string;
+  finished_at: string | null;
+  graph_stats: Record<string, any> | null;
+  report_id: string | null;
+  report_status: 'STORED' | 'UNAVAILABLE';
+  report_unavailable_reason?: string | null;
+  note: string | null;
+  saved_by: string | null;
+  saved_at: string;
+  already_saved?: boolean;
+}

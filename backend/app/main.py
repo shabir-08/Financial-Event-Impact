@@ -10,7 +10,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app import __version__
 from app.api import (analysis, articles, assets, events, graphs, health, lineage, market, market_patterns, reports,
-                     simulations)
+                     saved, simulations)
 from app.core.config import get_settings
 from app.core.errors import install_error_handlers
 from app.core.logging import configure_logging
@@ -51,9 +51,9 @@ def create_app(seed: bool = True) -> FastAPI:
     install_error_handlers(app)
     # Browser frontends on other origins (Vite dev server); no cookies/credentials are used by this API.
     app.add_middleware(CORSMiddleware, allow_origins=get_settings().cors_allowed_origins, allow_credentials=False,
-                       allow_methods=["GET", "POST", "OPTIONS"], allow_headers=["Content-Type"])
+                       allow_methods=["GET", "POST", "DELETE", "OPTIONS"], allow_headers=["Content-Type"])
     for r in (health.router, articles.router, events.router, graphs.router, market.router, assets.router,
-              analysis.router, simulations.router, market_patterns.router, reports.router, lineage.router):
+              analysis.router, simulations.router, market_patterns.router, reports.router, lineage.router, saved.router):
         app.include_router(r)
     return app
 

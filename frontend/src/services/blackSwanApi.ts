@@ -53,11 +53,11 @@ export function toPreset(s: any): BlackSwanScenarioPreset {
 }
 
 // ------------------------------------------------------------------ simulation adapter
-const LAYER_NAMES: Record<GraphLayerId, LayerName> = {
+export const LAYER_NAMES: Record<GraphLayerId, LayerName> = {
   1: 'Events', 2: 'Economic Variables', 3: 'Sectors', 4: 'Indian Companies & Markets',
 };
-const LAYER_Z: Record<GraphLayerId, number> = { 1: -180, 2: -60, 3: 60, 4: 180 };
-const CATEGORY_BY_TYPE: Record<string, BlackSwanNode3D['category']> = {
+export const LAYER_Z: Record<GraphLayerId, number> = { 1: -180, 2: -60, 3: 60, 4: 180 };
+export const CATEGORY_BY_TYPE: Record<string, BlackSwanNode3D['category']> = {
   EVENT: 'event', REGION: 'event', COUNTRY: 'event', INSTITUTION: 'event',
   ECONOMIC_VARIABLE: 'variable', COMMODITY: 'variable', CURRENCY: 'variable', ECONOMIC_INDICATOR: 'variable',
   SECTOR: 'sector', COMPANY: 'company', FINANCIAL_INSTRUMENT: 'index', MARKET_INDEX: 'index',
@@ -66,13 +66,13 @@ const DIRECTION: Record<string, ImpactDirection> = {
   POTENTIAL_UPWARD_PRESSURE: 'positive', POTENTIAL_DOWNWARD_PRESSURE: 'negative', MIXED_SIGNALS: 'mixed',
 };
 
-function evidenceStatus(s: string | undefined): EvidenceStatus {
+export function evidenceStatus(s: string | undefined): EvidenceStatus {
   const u = (s || '').toUpperCase();
   return (['REPORTED', 'OBSERVED', 'INFERRED', 'UNVERIFIED', 'ASSUMED'] as const).includes(u as any) ? (u as EvidenceStatus) : 'UNKNOWN';
 }
 
 /** Deterministic layout: each layer is a plane (z), its nodes on a golden-angle spiral (sorted by id). */
-function layout(nodes: any[]): Map<string, { x: number; y: number; z: number }> {
+export function layout(nodes: any[]): Map<string, { x: number; y: number; z: number }> {
   const out = new Map();
   const byLayer = new Map<number, any[]>();
   nodes.forEach((n) => byLayer.set(n.layer ?? 2, [...(byLayer.get(n.layer ?? 2) || []), n]));
